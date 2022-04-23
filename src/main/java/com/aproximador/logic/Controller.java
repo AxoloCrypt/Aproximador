@@ -1,4 +1,6 @@
 package com.aproximador.logic;
 
-public class Controller {
+public class Controller
+{
+
 }
