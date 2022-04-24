@@ -46,6 +46,8 @@ dependencies {
         exclude(group: 'org.openjfx')
     }
 
+    implementation('mysql:mysql-connector-java:8.0.27')
+
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }

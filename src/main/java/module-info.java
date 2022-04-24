@@ -8,7 +8,9 @@ module com.aproximador {
     requires validatorfx;
     requires org.kordamp.ikonli.javafx;
     requires eu.hansolo.tilesfx;
+    requires java.sql;
 
     opens com.aproximador.app to javafx.fxml;
+    opens com.aproximador.logic to javafx.fxml;
     exports com.aproximador.app;
 }
