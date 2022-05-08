@@ -11,7 +11,7 @@ public class Connector
     private final Connection connection;
     private Statement statement;
 
-    private final String url = "jdbc:mysql://52.53.177.118/test_connection";
+    private final String url = "jdbc:mysql://52.53.177.118/aproximador";
 
 
 
@@ -34,11 +34,11 @@ public class Connector
         int index = 1;
 
         try {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM " + tableName);
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM " + tableName + " WHERE company = 'Cum Company'" +"  LIMIT 3;");
 
             while (resultSet.next()){
 
-                for (int i = 1; i < 3; i++){
+                for (int i = 1; i < resultSet.getFetchSize(); i++){
                     sb.append(resultSet.getString(i)).append(": ");
                 }
                 //index++;
@@ -50,5 +50,25 @@ public class Connector
 
         return sb.toString();
     }
+
+    public String makeQuery(String query){
+        StringBuilder sb = new StringBuilder();
+
+        try{
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()){
+                for (int i = 1; i < resultSet.getFetchSize(); i++){
+                    sb.append(resultSet.getString(i));
+                }
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return sb.toString();
+    }
+
 
 }

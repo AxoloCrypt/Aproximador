@@ -7,14 +7,18 @@ import javafx.scene.control.Label;
 public class Controller
 {
     @FXML
-    private Button btnExecuteQuery;
+    private Button btnExecuteQuery1;
     @FXML
-    private Label lblQueryResult;
+    private Label lblQueryResult1;
+    @FXML
+    private Label lblQueryResult2;
+
 
     private Connector connector = new Connector("juca", "g*$0Pe$h18cyiyJC");
 
     public void executeQuery(){
-        lblQueryResult.setText(connector.showDataFromTable("tabla_prueba"));
+        lblQueryResult1.setText(connector.showDataFromTable("users"));
+        lblQueryResult2.setText(connector.makeQuery("SELECT aproximations.idAprox,aproximations.totalCost FROM aproximations INNER JOIN users ON aproximations.idAprox = users.idAprox LIMIT 3;"));
     }
 
 }
