@@ -38,8 +38,8 @@ public class Connector
 
             while (resultSet.next()){
 
-                for (int i = 1; i < resultSet.getFetchSize(); i++){
-                    sb.append(resultSet.getString(i)).append(": ");
+                for (int i = 1; i < 2; i++){
+                    sb.append(resultSet.getString(i)).append("\n");
                 }
                 //index++;
             }
@@ -47,7 +47,6 @@ public class Connector
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         return sb.toString();
     }
 
@@ -58,15 +57,14 @@ public class Connector
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()){
-                for (int i = 1; i < resultSet.getFetchSize(); i++){
-                    sb.append(resultSet.getString(i));
+                for (int i = 1; i < 2; i++){
+                    sb.append(resultSet.getString(i)).append("\n");
                 }
             }
 
         }catch (SQLException e){
             e.printStackTrace();
         }
-
         return sb.toString();
     }
 

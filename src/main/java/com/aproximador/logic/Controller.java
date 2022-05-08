@@ -18,6 +18,7 @@ public class Controller
 
     public void executeQuery(){
         lblQueryResult1.setText(connector.showDataFromTable("users"));
+        System.out.println(lblQueryResult1.getText());
         lblQueryResult2.setText(connector.makeQuery("SELECT aproximations.idAprox,aproximations.totalCost FROM aproximations INNER JOIN users ON aproximations.idAprox = users.idAprox LIMIT 3;"));
     }
 
