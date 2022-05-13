@@ -26,7 +26,6 @@
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="215.0">
                            <children>
                               <Button layoutX="9.0" layoutY="26.0" mnemonicParsing="false" onAction="#executeQuery" prefHeight="33.0" prefWidth="141.0" text="SELECT * FROM users WHERE company = 'Cum Company'" />
-                              <Button layoutX="7.0" layoutY="102.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="146.0" text="Inner Join" />
                            </children></AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                            <children>
