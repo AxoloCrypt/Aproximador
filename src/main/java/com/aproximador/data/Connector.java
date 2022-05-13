@@ -1,4 +1,4 @@
-package com.aproximador.logic;
+package com.aproximador.data;
 
 
 import java.sql.*;

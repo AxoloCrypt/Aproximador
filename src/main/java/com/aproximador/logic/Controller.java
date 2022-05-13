@@ -1,5 +1,6 @@
 package com.aproximador.logic;
 
+import com.aproximador.data.Connector;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
