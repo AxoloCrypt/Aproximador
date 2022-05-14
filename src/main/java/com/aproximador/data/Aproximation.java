@@ -30,7 +30,7 @@ public class Aproximation
         this.date = date;
     }
 
-    private BigDecimal calculateTtotal(){
+    public BigDecimal calculateTtotal(){
 
         BigDecimal total = new BigDecimal("0.00");
 
