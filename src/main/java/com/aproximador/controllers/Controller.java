@@ -1,4 +1,4 @@
-package com.aproximador.logic;
+package com.aproximador.controllers;
 
 import com.aproximador.data.Connector;
 import javafx.fxml.FXML;

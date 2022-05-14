@@ -11,6 +11,6 @@ module com.aproximador {
     requires java.sql;
 
     opens com.aproximador.app to javafx.fxml;
-    opens com.aproximador.logic to javafx.fxml;
+    opens com.aproximador.controllers to javafx.fxml;
     exports com.aproximador.app;
 }
