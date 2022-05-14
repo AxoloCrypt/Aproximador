@@ -30,12 +30,12 @@ public class Aproximation
         this.date = date;
     }
 
-    public BigDecimal calculateTtotal(){
+    public BigDecimal calculateTotal(){
 
         BigDecimal total = new BigDecimal("0.00");
 
         for (Record<?> record : records) {
-            total.add(record.getUnitCost());
+            total = total.add(record.getUnitCost());
         }
 
         return total;
