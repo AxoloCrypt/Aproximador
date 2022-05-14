@@ -21,6 +21,8 @@ public class Record <T>
         records = new ArrayList<>();
     }
 
+    public Record() {}
+
 
     public boolean addRecord(T record){
 
