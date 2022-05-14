@@ -39,7 +39,7 @@ public class Record <T>
         return records.remove(record);
     }
 
-    public void editRecord(String name, BigDecimal unitCost, String description){
+    public void editRecord(String name, BigDecimal unitCost, String description, String newName, BigDecimal newUnitCost, String newDescription){
 
         Record<T> tmpRecord = new Record<T>(name, unitCost, description);
 
