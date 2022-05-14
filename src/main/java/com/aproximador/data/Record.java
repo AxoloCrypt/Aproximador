@@ -26,7 +26,10 @@ public class Record <T>
     }
 
 
-    public boolean addRecord(T record){
+    public boolean addRecord(T record) throws NullPointerException{
+
+        if (record == null)
+            throw new NullPointerException();
 
         return records.add(record);
     }
