@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Record <T>
+public abstract class Record <T>
 {
     private String name;
     private BigDecimal unitCost;
@@ -39,20 +39,7 @@ public class Record <T>
         return records.remove(record);
     }
 
-    public void editRecord(String name, BigDecimal unitCost, String description, String newName, BigDecimal newUnitCost, String newDescription){
-
-        Record<T> tmpRecord = new Record<T>(name, unitCost, description);
-
-        for (T record : records){
-
-            if(record.equals(tmpRecord)){
-
-                setName(tmpRecord.getName());
-                setUnitCost(tmpRecord.unitCost);
-                setDescription(description);
-            }
-        }
-    }
+    public abstract void editRecord(String name, BigDecimal unitCost, String description, String newName, BigDecimal newUnitCost, String newDescription);
 
 
     public String getName() {
