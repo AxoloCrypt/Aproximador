@@ -10,6 +10,12 @@ public class Services extends Record<Services>{
         super(name, unitCost, description);
     }
 
+    /*
+    @param name, unitCost, description, newName, newUnitCost, newDescription
+    @return
+    Searches for the selected record, if it's found, the record data will be replaced by the
+    new data passed in the parameters and quits the method.
+     */
     @Override
     public void editRecord(String name, BigDecimal unitCost, String description, String newName, BigDecimal newUnitCost, String newDescription) {
 

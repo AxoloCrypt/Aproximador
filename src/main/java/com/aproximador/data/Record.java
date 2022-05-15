@@ -25,7 +25,12 @@ public abstract class Record <T>
         records = new ArrayList<>();
     }
 
-
+    /*
+    @param record
+    @return boolean
+    @throws NullPointerException
+    Adds a record to the records list, if record == null an exception is thrown.
+     */
     public boolean addRecord(T record) throws NullPointerException{
 
         if (record == null)
@@ -34,11 +39,24 @@ public abstract class Record <T>
         return records.add(record);
     }
 
+    /*
+    @param record
+    @return boolean
+    Returns true if the searched record is on the list and removed,
+    else return false
+     */
     public boolean deleteRecord(T record){
 
         return records.remove(record);
     }
 
+    //TODO
+    // Needs to be developed
+    public void createCopy(T record){
+        records.add(record);
+    }
+
+    //Implementation in children
     public abstract void editRecord(String name, BigDecimal unitCost, String description, String newName, BigDecimal newUnitCost, String newDescription);
 
 
