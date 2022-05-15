@@ -32,6 +32,12 @@ public class Aproximation
         this.date = date;
     }
 
+    /*
+    @param none
+    @return BigDecimal
+    Calculates the total of the aproximation and the number of materials and services
+    by iterating through records list.
+     */
     public BigDecimal calculateTotal(){
 
         BigDecimal total = new BigDecimal("0.00");
@@ -53,7 +59,7 @@ public class Aproximation
         return total;
     }
 
-
+    //Setter & Getters
 
     public String getName() {
         return name;
