@@ -17,6 +17,8 @@ public class Aproximation
 
     public Aproximation(){
         totalCost = new BigDecimal("0.00");
+        numberMaterials = 0;
+        numberServices = 0;
         records = new ArrayList<>();
     }
 
@@ -33,10 +35,20 @@ public class Aproximation
     public BigDecimal calculateTotal(){
 
         BigDecimal total = new BigDecimal("0.00");
+        int numberMaterials = 0, numberServices = 0;
 
         for (Record<?> record : records) {
+
+            if (record instanceof Materials)
+                numberMaterials++;
+            else if (record instanceof Services)
+                numberServices++;
+
             total = total.add(record.getUnitCost());
         }
+
+        setNumberMaterials(numberMaterials);
+        setNumberServices(numberServices);
 
         return total;
     }
