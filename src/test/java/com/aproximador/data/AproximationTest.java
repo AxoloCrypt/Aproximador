@@ -50,6 +50,12 @@ class AproximationTest {
     void calculateTotal() {
 
         assertEquals(new BigDecimal("1999.50"), aproximation.calculateTotal());
+        assertEquals(3, aproximation.getNumberMaterials());
+        assertEquals(1, aproximation.getNumberServices());
+
         assertEquals(new BigDecimal("5599.00"), aproximation2.calculateTotal());
+        assertEquals(9, aproximation2.getNumberMaterials());
+        assertEquals(1, aproximation2.getNumberServices());
+
     }
 }
