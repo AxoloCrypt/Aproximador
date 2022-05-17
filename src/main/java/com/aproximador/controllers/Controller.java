@@ -1,9 +1,6 @@
 package com.aproximador.controllers;
 
-import com.aproximador.data.Aproximation;
-import com.aproximador.data.Connector;
-import com.aproximador.data.Materials;
-import com.aproximador.data.Services;
+import com.aproximador.data.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DialogPane;
@@ -22,6 +19,9 @@ public class Controller
     public void addMaterial(){
         DialogPane dialogPane = new DialogPane();
         dialogPane.getChildren().add(new Label("Huevos"));
+        dialogPane.setHeader(new Label("Huevos Header"));
+
+
         vBoxMaterials.getChildren().add(dialogPane);
     }
 
