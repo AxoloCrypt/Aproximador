@@ -15,8 +15,8 @@ public class Controller
     private final Services services = new Services();
     private final Connector connector = new Connector("juca", "g*$0Pe$h18cyiyJC");
 
+    @FXML
     private VBox vBoxMaterials;
-
 
     public void addMaterial(){
         DialogPane dialogPane = new DialogPane();
