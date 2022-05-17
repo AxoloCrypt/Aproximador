@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="736.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="736.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="ALL_TABS" BorderPane.alignment="CENTER">
         <tabs>
@@ -61,7 +61,7 @@
                      <children>
                         <TitledPane animated="false" prefHeight="240.0" prefWidth="171.0" text="Materials">
                            <content>
-                              <VBox prefHeight="210.0" prefWidth="189.0">
+                              <VBox fx:id="vBoxMaterials" prefHeight="210.0" prefWidth="189.0">
                                  <children>
                                     <FlowPane prefHeight="25.0" prefWidth="196.0">
                                        <children>
