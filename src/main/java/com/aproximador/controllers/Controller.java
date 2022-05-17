@@ -1,26 +1,21 @@
 package com.aproximador.controllers;
 
+import com.aproximador.data.Aproximation;
 import com.aproximador.data.Connector;
+import com.aproximador.data.Materials;
+import com.aproximador.data.Services;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 public class Controller
 {
-    @FXML
-    private Button btnExecuteQuery1;
-    @FXML
-    private Label lblQueryResult1;
-    @FXML
-    private Label lblQueryResult2;
+    private Materials materials;
+    private Services services;
+    private Aproximation aproximation;
 
 
-    private Connector connector = new Connector("juca", "g*$0Pe$h18cyiyJC");
+    private final Connector connector = new Connector("juca", "g*$0Pe$h18cyiyJC");
 
-    public void executeQuery(){
-        lblQueryResult1.setText(connector.showDataFromTable("users"));
-        System.out.println(lblQueryResult1.getText());
-        lblQueryResult2.setText(connector.makeQuery("SELECT aproximations.idAprox,aproximations.totalCost FROM aproximations INNER JOIN users ON aproximations.idAprox = users.idAprox LIMIT 3;"));
-    }
 
 }
