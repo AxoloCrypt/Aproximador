@@ -1,10 +1,7 @@
 package com.aproximador.controllers;
 
-import com.aproximador.data.Connector;
-import com.aproximador.data.Materials;
-import com.aproximador.data.Services;
+import com.aproximador.data.*;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;

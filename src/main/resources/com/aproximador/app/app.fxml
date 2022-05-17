@@ -20,7 +20,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="471.0" prefWidth="677.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aproximador.controllers.Controller">
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="ALL_TABS" BorderPane.alignment="CENTER">
@@ -68,7 +67,7 @@
                                        <children>
                                           <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
                                           <TextField prefHeight="25.0" prefWidth="76.0" />
-                                          <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
+                                          <Button mnemonicParsing="false" onAction="#addMaterial" prefHeight="10.0" prefWidth="13.0" text="Button" />
                                           <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
                                        </children>
                                     </FlowPane>
