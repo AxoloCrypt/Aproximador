@@ -13,7 +13,7 @@ public class Aproximation
     private int numberMaterials;
     private int numberServices;
     private String description;
-    private Date date;
+    private Date dateCreation;
 
     public Aproximation(){
         totalCost = new BigDecimal("0.00");
@@ -23,13 +23,13 @@ public class Aproximation
     }
 
     public Aproximation(String name, BigDecimal totalCost, int numberMaterials,
-                        int numberServices, String description, Date date){
+                        int numberServices, String description, Date dateCreation){
         this.name = name;
         this.totalCost = totalCost;
         this.numberMaterials = numberMaterials;
         this.numberServices = numberServices;
         this.description = description;
-        this.date = date;
+        this.dateCreation = dateCreation;
     }
 
     /*
@@ -53,6 +53,7 @@ public class Aproximation
             total = total.add(record.getUnitCost());
         }
 
+        setTotalCost(total);
         setNumberMaterials(numberMaterials);
         setNumberServices(numberServices);
 
@@ -109,11 +110,11 @@ public class Aproximation
         this.description = description;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getDateCreation() {
+        return dateCreation;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
     }
 }
