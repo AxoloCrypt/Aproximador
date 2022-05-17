@@ -2,25 +2,26 @@ package com.aproximador.controllers;
 
 import com.aproximador.data.*;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 
 public class Controller
 {
+    private final Materials materials = new Materials();
+    private final Services services = new Services();
+    private final Connector connector = new Connector("juca", "g*$0Pe$h18cyiyJC");
+
     @FXML
-    private Button btnExecuteQuery1;
-    @FXML
-    private Label lblQueryResult1;
-    @FXML
-    private Label lblQueryResult2;
+    private VBox vBoxMaterials;
+
+    public void addMaterial(){
+        DialogPane dialogPane = new DialogPane();
+        dialogPane.getChildren().add(new Label("Huevos"));
+        dialogPane.setHeader(new Label("Huevos Header"));
 
 
-    private Connector connector = new Connector("juca", "g*$0Pe$h18cyiyJC");
-
-    public void executeQuery(){
-        lblQueryResult1.setText(connector.showDataFromTable("users"));
-        System.out.println(lblQueryResult1.getText());
-        lblQueryResult2.setText(connector.makeQuery("SELECT aproximations.idAprox,aproximations.totalCost FROM aproximations INNER JOIN users ON aproximations.idAprox = users.idAprox LIMIT 3;"));
+        vBoxMaterials.getChildren().add(dialogPane);
     }
 
 }
