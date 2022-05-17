@@ -10,11 +10,8 @@ import javafx.scene.control.Label;
 
 public class Controller
 {
-    private Materials materials;
-    private Services services;
-    private Aproximation aproximation;
-
-
+    private final Materials materials = new Materials();
+    private final Services services = new Services();
     private final Connector connector = new Connector("juca", "g*$0Pe$h18cyiyJC");
 
 
