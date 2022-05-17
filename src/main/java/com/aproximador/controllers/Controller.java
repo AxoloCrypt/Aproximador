@@ -18,6 +18,9 @@ public class Controller
     public void addMaterial(){
         DialogPane dialogPane = new DialogPane();
         dialogPane.getChildren().add(new Label("Huevos"));
+        dialogPane.setHeader(new Label("Huevos Header"));
+
+
         vBoxMaterials.getChildren().add(dialogPane);
     }
 
