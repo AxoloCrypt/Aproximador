@@ -15,5 +15,11 @@ public class App extends Application
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("login.fxml"));
+
+        Scene scene = new Scene(fxmlLoader.load());
+        primaryStage.setTitle("Login");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
     }
 }

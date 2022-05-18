@@ -1,5 +1,6 @@
 package com.aproximador.controllers;
 
+import com.aproximador.app.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,9 +15,11 @@ public class LoginController {
     private Button btnLogin;
 
     public void openApp(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("app.fxml"));
+        System.out.println(App.class.getResource("app.fxml"));
 
-        Scene LoginScene = new Scene(root);
+        FXMLLoader root = FXMLLoader.load(App.class.getResource("app.fxml"));
+
+        Scene LoginScene = new Scene(root.load());
         Stage primaryStage = new Stage();
         primaryStage.setTitle("Aproximador");
         primaryStage.setScene(LoginScene);
