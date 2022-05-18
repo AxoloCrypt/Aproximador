@@ -76,39 +76,38 @@
                               </VBox>
                            </content>
                         </TitledPane>
-                        <ScrollPane prefHeight="200.0" prefWidth="200.0">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-                          </content>
-                        </ScrollPane>
                         <TitledPane animated="false" prefHeight="240.0" prefWidth="171.0" text="Materials">
                            <content>
-                              <VBox fx:id="vBoxMaterials" prefHeight="210.0" prefWidth="189.0">
-                                 <children>
-                                    <FlowPane prefHeight="25.0" prefWidth="196.0">
+                              <ScrollPane prefHeight="221.0" prefWidth="173.0">
+                                 <content>
+                                    <VBox fx:id="vBoxMaterials" prefHeight="210.0" prefWidth="189.0">
                                        <children>
-                                          <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
-                                          <TextField prefHeight="25.0" prefWidth="76.0" />
-                                          <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
-                                          <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
-                                       </children>
-                                    </FlowPane>
-                                    <DialogPane headerText="Material Name" prefHeight="70.0" prefWidth="458.0">
-                                       <content>
-                                          <FlowPane prefHeight="200.0" prefWidth="200.0">
+                                          <FlowPane prefHeight="25.0" prefWidth="196.0">
                                              <children>
-                                                <Label text="Label" />
-                                                <Label alignment="CENTER" text="Label">
-                                                   <FlowPane.margin>
-                                                      <Insets left="100.0" />
-                                                   </FlowPane.margin>
-                                                </Label>
+                                                <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
+                                                <TextField prefHeight="25.0" prefWidth="76.0" />
+                                                <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
+                                                <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
                                              </children>
                                           </FlowPane>
-                                       </content>
-                                    </DialogPane>
-                                 </children>
-                              </VBox>
+                                          <DialogPane headerText="Material Name" prefHeight="74.0" prefWidth="116.0">
+                                             <content>
+                                                <FlowPane prefHeight="37.0" prefWidth="129.0">
+                                                   <children>
+                                                      <Label text="Label" />
+                                                      <Label alignment="CENTER" text="Label">
+                                                         <FlowPane.margin>
+                                                            <Insets left="100.0" />
+                                                         </FlowPane.margin>
+                                                      </Label>
+                                                   </children>
+                                                </FlowPane>
+                                             </content>
+                                          </DialogPane>
+                                       </children>
+                                    </VBox>
+                                 </content>
+                              </ScrollPane>
                            </content>
                         </TitledPane>
                      </children>
