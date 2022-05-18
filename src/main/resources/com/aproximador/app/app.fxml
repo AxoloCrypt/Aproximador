@@ -47,7 +47,7 @@
       </VBox>
    </right>
    <left>
-      <TabPane prefHeight="471.0" prefWidth="199.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane prefHeight="471.0" prefWidth="220.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
           <Tab text="Materials &amp; Services">
                <content>
@@ -62,18 +62,22 @@
                      <children>
                         <TitledPane animated="false" prefHeight="235.0" prefWidth="171.0" text="Services" GridPane.rowIndex="1">
                            <content>
-                              <VBox prefHeight="240.0" prefWidth="169.0">
-                                 <children>
-                                    <FlowPane prefHeight="25.0" prefWidth="196.0">
+                              <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                                 <content>
+                                    <VBox prefHeight="240.0" prefWidth="169.0">
                                        <children>
-                                          <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
-                                          <TextField prefHeight="25.0" prefWidth="76.0" />
-                                          <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
-                                          <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
+                                          <FlowPane prefHeight="25.0" prefWidth="196.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
+                                                <TextField prefHeight="25.0" prefWidth="76.0" />
+                                                <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
+                                                <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
+                                             </children>
+                                          </FlowPane>
                                        </children>
-                                    </FlowPane>
-                                 </children>
-                              </VBox>
+                                    </VBox>
+                                 </content>
+                              </ScrollPane>
                            </content>
                         </TitledPane>
                         <TitledPane animated="false" prefHeight="240.0" prefWidth="171.0" text="Materials">
