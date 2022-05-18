@@ -7,7 +7,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -21,7 +21,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="736.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="542.0" prefWidth="736.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="ALL_TABS" BorderPane.alignment="CENTER">
         <tabs>
@@ -60,6 +60,27 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
+                        <TitledPane animated="false" prefHeight="235.0" prefWidth="171.0" text="Services" GridPane.rowIndex="1">
+                           <content>
+                              <VBox prefHeight="240.0" prefWidth="169.0">
+                                 <children>
+                                    <FlowPane prefHeight="25.0" prefWidth="196.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
+                                          <TextField prefHeight="25.0" prefWidth="76.0" />
+                                          <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
+                                          <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
+                                       </children>
+                                    </FlowPane>
+                                 </children>
+                              </VBox>
+                           </content>
+                        </TitledPane>
+                        <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                          </content>
+                        </ScrollPane>
                         <TitledPane animated="false" prefHeight="240.0" prefWidth="171.0" text="Materials">
                            <content>
                               <VBox fx:id="vBoxMaterials" prefHeight="210.0" prefWidth="189.0">
@@ -72,7 +93,6 @@
                                           <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
                                        </children>
                                     </FlowPane>
-                                    <ScrollBar orientation="VERTICAL" />
                                     <DialogPane headerText="Material Name" prefHeight="70.0" prefWidth="458.0">
                                        <content>
                                           <FlowPane prefHeight="200.0" prefWidth="200.0">
@@ -87,22 +107,6 @@
                                           </FlowPane>
                                        </content>
                                     </DialogPane>
-                                 </children>
-                              </VBox>
-                           </content>
-                        </TitledPane>
-                        <TitledPane animated="false" prefHeight="235.0" prefWidth="171.0" text="Services" GridPane.rowIndex="1">
-                           <content>
-                              <VBox prefHeight="240.0" prefWidth="169.0">
-                                 <children>
-                                    <FlowPane prefHeight="25.0" prefWidth="196.0">
-                                       <children>
-                                          <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
-                                          <TextField prefHeight="25.0" prefWidth="76.0" />
-                                          <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
-                                          <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
-                                       </children>
-                                    </FlowPane>
                                  </children>
                               </VBox>
                            </content>
