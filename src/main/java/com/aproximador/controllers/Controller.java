@@ -2,13 +2,12 @@ package com.aproximador.controllers;
 
 import com.aproximador.app.App;
 import com.aproximador.data.*;
+import com.aproximador.view.RecordPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -35,12 +34,10 @@ public class Controller implements Initializable
         addStage.initModality(Modality.NONE);
         addStage.show();
 
-        DialogPane dialogPane = new DialogPane();
-        dialogPane.getChildren().add(new Label("Huevos"));
-        dialogPane.setHeader(new Label("Huevos Header"));
+        RecordPane recordPane = new RecordPane("Huevos", "10.00", "");
 
 
-        vBoxMaterials.getChildren().add(dialogPane);
+        vBoxMaterials.getChildren().add(recordPane);
     }
 
     @Override
