@@ -32,7 +32,7 @@ public class LoginController {
         primaryStage.initModality(Modality.APPLICATION_MODAL);
         primaryStage.initOwner(btnLogin.getScene().getWindow());
         primaryStage.show();
-        Stage primaryStage = (Stage) this.btnLogin.getScene().getWindow();
+        primaryStage.this.btnLogin.getScene().getWindow();
         primaryStage.close();;
     }
 
