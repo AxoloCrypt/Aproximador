@@ -24,7 +24,7 @@ public class LoginController {
 
     public void openApp(ActionEvent actionEvent) throws IOException {
 
-
+        btnLogin.getScene().getWindow().hide();
         Parent root = FXMLLoader.load(App.class.getResource("app.fxml"));
 
         Scene appScene = new Scene(root);
@@ -36,7 +36,7 @@ public class LoginController {
         appStage.initOwner(btnLogin.getScene().getWindow());
         appStage.show();
 
-        btnLogin.getScene().getWindow().hide();
+
 
     }
 
