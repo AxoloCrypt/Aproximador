@@ -24,16 +24,20 @@ public class LoginController {
 
     public void openApp(ActionEvent actionEvent) throws IOException {
 
+
         Parent root = FXMLLoader.load(App.class.getResource("app.fxml"));
 
-        Scene LoginScene = new Scene(root);
-        Stage primaryStage = new Stage();
-        primaryStage.setTitle("Aproximador");
+        Scene appScene = new Scene(root);
+        Stage appStage = new Stage();
+        appStage.setTitle("Aproximador");
 
-        primaryStage.setScene(LoginScene);
-        primaryStage.initModality(Modality.APPLICATION_MODAL);
-        primaryStage.initOwner(btnLogin.getScene().getWindow());
-        primaryStage.show();
+        appStage.setScene(appScene);
+        appStage.initModality(Modality.NONE);
+        appStage.initOwner(btnLogin.getScene().getWindow());
+        appStage.show();
+
+        btnLogin.getScene().getWindow().hide();
+
     }
 
     public void ExitApp(ActionEvent actionEvent) {
