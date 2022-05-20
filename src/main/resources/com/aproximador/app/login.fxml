@@ -49,12 +49,12 @@
             <Insets left="35.0" right="35.0" />
          </GridPane.margin>
       </PasswordField>
-      <Button mnemonicParsing="false" onAction="#openApp" text="Log in" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP">
+      <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#openApp" text="Log in" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets top="10.0" />
          </GridPane.margin>
       </Button>
-      <Button mnemonicParsing="false" prefHeight="12.0" prefWidth="37.0" text="Exit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP">
+      <Button fx:id="btnExit" mnemonicParsing="false" onAction="#ExitApp" prefHeight="12.0" prefWidth="37.0" text="Exit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets top="40.0" />
          </GridPane.margin>
