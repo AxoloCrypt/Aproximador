@@ -21,10 +21,10 @@ public class LoginController {
         FXMLLoader loader = FXMLLoader.load(App.class.getResource("app.fxml"));
         Pane root = loader.load();
 
-        Scene LoginScene = new Scene(root);
+        Scene AppScene = new Scene(root);
         Stage primaryStage = new Stage();
         primaryStage.setTitle("Aproximador");
-        primaryStage.setScene(LoginScene);
+        primaryStage.setScene(AppScene);
         primaryStage.initModality(Modality.WINDOW_MODAL);
         primaryStage.initOwner(btnLogin.getScene().getWindow());
         primaryStage.show();
