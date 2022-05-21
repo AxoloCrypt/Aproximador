@@ -22,7 +22,12 @@ public class AddRecordController implements Initializable
     public TextField txtCost;
     public TextArea txtDescription;
 
+    public AddRecordController(String recordType, String cost){
+        lblRecord.setText(recordType);
+        lblCost.setText(cost);
+    }
 
+    public AddRecordController() {}
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -24,7 +24,7 @@ public class Controller implements Initializable
     @FXML
     private VBox vBoxMaterials;
 
-    public void addMaterial() throws IOException {
+    public void addRecord() throws IOException {
 
         Parent root = FXMLLoader.load(App.class.getResource("addRecordPopUp.fxml"));
 

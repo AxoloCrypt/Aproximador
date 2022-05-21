@@ -1,5 +1,6 @@
 package com.aproximador.view;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 
@@ -12,6 +13,7 @@ public class RecordPane extends DialogPane {
         this.setHeader(new Label(recordName));
 
         lblCost = new Label("$" + cost);
+        lblCost.setAlignment(Pos.BOTTOM_RIGHT);
 
         this.setContent(lblCost);
     }
