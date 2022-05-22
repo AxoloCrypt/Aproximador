@@ -25,22 +25,14 @@ public class Controller implements Initializable
     private final Connector connector = new Connector("juca", "g*$0Pe$h18cyiyJC");
 
     @FXML
-    public static VBox vBoxMaterials;
+    public VBox vBoxMaterials;
+    public VBox vBoxServices;
     public Button btnAddMaterial;
     public Button btnAddService;
     public TabPane tabAproximations;
 
-    public void popUpAddRecord(String recordType, String cost) throws IOException {
-
-        Parent root = FXMLLoader.load(App.class.getResource("addRecordPopUp.fxml"));
-
-        Scene addRecordScene = new Scene(root);
-        Stage addStage = new Stage();
-        addStage.setScene(addRecordScene);
-        addStage.initModality(Modality.NONE);
-        addStage.show();
-
-        new AddRecordController(recordType, cost);
+    public void popUpAddRecord(String recordType, String cost, VBox vBoxRecord) throws IOException {
+        new AddRecordController(recordType, cost, vBoxRecord);
     }
 
     public void createNewAproximation(){
@@ -58,7 +50,7 @@ public class Controller implements Initializable
 
         btnAddMaterial.setOnAction(event -> {
             try {
-                popUpAddRecord("Material", "Unit Cost");
+                popUpAddRecord("Material", "Unit Cost", vBoxMaterials);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -66,7 +58,7 @@ public class Controller implements Initializable
 
         btnAddService.setOnAction(event -> {
             try {
-                popUpAddRecord("Service", "Cost");
+                popUpAddRecord("Service", "Cost", vBoxServices);
             } catch (IOException e) {
                 e.printStackTrace();
             }
