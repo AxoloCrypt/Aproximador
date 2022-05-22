@@ -90,7 +90,7 @@
                                              <children>
                                                  <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
                                                  <TextField prefHeight="25.0" prefWidth="76.0" />
-                                                 <Button mnemonicParsing="false" onAction="#addMaterial" prefHeight="10.0" prefWidth="13.0" text="Button" />
+                                                 <Button mnemonicParsing="false" onAction="#addRecord" prefHeight="10.0" prefWidth="13.0" text="Button" />
                                                  <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
                                              </children>
                                           </FlowPane>

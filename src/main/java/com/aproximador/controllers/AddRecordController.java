@@ -1,5 +1,6 @@
 package com.aproximador.controllers;
 
+import com.aproximador.view.RecordPane;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -29,6 +30,13 @@ public class AddRecordController implements Initializable
 
     public AddRecordController() {}
 
+
+    public void registerRecord(){
+        RecordPane recordPane = new RecordPane(txtName.getText(), txtCost.getText(), txtDescription.getText());
+
+        Controller.vBoxMaterials.getChildren().add(recordPane);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -53,6 +61,7 @@ public class AddRecordController implements Initializable
             if (event.getCode() == KeyCode.ENTER){
                 txtDescription.setDisable(true);
                 Stage stage = (Stage) txtDescription.getScene().getWindow();
+                registerRecord();
                 stage.close();
             }
         });

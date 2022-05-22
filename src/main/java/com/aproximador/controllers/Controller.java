@@ -2,12 +2,15 @@ package com.aproximador.controllers;
 
 import com.aproximador.app.App;
 import com.aproximador.data.*;
+import com.aproximador.view.AproximationTab;
 import com.aproximador.view.RecordPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -22,9 +25,12 @@ public class Controller implements Initializable
     private final Connector connector = new Connector("juca", "g*$0Pe$h18cyiyJC");
 
     @FXML
-    private VBox vBoxMaterials;
+    public static VBox vBoxMaterials;
+    public Button btnAddMaterial;
+    public Button btnAddService;
+    public TabPane tabAproximations;
 
-    public void addRecord() throws IOException {
+    public void popUpAddRecord(String recordType, String cost) throws IOException {
 
         Parent root = FXMLLoader.load(App.class.getResource("addRecordPopUp.fxml"));
 
@@ -34,14 +40,36 @@ public class Controller implements Initializable
         addStage.initModality(Modality.NONE);
         addStage.show();
 
-        RecordPane recordPane = new RecordPane("Huevos", "10.00", "");
+        new AddRecordController(recordType, cost);
+    }
 
+    public void createNewAproximation(){
+        Button btnSave = new Button();
 
-        vBoxMaterials.getChildren().add(recordPane);
+        btnSave.setOnAction(event -> {
+            System.out.println("Test");
+        });
+
+        tabAproximations.getTabs().add(new AproximationTab("Tab", btnSave));
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        btnAddMaterial.setOnAction(event -> {
+            try {
+                popUpAddRecord("Material", "Unit Cost");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        btnAddService.setOnAction(event -> {
+            try {
+                popUpAddRecord("Service", "Cost");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }
