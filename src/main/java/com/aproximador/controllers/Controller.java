@@ -24,15 +24,14 @@ public class Controller implements Initializable
     private final Services services = new Services();
     private final Connector connector = new Connector("juca", "g*$0Pe$h18cyiyJC");
 
-    @FXML
-    public VBox vBoxMaterials;
-    public VBox vBoxServices;
-    public Button btnAddMaterial;
-    public Button btnAddService;
-    public TabPane tabAproximations;
+    @FXML private VBox vBoxMaterials;
+    @FXML private VBox vBoxServices;
+    @FXML private Button btnAddMaterial;
+    @FXML private Button btnAddService;
+    @FXML private TabPane tabAproximations;
 
-    public void popUpAddRecord(String recordType, String cost, VBox vBoxRecord) throws IOException {
-        new AddRecordController(recordType, cost, vBoxRecord);
+    public void popUpAddRecord(String recordType, String cost) throws IOException {
+        AddRecordController addRecordController = new AddRecordController(recordType, cost, this);
     }
 
     public void createNewAproximation(){
@@ -50,7 +49,7 @@ public class Controller implements Initializable
 
         btnAddMaterial.setOnAction(event -> {
             try {
-                popUpAddRecord("Material", "Unit Cost", vBoxMaterials);
+                popUpAddRecord("Material", "Unit Cost");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -58,10 +57,19 @@ public class Controller implements Initializable
 
         btnAddService.setOnAction(event -> {
             try {
-                popUpAddRecord("Service", "Cost", vBoxServices);
+                popUpAddRecord("Service", "Cost");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
     }
+
+    public VBox getvBoxMaterials() {
+        return vBoxMaterials;
+    }
+
+    public VBox getvBoxServices() {
+        return vBoxServices;
+    }
+
 }
