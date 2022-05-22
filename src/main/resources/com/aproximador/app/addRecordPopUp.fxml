@@ -25,7 +25,7 @@
          <children>
             <FlowPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="60.0" prefWidth="58.0" text="Label">
+                  <Label fx:id="lblRecord" prefHeight="60.0" prefWidth="58.0">
                      <FlowPane.margin>
                         <Insets left="5.0" />
                      </FlowPane.margin></Label>
@@ -34,7 +34,7 @@
             </FlowPane>
             <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                <children>
-                  <Label prefHeight="60.0" prefWidth="58.0" text="Label">
+                  <Label fx:id="lblCost" prefHeight="60.0" prefWidth="58.0">
                      <FlowPane.margin>
                         <Insets left="5.0" />
                      </FlowPane.margin></Label>

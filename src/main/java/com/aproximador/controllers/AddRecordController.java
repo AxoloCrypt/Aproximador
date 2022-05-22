@@ -24,8 +24,8 @@ public class AddRecordController implements Initializable
     public TextArea txtDescription;
 
     public AddRecordController(String recordType, String cost){
-        lblRecord.setText(recordType);
-        lblCost.setText(cost);
+        lblRecord = new Label(recordType);
+        lblCost = new Label(cost);
     }
 
     public AddRecordController() {}
