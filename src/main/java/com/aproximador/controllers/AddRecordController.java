@@ -18,21 +18,23 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class AddRecordController implements Initializable
 {
-    @FXML
-    public Label lblRecord;
-    public Label lblCost;
-    public Button btnOk;
-    public TextField txtName;
-    public TextField txtCost;
-    public TextArea txtDescription;
+    private Controller mainController;
+
+    @FXML private Label lblRecord;
+    @FXML private Label lblCost;
+    @FXML private Button btnOk;
+    @FXML private TextField txtName;
+    @FXML private TextField txtCost;
+    @FXML private TextArea txtDescription;
 
     private VBox vBoxRecord;
 
-    public AddRecordController(String recordType, String cost, VBox vBoxRecord) throws IOException {
+    public AddRecordController(String recordType, String cost, Controller mainController) throws IOException {
         Parent root = FXMLLoader.load(App.class.getResource("addRecordPopUp.fxml"));
         Scene addRecordScene = new Scene(root);
         Stage addStage = new Stage();
@@ -41,10 +43,8 @@ public class AddRecordController implements Initializable
 
         lblRecord.setText(recordType);
         lblCost.setText(cost);
-        this.vBoxRecord = vBoxRecord;
-
+        this.mainController = mainController;
         addStage.show();
-
 
     }
 
@@ -54,7 +54,10 @@ public class AddRecordController implements Initializable
     public void registerRecord(){
         RecordPane recordPane = new RecordPane(txtName.getText(), txtCost.getText(), txtDescription.getText());
 
-        vBoxRecord.getChildren().add(recordPane);
+        if (lblRecord.getText().toLowerCase(Locale.ROOT).equals("material"))
+            mainController.getvBoxMaterials().getChildren().add(recordPane);
+        else
+            mainController.getvBoxServices().getChildren().add(recordPane);
     }
 
     @Override
