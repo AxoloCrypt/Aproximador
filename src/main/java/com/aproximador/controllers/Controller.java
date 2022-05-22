@@ -24,14 +24,28 @@ public class Controller implements Initializable
     private final Services services = new Services();
     private final Connector connector = new Connector("juca", "g*$0Pe$h18cyiyJC");
 
+    @FXML AddRecordController addRecordController;
+
     @FXML private VBox vBoxMaterials;
     @FXML private VBox vBoxServices;
     @FXML private Button btnAddMaterial;
     @FXML private Button btnAddService;
     @FXML private TabPane tabAproximations;
 
-    public void popUpAddRecord(String recordType, String cost) throws IOException {
-        AddRecordController addRecordController = new AddRecordController(recordType, cost, this);
+    public void popUpAddRecord(String recordType) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("addRecordPopUp.fxml"));
+
+        Parent root = loader.load();
+        Scene addRecordScene = new Scene(root);
+        Stage addStage = new Stage();
+        addStage.setScene(addRecordScene);
+        addStage.initModality(Modality.NONE);
+        addStage.show();
+
+        addRecordController = loader.getController();
+        addRecordController.init(this, recordType);
+
     }
 
     public void createNewAproximation(){
@@ -45,11 +59,11 @@ public class Controller implements Initializable
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+     public void initialize(URL location, ResourceBundle resources) {
 
         btnAddMaterial.setOnAction(event -> {
             try {
-                popUpAddRecord("Material", "Unit Cost");
+                popUpAddRecord("material");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -57,7 +71,7 @@ public class Controller implements Initializable
 
         btnAddService.setOnAction(event -> {
             try {
-                popUpAddRecord("Service", "Cost");
+                popUpAddRecord("service");
             } catch (IOException e) {
                 e.printStackTrace();
             }

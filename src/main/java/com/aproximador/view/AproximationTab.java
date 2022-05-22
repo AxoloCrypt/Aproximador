@@ -16,8 +16,6 @@ public class AproximationTab extends Tab
     public AproximationTab(String tabName, Button btnSave){
         super(tabName);
 
-        splitPane = new SplitPane();
-
         vBoxRecords = new VBox();
 
         vBoxResult = new VBox();
@@ -28,9 +26,9 @@ public class AproximationTab extends Tab
         btnSave.setAlignment(Pos.BOTTOM_RIGHT);
 
         vBoxResult.getChildren().add(btnSave);
+        splitPane = new SplitPane(vBoxRecords, vBoxResult);
 
-        splitPane.getItems().add(vBoxRecords);
-        splitPane.getItems().add(vBoxResult);
+        this.setContent(splitPane);
     }
 
     public SplitPane getSplitPane() {

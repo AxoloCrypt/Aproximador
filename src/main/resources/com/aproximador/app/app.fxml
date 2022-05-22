@@ -64,7 +64,7 @@
                            <content>
                               <ScrollPane prefHeight="200.0" prefWidth="200.0">
                                  <content>
-                                    <VBox prefHeight="240.0" prefWidth="169.0">
+                                    <VBox fx:id="vBoxServices" prefHeight="240.0" prefWidth="169.0">
                                        <children>
                                           <FlowPane prefHeight="25.0" prefWidth="196.0">
                                              <children>
