@@ -39,7 +39,7 @@ public class AddRecordController implements Initializable
     mainController
      */
     public void registerRecord(){
-        RecordPane recordPane = new RecordPane(txtName.getText(), txtCost.getText(), txtDescription.getText());
+        RecordPane recordPane = new RecordPane(txtName.getText(), txtCost.getText(), txtDescription.getText(), mainController);
 
         if (recordType.toLowerCase(Locale.ROOT).equals("material"))
             mainController.getvBoxMaterials().getChildren().add(recordPane);
