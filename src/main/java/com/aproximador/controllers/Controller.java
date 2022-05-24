@@ -32,6 +32,11 @@ public class Controller implements Initializable
     @FXML private Button btnAddService;
     @FXML private TabPane tabAproximations;
 
+    /*
+    @param: String recordType
+    @return: void
+    Loads the addRecordPopUp and inits the addRecordController
+     */
     public void popUpAddRecord(String recordType) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(App.class.getResource("addRecordPopUp.fxml"));
@@ -48,6 +53,11 @@ public class Controller implements Initializable
 
     }
 
+    /*
+    @param: None
+    @return: void
+    Loads the createAproximationPopUp and inits the createAproximationController
+     */
     public void createNewAproximation() throws IOException {
 
         FXMLLoader loader = new FXMLLoader(App.class.getResource("createAproximationPopUp.fxml"));
