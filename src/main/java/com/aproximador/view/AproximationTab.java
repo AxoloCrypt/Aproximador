@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
 public class AproximationTab extends Tab
@@ -18,14 +19,18 @@ public class AproximationTab extends Tab
 
         vBoxRecords = new VBox();
 
-        vBoxResult = new VBox();
+        vBoxResult = new VBox(5);
         vBoxResult.getChildren().add(new Label("Number of Used Materials: "));
         vBoxResult.getChildren().add(new Label("Number of Used Services: "));
         vBoxResult.getChildren().add(new Label("Total: "));
 
-        btnSave.setAlignment(Pos.BOTTOM_RIGHT);
+        FlowPane flowPane = new FlowPane();
 
-        vBoxResult.getChildren().add(btnSave);
+        btnSave.setAlignment(Pos.BASELINE_RIGHT);
+
+        flowPane.getChildren().add(btnSave);
+
+        vBoxResult.getChildren().add(flowPane);
         splitPane = new SplitPane(vBoxRecords, vBoxResult);
 
         this.setContent(splitPane);

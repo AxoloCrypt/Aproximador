@@ -3,7 +3,6 @@ package com.aproximador.controllers;
 import com.aproximador.app.App;
 import com.aproximador.data.*;
 import com.aproximador.view.AproximationTab;
-import com.aproximador.view.RecordPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,6 +24,7 @@ public class Controller implements Initializable
     private final Connector connector = new Connector("juca", "g*$0Pe$h18cyiyJC");
 
     @FXML AddRecordController addRecordController;
+    @FXML CreateAproximationController createAproximationController;
 
     @FXML private VBox vBoxMaterials;
     @FXML private VBox vBoxServices;
@@ -48,14 +48,19 @@ public class Controller implements Initializable
 
     }
 
-    public void createNewAproximation(){
-        Button btnSave = new Button();
+    public void createNewAproximation() throws IOException {
 
-        btnSave.setOnAction(event -> {
-            System.out.println("Test");
-        });
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("createAproximationPopUp.fxml"));
 
-        tabAproximations.getTabs().add(new AproximationTab("Tab", btnSave));
+        Parent root = loader.load();
+        Scene createAproximationScene = new Scene(root);
+        Stage createAproximationStage = new Stage();
+        createAproximationStage.setScene(createAproximationScene);
+        createAproximationStage.initModality(Modality.NONE);
+        createAproximationStage.show();
+
+        createAproximationController = loader.getController();
+        createAproximationController.init(this);
     }
 
     @Override
@@ -84,6 +89,10 @@ public class Controller implements Initializable
 
     public VBox getvBoxServices() {
         return vBoxServices;
+    }
+
+    public TabPane getTabAproximations() {
+        return tabAproximations;
     }
 
 }

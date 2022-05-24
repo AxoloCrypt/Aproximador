@@ -1,17 +1,20 @@
 package com.aproximador.controllers;
 
-import com.aproximador.view.RecordPane;
+import com.aproximador.view.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
+
+;
 
 public class AddRecordController implements Initializable
 {
