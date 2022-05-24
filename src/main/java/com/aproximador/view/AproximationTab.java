@@ -19,14 +19,14 @@ public class AproximationTab extends Tab
 
         vBoxRecords = new VBox();
 
-        vBoxResult = new VBox(5);
+        vBoxResult = new VBox(25);
         vBoxResult.getChildren().add(new Label("Number of Used Materials: "));
         vBoxResult.getChildren().add(new Label("Number of Used Services: "));
         vBoxResult.getChildren().add(new Label("Total: "));
 
         FlowPane flowPane = new FlowPane();
 
-        btnSave.setAlignment(Pos.BASELINE_RIGHT);
+        btnSave.setAlignment(Pos.BOTTOM_RIGHT);
 
         flowPane.getChildren().add(btnSave);
 

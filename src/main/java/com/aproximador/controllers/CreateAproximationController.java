@@ -21,6 +21,11 @@ public class CreateAproximationController implements Initializable
         return txtName.getText();
     }
 
+    /*
+    @param: None
+    @return: void
+    Create and add a tab on the aproximations tab pane from mainController
+     */
     public void createAproximationTab(){
 
         Button btnSave = new Button();
@@ -38,6 +43,9 @@ public class CreateAproximationController implements Initializable
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        txtName.setFocusTraversable(false);
+        txtName.setPromptText("Name");
+
         txtName.setOnKeyPressed(event -> {
 
             if(event.getCode() == KeyCode.ENTER){

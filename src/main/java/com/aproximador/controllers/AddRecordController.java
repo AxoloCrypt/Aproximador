@@ -31,7 +31,13 @@ public class AddRecordController implements Initializable
 
     public AddRecordController() {}
 
-
+    /*
+    @param: None
+    @return: void
+    Gets the input of the textfields and textarea of the frame and creates a new recordPane with them
+    Depending of the record type, the recordPane will be added on materials or services VBoxes from the
+    mainController
+     */
     public void registerRecord(){
         RecordPane recordPane = new RecordPane(txtName.getText(), txtCost.getText(), txtDescription.getText(), mainController);
 
@@ -42,6 +48,9 @@ public class AddRecordController implements Initializable
 
     }
 
+    /*
+    Set the main controller to communicate each other and the record type
+     */
     public void init(Controller mainController, String recordType) {
         this.mainController = mainController;
         this.recordType = recordType;
