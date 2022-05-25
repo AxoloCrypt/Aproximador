@@ -1,37 +1,42 @@
 package com.aproximador.view;
 
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.Tab;
+import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
 public class AproximationTab extends Tab
 {
     private SplitPane splitPane;
+    private ScrollPane scrollPane;
     private VBox vBoxRecords;
     private VBox vBoxResult;
+    private ToolBar toolBar;
 
     public AproximationTab(String tabName, Button btnSave){
         super(tabName);
 
         vBoxRecords = new VBox();
 
+        toolBar = new ToolBar();
+
+        scrollPane = new ScrollPane();
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setFitToWidth(true);
+
         vBoxResult = new VBox(25);
         vBoxResult.getChildren().add(new Label("Number of Used Materials: "));
         vBoxResult.getChildren().add(new Label("Number of Used Services: "));
         vBoxResult.getChildren().add(new Label("Total: "));
 
-        FlowPane flowPane = new FlowPane();
-
         btnSave.setAlignment(Pos.BOTTOM_RIGHT);
 
-        flowPane.getChildren().add(btnSave);
 
-        vBoxResult.getChildren().add(flowPane);
-        splitPane = new SplitPane(vBoxRecords, vBoxResult);
+        toolBar.getItems().add(btnSave);
+
+        scrollPane.setContent(vBoxRecords);
+
+        splitPane = new SplitPane(scrollPane, vBoxResult);
 
         this.setContent(splitPane);
     }

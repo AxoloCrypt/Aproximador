@@ -3,10 +3,9 @@ package com.aproximador.view;
 import com.aproximador.controllers.Controller;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
+import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -14,22 +13,31 @@ public class RecordPane extends DialogPane {
 
     private Label lblCost;
     private Label lblDescription;
+    private Label lblName;
+
+    // Attributes for panes in aproximations
+    private Button btnRemove;
+    private Button btnAdd;
+    private TextField txtQuantity;
 
     public RecordPane(String recordName, String cost, String description, Controller controller){
 
-        this.setHeader(new Label(recordName));
+        lblName = new Label(recordName);
 
         lblCost = new Label("$" + cost);
-        lblCost.setAlignment(Pos.BASELINE_RIGHT);
+        lblCost.setAlignment(Pos.CENTER_RIGHT);
 
         lblDescription = new Label(description);
-        lblDescription.setAlignment(Pos.BOTTOM_LEFT);
+        lblDescription.setAlignment(Pos.CENTER_LEFT);
+        lblDescription.setTextOverrun(OverrunStyle.ELLIPSIS);
+        lblDescription.setEllipsisString("...");
 
-        FlowPane flowPane = new FlowPane();
-        flowPane.getChildren().add(lblCost);
-        flowPane.getChildren().add(lblDescription);
+        HBox hBox = new HBox();
+        hBox.getChildren().add(lblDescription);
+        hBox.getChildren().add(lblCost);
 
-        this.setContent(flowPane);
+        this.setHeader(lblName);
+        this.setContent(hBox);
 
         this.setOnMouseClicked(event -> {
             Tab currentAproximationTab = controller.getTabAproximations().getSelectionModel().getSelectedItem();
@@ -38,7 +46,7 @@ public class RecordPane extends DialogPane {
 
             VBox vBoxRecords = (VBox) node.lookup("VBox");
 
-            vBoxRecords.getChildren().add(new RecordPane(this.getHeaderText(), lblCost.getText(), lblDescription.getText()));
+            vBoxRecords.getChildren().add(new RecordPane(lblName.getText()));
 
         });
 
@@ -52,18 +60,24 @@ public class RecordPane extends DialogPane {
 
     }
 
-    public RecordPane(String recordName, String cost, String description){
+    public RecordPane(String recordName){
         this.setHeader(new Label(recordName));
 
-        lblCost = new Label(cost);
-        lblCost.setAlignment(Pos.BASELINE_RIGHT);
+        btnRemove = new Button("R");
 
-        lblDescription = new Label(description);
-        lblDescription.setAlignment(Pos.BOTTOM_LEFT);
+        txtQuantity = new TextField("1");
+        txtQuantity.setMaxSize(20, 10);
+        txtQuantity.setEditable(false);
+        txtQuantity.setFocusTraversable(false);
+
+        btnAdd = new Button("Add");
 
         FlowPane flowPane = new FlowPane();
-        flowPane.getChildren().add(lblCost);
-        flowPane.getChildren().add(lblDescription);
+        flowPane.setAlignment(Pos.CENTER_RIGHT);
+
+        flowPane.getChildren().add(btnRemove);
+        flowPane.getChildren().add(txtQuantity);
+        flowPane.getChildren().add(btnAdd);
 
         this.setContent(flowPane);
     }
