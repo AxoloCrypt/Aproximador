@@ -1,6 +1,6 @@
 package com.aproximador.controllers;
 
-import javafx.event.EventHandler;
+import com.aproximador.view.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -8,28 +8,59 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
+
+;
 
 public class AddRecordController implements Initializable
 {
-    @FXML
-    public Label lblRecord;
-    public Label lblCost;
-    public Button btnOk;
-    public TextField txtName;
-    public TextField txtCost;
-    public TextArea txtDescription;
+    private Controller mainController;
+    private String recordType;
+
+    @FXML private Label lblRecord;
+    @FXML private Label lblCost;
+    @FXML private Button btnOk;
+    @FXML private TextField txtName;
+    @FXML private TextField txtCost;
+    @FXML private TextArea txtDescription;
 
 
+    public AddRecordController() {}
+
+    /*
+    @param: None
+    @return: void
+    Gets the input of the textfields and textarea of the frame and creates a new recordPane with them
+    Depending of the record type, the recordPane will be added on materials or services VBoxes from the
+    mainController
+     */
+    public void registerRecord(){
+        RecordPane recordPane = new RecordPane(txtName.getText(), txtCost.getText(), txtDescription.getText(), mainController);
+
+        if (recordType.toLowerCase(Locale.ROOT).equals("material"))
+            mainController.getvBoxMaterials().getChildren().add(recordPane);
+        else
+            mainController.getvBoxServices().getChildren().add(recordPane);
+
+    }
+
+    /*
+    Set the main controller to communicate each other and the record type
+     */
+    public void init(Controller mainController, String recordType) {
+        this.mainController = mainController;
+        this.recordType = recordType;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        lblRecord.setText("Name");
+        lblCost.setText("Cost");
 
         btnOk.setOnKeyPressed(event -> {
             if(event.getCode() == KeyCode.ENTER){
@@ -52,6 +83,7 @@ public class AddRecordController implements Initializable
             if (event.getCode() == KeyCode.ENTER){
                 txtDescription.setDisable(true);
                 Stage stage = (Stage) txtDescription.getScene().getWindow();
+                registerRecord();
                 stage.close();
             }
         });

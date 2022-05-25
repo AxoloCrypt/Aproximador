@@ -23,7 +23,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="471.0" prefWidth="677.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aproximador.controllers.Controller">
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="ALL_TABS" BorderPane.alignment="CENTER">
+      <TabPane fx:id="tabAproximations" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="ALL_TABS" BorderPane.alignment="CENTER">
         <tabs>
           <Tab text="Untitled Tab 1">
                <content>
@@ -64,13 +64,13 @@
                            <content>
                               <ScrollPane prefHeight="200.0" prefWidth="200.0">
                                  <content>
-                                    <VBox prefHeight="240.0" prefWidth="169.0">
+                                    <VBox fx:id="vBoxServices" prefHeight="240.0" prefWidth="169.0">
                                        <children>
                                           <FlowPane prefHeight="25.0" prefWidth="196.0">
                                              <children>
                                                 <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
                                                 <TextField prefHeight="25.0" prefWidth="76.0" />
-                                                <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
+                                                <Button fx:id="btnAddService" mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
                                                 <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
                                              </children>
                                           </FlowPane>
@@ -90,7 +90,7 @@
                                              <children>
                                                  <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
                                                  <TextField prefHeight="25.0" prefWidth="76.0" />
-                                                 <Button mnemonicParsing="false" onAction="#addMaterial" prefHeight="10.0" prefWidth="13.0" text="Button" />
+                                                 <Button fx:id="btnAddMaterial" mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
                                                  <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
                                              </children>
                                           </FlowPane>
@@ -127,7 +127,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="Create">
             <items>
-              <MenuItem mnemonicParsing="false" text="Create Aproximation" />
+              <MenuItem mnemonicParsing="false" onAction="#createNewAproximation" text="Create Aproximation" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Export">
