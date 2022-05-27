@@ -1,6 +1,8 @@
 package com.aproximador.view;
 
 import com.aproximador.controllers.Controller;
+import com.aproximador.data.Materials;
+import com.aproximador.data.Services;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -8,6 +10,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+
+import java.math.BigDecimal;
 
 public class RecordPane extends DialogPane {
 
@@ -20,7 +24,7 @@ public class RecordPane extends DialogPane {
     private Button btnAdd;
     private TextField txtQuantity;
 
-    public RecordPane(String recordName, String cost, String description, Controller controller){
+    public RecordPane(String recordName, String cost, String description, Controller controller, boolean isMaterial){
 
         lblName = new Label(recordName);
 
@@ -41,6 +45,8 @@ public class RecordPane extends DialogPane {
 
         this.setOnMouseClicked(event -> {
             Tab currentAproximationTab = controller.getTabAproximations().getSelectionModel().getSelectedItem();
+            int tabIndex = controller.getTabAproximations().getSelectionModel().getSelectedIndex();
+
 
             Node node = currentAproximationTab.getContent();
 
@@ -48,6 +54,12 @@ public class RecordPane extends DialogPane {
 
             vBoxRecords.getChildren().add(new RecordPane(lblName.getText()));
 
+            if (isMaterial)
+                controller.getAproximations().get(tabIndex).getRecords().add(new Materials(lblName.getText(),
+                        new BigDecimal(lblCost.getText()), lblDescription.getText()));
+            else
+                controller.getAproximations().get(tabIndex).getRecords().add(new Services(lblName.getText(),
+                        new BigDecimal(lblCost.getText()), lblDescription.getText()));
         });
 
         this.setOnMouseEntered(event -> {

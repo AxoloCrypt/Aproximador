@@ -15,6 +15,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable
@@ -22,6 +24,7 @@ public class Controller implements Initializable
     private final Materials materials = new Materials();
     private final Services services = new Services();
     private final Connector connector = new Connector("juca", "g*$0Pe$h18cyiyJC");
+    private final List<Aproximation> aproximations = new ArrayList<>();
 
     @FXML AddRecordController addRecordController;
     @FXML CreateAproximationController createAproximationController;
@@ -105,4 +108,15 @@ public class Controller implements Initializable
         return tabAproximations;
     }
 
+    public Materials getMaterials() {
+        return materials;
+    }
+
+    public Services getServices() {
+        return services;
+    }
+
+    public List<Aproximation> getAproximations() {
+        return aproximations;
+    }
 }

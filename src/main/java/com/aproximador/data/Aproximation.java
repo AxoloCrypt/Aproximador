@@ -22,6 +22,14 @@ public class Aproximation
         records = new ArrayList<>();
     }
 
+    public Aproximation(String name){
+        this.name = name;
+        totalCost = new BigDecimal("0.00");
+        numberMaterials = 0;
+        numberServices = 0;
+        records = new ArrayList<>();
+    }
+
     public Aproximation(String name, BigDecimal totalCost, int numberMaterials,
                         int numberServices, String description, Date dateCreation){
         this.name = name;

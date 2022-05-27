@@ -1,5 +1,7 @@
 package com.aproximador.controllers;
 
+import com.aproximador.data.Materials;
+import com.aproximador.data.Services;
 import com.aproximador.view.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -39,12 +42,19 @@ public class AddRecordController implements Initializable
     mainController
      */
     public void registerRecord(){
-        RecordPane recordPane = new RecordPane(txtName.getText(), txtCost.getText(), txtDescription.getText(), mainController);
 
-        if (recordType.toLowerCase(Locale.ROOT).equals("material"))
+        boolean isMaterial = recordType.toLowerCase(Locale.ROOT).equals("material");
+
+        RecordPane recordPane = new RecordPane(txtName.getText(), txtCost.getText(), txtDescription.getText(), mainController, isMaterial);
+
+        if (isMaterial){
             mainController.getvBoxMaterials().getChildren().add(recordPane);
-        else
+            mainController.getMaterials().getRecords().add(new Materials(txtName.getText(), new BigDecimal(txtCost.getText()), txtDescription.getText()));
+        }
+        else{
             mainController.getvBoxServices().getChildren().add(recordPane);
+            mainController.getServices().getRecords().add(new Services(txtName.getText(), new BigDecimal(txtCost.getText()), txtDescription.getText()));
+        }
 
     }
 
