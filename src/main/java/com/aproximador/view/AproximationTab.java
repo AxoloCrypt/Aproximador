@@ -53,11 +53,14 @@ public class AproximationTab extends Tab
 
         });
 
+        btnSave = new Button();
         btnSave.setAlignment(Pos.BOTTOM_RIGHT);
 
 
         toolBar.getItems().add(btnSave);
         toolBar.getItems().add(btnCalculate);
+
+        vBoxResult.getChildren().add(toolBar);
 
         scrollPane.setContent(vBoxRecords);
 

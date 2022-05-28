@@ -56,10 +56,10 @@ public class RecordPane extends DialogPane {
 
             if (isMaterial)
                 controller.getAproximations().get(tabIndex).getRecords().add(new Materials(lblName.getText(),
-                        new BigDecimal(lblCost.getText()), lblDescription.getText()));
+                        new BigDecimal(lblCost.getText().replace("$", "")), lblDescription.getText()));
             else
                 controller.getAproximations().get(tabIndex).getRecords().add(new Services(lblName.getText(),
-                        new BigDecimal(lblCost.getText()), lblDescription.getText()));
+                        new BigDecimal(lblCost.getText().replace("$", "")), lblDescription.getText()));
         });
 
         this.setOnMouseEntered(event -> {
