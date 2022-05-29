@@ -1,6 +1,8 @@
 package com.aproximador.data;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,8 +14,7 @@ public class Aproximation
     private BigDecimal totalCost;
     private int numberMaterials;
     private int numberServices;
-    private String description;
-    private Date dateCreation;
+    private LocalDateTime dateCreation;
 
     public Aproximation(){
         totalCost = new BigDecimal("0.00");
@@ -22,13 +23,29 @@ public class Aproximation
         records = new ArrayList<>();
     }
 
+    public Aproximation(String name){
+        this.name = name;
+        totalCost = new BigDecimal("0.00");
+        numberMaterials = 0;
+        numberServices = 0;
+        records = new ArrayList<>();
+    }
+
+    public Aproximation(Aproximation aproximation, LocalDateTime dateCreation){
+        this.name = aproximation.getName();
+        this.records = aproximation.getRecords();
+        this.totalCost = aproximation.getTotalCost();
+        this.numberMaterials = aproximation.getNumberMaterials();
+        this.numberServices = aproximation.getNumberServices();
+        this.dateCreation = dateCreation;
+    }
+
     public Aproximation(String name, BigDecimal totalCost, int numberMaterials,
-                        int numberServices, String description, Date dateCreation){
+                        int numberServices, LocalDateTime dateCreation){
         this.name = name;
         this.totalCost = totalCost;
         this.numberMaterials = numberMaterials;
         this.numberServices = numberServices;
-        this.description = description;
         this.dateCreation = dateCreation;
     }
 
@@ -102,19 +119,11 @@ public class Aproximation
         this.numberServices = numberServices;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getDateCreation() {
+    public LocalDateTime getDateCreation() {
         return dateCreation;
     }
 
-    public void setDateCreation(Date dateCreation) {
+    public void setDateCreation(LocalDateTime dateCreation) {
         this.dateCreation = dateCreation;
     }
 }

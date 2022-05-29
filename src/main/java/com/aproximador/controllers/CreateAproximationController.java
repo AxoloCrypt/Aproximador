@@ -1,5 +1,6 @@
 package com.aproximador.controllers;
 
+import com.aproximador.data.Aproximation;
 import com.aproximador.view.AproximationTab;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -29,12 +30,14 @@ public class CreateAproximationController implements Initializable
     public void createAproximationTab(){
 
         Button btnSave = new Button();
+        Button btnCalculate = new Button();
 
         btnSave.setOnAction(event -> {
             System.out.println("Test");
         });
 
-        mainController.getTabAproximations().getTabs().add(new AproximationTab(getName(), btnSave));
+        mainController.getTabAproximations().getTabs().add(new AproximationTab(getName(), mainController));
+        mainController.getAproximations().add(new Aproximation(getName()));
     }
 
     public void init(Controller mainController){

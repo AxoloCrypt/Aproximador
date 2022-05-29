@@ -11,6 +11,7 @@ public abstract class Record <T>
     private BigDecimal unitCost;
     private String description;
     private List<T> records;
+    private int amount;
 
 
     public Record(String name, BigDecimal unitCost, String description)
@@ -18,6 +19,14 @@ public abstract class Record <T>
         this.name = name;
         this.unitCost = unitCost;
         this.description = description;
+        records = new ArrayList<>();
+    }
+
+    public Record(String name, BigDecimal unitCost, String description, int amount){
+        this.name = name;
+        this.unitCost = unitCost;
+        this.description = description;
+        this.amount = amount;
         records = new ArrayList<>();
     }
 
@@ -103,5 +112,13 @@ public abstract class Record <T>
     @Override
     public int hashCode() {
         return Objects.hash(getName(), getUnitCost(), getDescription());
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }

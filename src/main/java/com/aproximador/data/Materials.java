@@ -10,6 +10,9 @@ public class Materials extends Record<Materials>{
         super(name, unitCost, description);
     }
 
+    public Materials(String name, BigDecimal unitCost, String description, int amount){
+        super(name, unitCost, description, amount);
+    }
 
     /*
     @param name, unitCost, description, newName, newUnitCost, newDescription
