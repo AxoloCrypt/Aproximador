@@ -1,6 +1,7 @@
 package com.aproximador.data;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,8 +13,7 @@ public class Aproximation
     private BigDecimal totalCost;
     private int numberMaterials;
     private int numberServices;
-    private String description;
-    private Date dateCreation;
+    private LocalDate dateCreation;
 
     public Aproximation(){
         totalCost = new BigDecimal("0.00");
@@ -30,13 +30,21 @@ public class Aproximation
         records = new ArrayList<>();
     }
 
+    public Aproximation(Aproximation aproximation, LocalDate dateCreation){
+        this.name = aproximation.getName();
+        this.records = aproximation.getRecords();
+        this.totalCost = aproximation.getTotalCost();
+        this.numberMaterials = aproximation.getNumberMaterials();
+        this.numberServices = aproximation.getNumberServices();
+        this.dateCreation = dateCreation;
+    }
+
     public Aproximation(String name, BigDecimal totalCost, int numberMaterials,
-                        int numberServices, String description, Date dateCreation){
+                        int numberServices, LocalDate dateCreation){
         this.name = name;
         this.totalCost = totalCost;
         this.numberMaterials = numberMaterials;
         this.numberServices = numberServices;
-        this.description = description;
         this.dateCreation = dateCreation;
     }
 
@@ -110,19 +118,11 @@ public class Aproximation
         this.numberServices = numberServices;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Date getDateCreation() {
+    public LocalDate getDateCreation() {
         return dateCreation;
     }
 
-    public void setDateCreation(Date dateCreation) {
+    public void setDateCreation(LocalDate dateCreation) {
         this.dateCreation = dateCreation;
     }
 }

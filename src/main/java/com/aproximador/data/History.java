@@ -5,12 +5,17 @@ import java.util.List;
 
 public class History
 {
-    private List<Aproximation> aproximations;
+    private List<Aproximation> savedAproximations;
 
-    public History() {aproximations = new ArrayList<>(); }
+    public History() {
+        savedAproximations = new ArrayList<>(); }
 
-    public History(List<Aproximation> aproximations){
-        this.aproximations = aproximations;
+    public History(List<Aproximation> savedAproximations){
+        this.savedAproximations = savedAproximations;
+    }
+
+    public void addToHistory(Aproximation aproximation){
+        savedAproximations.add(aproximation);
     }
 
     /*
@@ -19,7 +24,7 @@ public class History
     Deletes passed aproximation from history.
      */
     public void deleteAproximation(Aproximation aproximation){
-        aproximations.remove(aproximation);
+        savedAproximations.remove(aproximation);
     }
 
     //TODO
@@ -28,11 +33,11 @@ public class History
 
     }
 
-    public List<Aproximation> getAproximations() {
-        return aproximations;
+    public List<Aproximation> getSavedAproximations() {
+        return savedAproximations;
     }
 
-    public void setAproximations(List<Aproximation> aproximations) {
-        this.aproximations = aproximations;
+    public void setSavedAproximations(List<Aproximation> savedAproximations) {
+        this.savedAproximations = savedAproximations;
     }
 }

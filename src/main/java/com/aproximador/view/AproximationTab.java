@@ -8,6 +8,9 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 
 public class AproximationTab extends Tab
 {
@@ -19,8 +22,11 @@ public class AproximationTab extends Tab
     private Button btnSave, btnCalculate;
     private Label lblUsedMaterials, lblUsedServices, lblTotal;
 
+    private String tabname;
+
     public AproximationTab(String tabName, Controller controller){
         super(tabName);
+        this.tabname = tabName;
 
         vBoxRecords = new VBox();
 
@@ -53,9 +59,19 @@ public class AproximationTab extends Tab
 
         });
 
-        btnSave = new Button();
+        btnSave = new Button("Save");
         btnSave.setAlignment(Pos.BOTTOM_RIGHT);
+        btnSave.setOnAction(event -> {
 
+            int tabIndex = controller.getTabAproximations().getSelectionModel().getSelectedIndex();
+
+            Aproximation currentAproximation = controller.getAproximations().get(tabIndex);
+
+            Aproximation savedAproximation = new Aproximation(currentAproximation, LocalDate.now());
+
+            controller.getHistory().addToHistory(savedAproximation);
+            controller.getvBoxHistory().getChildren().add(new AproximationPane(savedAproximation.getName(), savedAproximation.getDateCreation(), controller));
+        });
 
         toolBar.getItems().add(btnSave);
         toolBar.getItems().add(btnCalculate);

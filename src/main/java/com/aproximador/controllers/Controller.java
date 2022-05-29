@@ -23,6 +23,7 @@ public class Controller implements Initializable
 {
     private final Materials materials = new Materials();
     private final Services services = new Services();
+    private final History history = new History();
     private final Connector connector = new Connector("juca", "g*$0Pe$h18cyiyJC");
     private final List<Aproximation> aproximations = new ArrayList<>();
 
@@ -31,6 +32,7 @@ public class Controller implements Initializable
 
     @FXML private VBox vBoxMaterials;
     @FXML private VBox vBoxServices;
+    @FXML private VBox vBoxHistory;
     @FXML private Button btnAddMaterial;
     @FXML private Button btnAddService;
     @FXML private TabPane tabAproximations;
@@ -118,5 +120,17 @@ public class Controller implements Initializable
 
     public List<Aproximation> getAproximations() {
         return aproximations;
+    }
+
+    public History getHistory() {
+        return history;
+    }
+
+    public VBox getvBoxHistory() {
+        return vBoxHistory;
+    }
+
+    public void setvBoxHistory(VBox vBoxHistory) {
+        this.vBoxHistory = vBoxHistory;
     }
 }
