@@ -58,10 +58,10 @@ public class RecordPane extends DialogPane {
 
             if (isMaterial)
                 controller.getAproximations().get(tabIndex).getRecords().add(new Materials(lblName.getText(),
-                        new BigDecimal(lblCost.getText().replace("$", "")), lblDescription.getText()));
+                        new BigDecimal(lblCost.getText().replace("$", "")), lblDescription.getText(), 1));
             else
                 controller.getAproximations().get(tabIndex).getRecords().add(new Services(lblName.getText(),
-                        new BigDecimal(lblCost.getText().replace("$", "")), lblDescription.getText()));
+                        new BigDecimal(lblCost.getText().replace("$", "")), lblDescription.getText(), 1));
         });
 
         this.setOnMouseEntered(event -> {
@@ -161,6 +161,7 @@ public class RecordPane extends DialogPane {
                 currentCost = currentCost.add(originalCost);
 
                 controller.getAproximations().get(tabIndex).getRecords().get(selectedMaterial).setUnitCost(currentCost);
+                controller.getAproximations().get(tabIndex).getRecords().get(selectedMaterial).setAmount(currentAmount);
             }
             else{
                 int selectedService = controller.getAproximations().get(tabIndex).getRecords().indexOf(new Services(recordName,
@@ -169,6 +170,7 @@ public class RecordPane extends DialogPane {
                 currentCost = currentCost.add(originalCost);
 
                 controller.getAproximations().get(tabIndex).getRecords().get(selectedService).setUnitCost(currentCost);
+                controller.getAproximations().get(tabIndex).getRecords().get(selectedService).setAmount(currentAmount);
             }
             txtQuantity.setText(String.valueOf(currentAmount));
         });
