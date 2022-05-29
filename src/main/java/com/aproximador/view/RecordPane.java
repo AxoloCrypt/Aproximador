@@ -46,14 +46,15 @@ public class RecordPane extends DialogPane {
         this.setContent(hBox);
 
         this.setOnMouseClicked(event -> {
+
             Tab currentAproximationTab = controller.getTabAproximations().getSelectionModel().getSelectedItem();
             int tabIndex = controller.getTabAproximations().getSelectionModel().getSelectedIndex();
 
             Node node = currentAproximationTab.getContent();
 
-            VBox vBoxRecords = (VBox) node.lookup("VBox");
+            VBox vBoxRecords = (VBox) node.lookup("VBox"); //Search for vBoxRecords on the current tab
 
-            vBoxRecords.getChildren().add(new RecordPane(lblName.getText(), new BigDecimal(lblCost.getText().replace("$", "")), lblDescription.getText(), controller, isMaterial, true));
+            vBoxRecords.getChildren().add(new RecordPane(lblName.getText(), new BigDecimal(lblCost.getText().replace("$", "")), lblDescription.getText(), controller, isMaterial));
 
             if (isMaterial)
                 controller.getAproximations().get(tabIndex).getRecords().add(new Materials(lblName.getText(),
@@ -73,19 +74,21 @@ public class RecordPane extends DialogPane {
 
     }
 
-    public RecordPane(String recordName, BigDecimal cost, String description, Controller controller, boolean isMaterial, boolean isUsed){
+    public RecordPane(String recordName, BigDecimal cost, String description, Controller controller, boolean isMaterial){
         this.setHeader(new Label(recordName));
         originalCost = cost;
-        currentCost = originalCost;
+        currentCost = originalCost; //Initialize
         this.description = description;
 
         btnRemove = new Button("R");
         btnRemove.setOnAction(event -> {
+
             int tabIndex = controller.getTabAproximations().getSelectionModel().getSelectedIndex();
             int currentAmount = Integer.parseInt(txtQuantity.getText());
 
             currentAmount = currentAmount > 1 ? currentAmount - 1 : 1;
 
+            //If true, searches the index of the selected material to subtract the original cost on the current approximation
             if(currentAmount != 1){
 
                 if(isMaterial){
@@ -95,6 +98,7 @@ public class RecordPane extends DialogPane {
                     currentCost = currentCost.subtract(originalCost);
 
                     controller.getAproximations().get(tabIndex).getRecords().get(selectedMaterial).setUnitCost(currentCost);
+                    controller.getAproximations().get(tabIndex).getRecords().get(selectedMaterial).setAmount(currentAmount);
                 }
                 else{
                     int selectedService = controller.getAproximations().get(tabIndex).getRecords().indexOf(new Services(recordName,
@@ -103,9 +107,11 @@ public class RecordPane extends DialogPane {
                     currentCost = currentCost.subtract(originalCost);
 
                     controller.getAproximations().get(tabIndex).getRecords().get(selectedService).setUnitCost(currentCost);
+                    controller.getAproximations().get(tabIndex).getRecords().get(selectedService).setAmount(currentAmount);
                 }
             }
             else{
+                //When current amount == 1 makes a last calculation and disables the button to avoid negatives
 
                 btnRemove.setDisable(true);
 
@@ -116,6 +122,7 @@ public class RecordPane extends DialogPane {
                     currentCost = currentCost.subtract(originalCost);
 
                     controller.getAproximations().get(tabIndex).getRecords().get(selectedMaterial).setUnitCost(currentCost);
+                    controller.getAproximations().get(tabIndex).getRecords().get(selectedMaterial).setAmount(currentAmount);
                 }
                 else{
                     int selectedService = controller.getAproximations().get(tabIndex).getRecords().indexOf(new Services(recordName,
@@ -124,9 +131,9 @@ public class RecordPane extends DialogPane {
                     currentCost = currentCost.subtract(originalCost);
 
                     controller.getAproximations().get(tabIndex).getRecords().get(selectedService).setUnitCost(currentCost);
+                    controller.getAproximations().get(tabIndex).getRecords().get(selectedService).setAmount(currentAmount);
                 }
             }
-
             txtQuantity.setText(String.valueOf(currentAmount));
         });
         btnRemove.setDisable(true);
@@ -141,7 +148,11 @@ public class RecordPane extends DialogPane {
             int currentAmount = Integer.parseInt(txtQuantity.getText());
 
             currentAmount += 1;
-            btnRemove.setDisable(false);
+
+            if (btnRemove.isDisable())
+                btnRemove.setDisable(false);
+
+            //Same shit as above but for adding the original cost to the selected material
 
             if(isMaterial){
                 int selectedMaterial = controller.getAproximations().get(tabIndex).getRecords().indexOf(new Materials(recordName,
@@ -171,5 +182,15 @@ public class RecordPane extends DialogPane {
 
         this.setContent(flowPane);
     }
+
+    public RecordPane(String name, int amount){
+        this.setHeader(new Label(name));
+
+        Label lblAmount = new Label("Amount: " + amount);
+        lblAmount.setAlignment(Pos.BOTTOM_RIGHT);
+
+        this.setContent(lblAmount);
+    }
+
 
 }

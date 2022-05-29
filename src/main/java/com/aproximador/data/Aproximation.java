@@ -2,6 +2,7 @@ package com.aproximador.data;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +14,7 @@ public class Aproximation
     private BigDecimal totalCost;
     private int numberMaterials;
     private int numberServices;
-    private LocalDate dateCreation;
+    private LocalDateTime dateCreation;
 
     public Aproximation(){
         totalCost = new BigDecimal("0.00");
@@ -30,7 +31,7 @@ public class Aproximation
         records = new ArrayList<>();
     }
 
-    public Aproximation(Aproximation aproximation, LocalDate dateCreation){
+    public Aproximation(Aproximation aproximation, LocalDateTime dateCreation){
         this.name = aproximation.getName();
         this.records = aproximation.getRecords();
         this.totalCost = aproximation.getTotalCost();
@@ -40,7 +41,7 @@ public class Aproximation
     }
 
     public Aproximation(String name, BigDecimal totalCost, int numberMaterials,
-                        int numberServices, LocalDate dateCreation){
+                        int numberServices, LocalDateTime dateCreation){
         this.name = name;
         this.totalCost = totalCost;
         this.numberMaterials = numberMaterials;
@@ -118,11 +119,11 @@ public class Aproximation
         this.numberServices = numberServices;
     }
 
-    public LocalDate getDateCreation() {
+    public LocalDateTime getDateCreation() {
         return dateCreation;
     }
 
-    public void setDateCreation(LocalDate dateCreation) {
+    public void setDateCreation(LocalDateTime dateCreation) {
         this.dateCreation = dateCreation;
     }
 }

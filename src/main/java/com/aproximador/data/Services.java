@@ -10,6 +10,10 @@ public class Services extends Record<Services>{
         super(name, unitCost, description);
     }
 
+    public Services(String name, BigDecimal unitCost, String description, int amount){
+        super(name, unitCost, description, amount);
+    }
+
     /*
     @param name, unitCost, description, newName, newUnitCost, newDescription
     @return
