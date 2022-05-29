@@ -23,13 +23,6 @@
    <center>
       <TabPane fx:id="tabAproximations" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="ALL_TABS" BorderPane.alignment="CENTER" />
    </center>
-   <right>
-      <VBox alignment="TOP_CENTER" prefHeight="471.0" prefWidth="124.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" text="History" />
-         </children>
-      </VBox>
-   </right>
    <left>
       <TabPane prefHeight="471.0" prefWidth="220.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -127,4 +120,29 @@
         </menus>
       </MenuBar>
    </top>
+   <right>
+      <TabPane prefHeight="200.0" prefWidth="200.0" side="RIGHT" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab text="History">
+               <content>
+                  <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                     <content>
+                        <VBox prefHeight="515.0" prefWidth="169.0">
+                           <children>
+                              <FlowPane prefHeight="25.0" prefWidth="196.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
+                                    <TextField prefHeight="25.0" prefWidth="121.0" />
+                                    <Button mnemonicParsing="false" prefHeight="10.0" prefWidth="13.0" text="Button" />
+                                 </children>
+                              </FlowPane>
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </right>
 </BorderPane>
