@@ -1,8 +1,8 @@
-package com.aproximador.view;
+package com.asare.view;
 
 
-import com.aproximador.controllers.Controller;
-import com.aproximador.data.Aproximation;
+import com.asare.controllers.Controller;
+import com.asare.data.Aproximation;
 import javafx.geometry.Pos;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;

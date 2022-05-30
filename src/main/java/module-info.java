@@ -1,4 +1,4 @@
-module com.aproximador {
+module com.asare {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
@@ -10,7 +10,7 @@ module com.aproximador {
     requires eu.hansolo.tilesfx;
     requires java.sql;
 
-    opens com.aproximador.app to javafx.fxml;
-    opens com.aproximador.controllers to javafx.fxml;
-    exports com.aproximador.app;
+    opens com.asare.app to javafx.fxml;
+    opens com.asare.controllers to javafx.fxml;
+    exports com.asare.app;
 }

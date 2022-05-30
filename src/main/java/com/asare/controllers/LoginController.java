@@ -1,6 +1,6 @@
-package com.aproximador.controllers;
+package com.asare.controllers;
 
-import com.aproximador.app.App;
+import com.asare.app.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

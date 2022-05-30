@@ -5,7 +5,7 @@ plugins {
     id 'org.beryx.jlink' version '2.24.1'
 }
 
-group 'com.aproximador'
+group 'com.asare'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -24,8 +24,8 @@ tasks.withType(JavaCompile) {
 }
 
 application {
-    mainModule = 'com.aproximador'
-    mainClass = 'com.aproximador.app.App'
+    mainModule = 'com.asare'
+    mainClass = 'com.asare.app.App'
 }
 
 javafx {

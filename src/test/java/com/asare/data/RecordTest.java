@@ -1,4 +1,4 @@
-package com.aproximador.data;
+package com.asare.data;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
