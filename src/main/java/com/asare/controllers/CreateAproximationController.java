@@ -1,7 +1,7 @@
-package com.aproximador.controllers;
+package com.asare.controllers;
 
-import com.aproximador.data.Aproximation;
-import com.aproximador.view.AproximationTab;
+import com.asare.data.Aproximation;
+import com.asare.view.AproximationTab;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
