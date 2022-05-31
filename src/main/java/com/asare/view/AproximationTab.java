@@ -22,6 +22,7 @@ public class AproximationTab extends Tab
     private Label lblUsedMaterials, lblUsedServices, lblTotal;
 
     private String tabname;
+    private int tabIndex;
 
     public AproximationTab(String tabName, Controller controller){
         super(tabName);
@@ -84,9 +85,17 @@ public class AproximationTab extends Tab
         splitPane = new SplitPane(scrollPane, vBoxResult);
 
         this.setContent(splitPane);
+
+        this.setOnClosed(event -> {
+            int currentIndex = controller.getTabAproximations().getSelectionModel().getSelectedIndex();
+
+            controller.getAproximations().remove(currentIndex + 1);
+
+        });
+
     }
 
-    public AproximationTab(String tabName, int numberMaterials, int numberServices, String totalCost, List<Record<?>> savedrecords){
+    public AproximationTab(String tabName, int numberMaterials, int numberServices, String totalCost, List<Record<?>> savedrecords, Controller controller){
         super(tabName);
 
         scrollPane = new ScrollPane();
@@ -115,6 +124,13 @@ public class AproximationTab extends Tab
 
 
         this.setContent(splitPane);
+
+        this.setOnClosed(event -> {
+            int currentIndex = controller.getTabAproximations().getSelectionModel().getSelectedIndex();
+
+            controller.getAproximations().remove(currentIndex + 1);
+
+        });
     }
 
     public SplitPane getSplitPane() {
