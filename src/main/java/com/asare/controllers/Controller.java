@@ -23,7 +23,7 @@ public class Controller implements Initializable
     private final Materials materials = new Materials();
     private final Services services = new Services();
     private final History history = new History();
-    private final Connector connector = new Connector("juca", "g*$0Pe$h18cyiyJC");
+    private Connector connector;
     private final List<Aproximation> aproximations = new ArrayList<>();
 
     @FXML AddRecordController addRecordController;
@@ -75,6 +75,10 @@ public class Controller implements Initializable
 
         createAproximationController = loader.getController();
         createAproximationController.init(this);
+    }
+
+    public void initConnection(Connector connector){
+        this.connector = connector;
     }
 
     @Override
@@ -131,5 +135,9 @@ public class Controller implements Initializable
 
     public void setvBoxHistory(VBox vBoxHistory) {
         this.vBoxHistory = vBoxHistory;
+    }
+
+    public Connector getConnector() {
+        return connector;
     }
 }

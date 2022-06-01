@@ -28,6 +28,14 @@ public class Connector
 
     }
 
+    public boolean validateUser(String username, String password) throws SQLException {
+        ResultSet rs = null;
+
+        rs = statement.executeQuery("SELECT * FROM users WHERE name = " + username + " AND  password = " + password);
+
+        return rs.next();
+    }
+
     public String showDataFromTable(String tableName){
 
         StringBuilder sb = new StringBuilder();
