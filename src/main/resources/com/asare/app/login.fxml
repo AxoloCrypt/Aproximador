@@ -34,7 +34,7 @@
             <Insets bottom="10.0" left="35.0" />
          </GridPane.margin>
       </Label>
-      <TextField fx:id="TxtUser" prefHeight="25.0" prefWidth="154.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP">
+      <TextField fx:id="txtEmail" prefHeight="25.0" prefWidth="154.0" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets left="35.0" right="35.0" />
          </GridPane.margin>
@@ -44,7 +44,7 @@
             <Insets bottom="10.0" left="35.0" />
          </GridPane.margin>
       </Label>
-      <PasswordField fx:id="TxtPass" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="TOP">
+      <PasswordField fx:id="txtPassword" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets left="35.0" right="35.0" />
          </GridPane.margin>

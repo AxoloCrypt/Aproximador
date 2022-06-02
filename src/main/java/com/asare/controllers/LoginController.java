@@ -11,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Border;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -24,33 +23,40 @@ public class LoginController implements Initializable {
 
     private final Connector connector = new Connector("juca", "g*$0Pe$h18cyiyJC");
 
+    @FXML Controller controller;
+
     @FXML private Button btnLogin;
     @FXML public Button btnExit;
-    @FXML private TextField txtUsername;
+    @FXML private TextField txtEmail;
     @FXML private PasswordField txtPassword;
 
     public void openApp(ActionEvent actionEvent) throws IOException {
 
         try {
-            if (!connector.validateUser(txtUsername.getText(), txtPassword.getText()))
+            if (!connector.validateUser(txtEmail.getText(), txtPassword.getText()))
                 return;
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            return;
         }
 
         btnLogin.getScene().getWindow().hide();
-        Parent root = FXMLLoader.load(App.class.getResource("app.fxml"));
+
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("app.fxml"));
+        Parent root = loader.load();
 
         Scene appScene = new Scene(root);
         Stage appStage = new Stage();
-        appStage.setTitle("Aproximador");
+        appStage.setTitle("Asare");
 
         appStage.setScene(appScene);
         appStage.initModality(Modality.NONE);
         appStage.initOwner(btnLogin.getScene().getWindow());
         appStage.show();
 
+        controller = loader.getController();
+        controller.initConnection(connector);
     }
 
     public void ExitApp(ActionEvent actionEvent) {
@@ -60,6 +66,5 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
     }
 }
