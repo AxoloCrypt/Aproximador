@@ -1,7 +1,10 @@
 package com.asare.data;
 
 
+import java.math.BigDecimal;
 import java.sql.*;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Connector
 {
@@ -34,6 +37,38 @@ public class Connector
         rs = statement.executeQuery("SELECT * FROM users WHERE email ='" + email + "' AND  password = '" + password +"'");
 
         return rs.next();
+    }
+
+    public List<Materials> getUserMaterials(String userEmail) throws SQLException {
+        ResultSet rs;
+        List<Materials> obtainedMaterials = new LinkedList<>();
+
+        rs = statement.executeQuery("SELECT m.name, m.unitCost, m.description, m.amount FROM users JOIN aproximations a on a.idAprox = users.idAprox JOIN materials m on m.idMaterial = a.idMaterial WHERE users.name = '" + userEmail + "'");
+
+        while (rs.next()){
+            obtainedMaterials.add(new Materials(rs.getString(0),
+                    new BigDecimal(rs.getString(1)), rs.getString(2), Integer.parseInt(rs.getString(4))));
+        }
+
+        return obtainedMaterials;
+    }
+
+    public List<Services> getUserServices(String userEmail) throws SQLException {
+        ResultSet rs;
+        List<Services> obtainedMaterials = new LinkedList<>();
+
+        rs = statement.executeQuery("SELECT s.name, s.unitCost, s.description, s.amount FROM users JOIN aproximations a on a.idAprox = users.idAprox JOIN services s on s.idService = a.idService WHERE users.name = '" + userEmail + "'");
+
+        while (rs.next()){
+            obtainedMaterials.add(new Services(rs.getString(0),
+                    new BigDecimal(rs.getString(1)), rs.getString(2), Integer.parseInt(rs.getString(4))));
+        }
+
+        return obtainedMaterials;
+    }
+
+    public List<Aproximation> getUserAproximations(String userEmail){
+
     }
 
     public String showDataFromTable(String tableName){
