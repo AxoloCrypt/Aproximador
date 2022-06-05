@@ -2,6 +2,7 @@ package com.asare.controllers;
 
 import com.asare.app.App;
 import com.asare.data.Connector;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,13 +12,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Border;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -32,13 +33,14 @@ public class LoginController implements Initializable {
     public void openApp(ActionEvent actionEvent) throws IOException {
 
         try {
-            if (!connector.validateUser(txtUsername.getText(), txtPassword.getText()))
+            if (!connector.validateUser(txtUsername.getText(), txtPassword.getText()));
+                wrongUser();
                 return;
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
+        clearColor();
         btnLogin.getScene().getWindow().hide();
         Parent root = FXMLLoader.load(App.class.getResource("app.fxml"));
 
@@ -55,6 +57,26 @@ public class LoginController implements Initializable {
 
     public void ExitApp(ActionEvent actionEvent) {
         System.exit(0);
+    }
+
+
+    private void wrongUser() {
+        ObservableList<String> borderTxt = txtUsername.getStyleClass();
+        ObservableList<String> borderPass = txtPassword.getStyleClass();
+
+        if(!borderTxt.contains("WrongData")) {
+            borderTxt.add("WrongData");
+        }
+        if(!borderPass.contains("WrongData")) {
+            borderPass.add("WrongData");
+        }
+    }
+
+    private void clearColor() {
+        ObservableList<String> clearBorderTxt = txtUsername.getStyleClass();
+        ObservableList<String> clearPassTxt = txtPassword.getStyleClass();
+        clearBorderTxt.removeAll(Collections.singleton("Wrong Data"));
+        clearPassTxt.removeAll(Collections.singleton("Wrong Data"));
     }
 
 
