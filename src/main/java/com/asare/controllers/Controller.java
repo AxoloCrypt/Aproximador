@@ -1,8 +1,7 @@
-package com.aproximador.controllers;
+package com.asare.controllers;
 
-import com.aproximador.app.App;
-import com.aproximador.data.*;
-import com.aproximador.view.AproximationTab;
+import com.asare.app.App;
+import com.asare.data.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;

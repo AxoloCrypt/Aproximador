@@ -1,4 +1,4 @@
-package com.aproximador.data;
+package com.asare.data;
 
 public class User
 {
