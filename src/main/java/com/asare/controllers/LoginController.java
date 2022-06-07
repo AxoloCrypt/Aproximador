@@ -43,7 +43,6 @@ public class LoginController implements Initializable {
             throwables.printStackTrace();
             return;
         }
-        clearColor();
         btnLogin.getScene().getWindow().hide();
 
         FXMLLoader loader = new FXMLLoader(App.class.getResource("app.fxml"));
@@ -62,32 +61,33 @@ public class LoginController implements Initializable {
         controller.initConnection(connector);
     }
 
-    public void ExitApp(ActionEvent actionEvent) {
+    public void ExitApp() {
         System.exit(0);
     }
 
 
     private void wrongUser() {
-        ObservableList<String> borderTxt = txtEmail.getStyleClass();
-        ObservableList<String> borderPass = txtPassword.getStyleClass();
 
-        if(!borderTxt.contains("WrongData")) {
-            borderTxt.add("WrongData");
-        }
-        if(!borderPass.contains("WrongData")) {
-            borderPass.add("WrongData");
-        }
+        txtEmail.setStyle("-fx-border-color: red;" +
+                "-fx-border-width: 2px;");
+
+        txtPassword.setStyle("-fx-border-color: red;" +
+                "-fx-border-width: 2px");
+
     }
-
-    private void clearColor() {
-        ObservableList<String> clearBorderTxt = txtEmail.getStyleClass();
-        ObservableList<String> clearPassTxt = txtPassword.getStyleClass();
-        clearBorderTxt.removeAll(Collections.singleton("Wrong Data"));
-        clearPassTxt.removeAll(Collections.singleton("Wrong Data"));
-    }
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        txtEmail.setOnMouseClicked(event -> {
+            txtEmail.setStyle(null);
+            txtPassword.setStyle(null);
+        });
+
+        txtPassword.setOnMouseClicked(event -> {
+            txtPassword.setStyle(null);
+            txtEmail.setStyle(null);
+        });
+
     }
 }
