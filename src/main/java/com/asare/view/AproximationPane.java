@@ -33,9 +33,10 @@ public class AproximationPane extends DialogPane {
                 if (aproximation.getDateCreation().isEqual(this.dateCreation)){
 
                     AproximationTab aproximationTab = new AproximationTab(aproximation.getName(),
-                            aproximation.getNumberMaterials(), aproximation.getNumberServices(),aproximation.getTotalCost().toString(), aproximation.getRecords());
+                            aproximation.getNumberMaterials(), aproximation.getNumberServices(),aproximation.getTotalCost().toString(), aproximation.getRecords(), controller);
 
                     controller.getTabAproximations().getTabs().add(aproximationTab);
+                    controller.getAproximations().add(new Aproximation());
                 }
 
             }
