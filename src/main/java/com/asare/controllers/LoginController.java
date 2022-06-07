@@ -68,11 +68,11 @@ public class LoginController implements Initializable {
 
     private void wrongUser() {
 
-        txtEmail.setStyle("-fx-border-color: red;" +
-                "-fx-border-width: 2px;");
+        txtEmail.setStyle("-fx-border-color: rgb(229,29,78);" +
+                "-fx-border-width: 1px;");
 
-        txtPassword.setStyle("-fx-border-color: red;" +
-                "-fx-border-width: 2px");
+        txtPassword.setStyle("-fx-border-color: rgb(229,29,78);" +
+                "-fx-border-width: 1px");
 
     }
 
