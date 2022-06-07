@@ -33,12 +33,16 @@ public class LoginController implements Initializable {
     @FXML private TextField txtEmail;
     @FXML private PasswordField txtPassword;
     @FXML private Label lblError;
+    @FXML private Label lblEmail;
+
+    private static boolean invalidLogin = false;
 
 
     public void openApp(ActionEvent actionEvent) throws IOException {
 
         try {
             if (!connector.validateUser(txtEmail.getText(), txtPassword.getText())){
+                invalidLogin = true;
                 wrongUser();
                 return;
             }
@@ -77,9 +81,7 @@ public class LoginController implements Initializable {
         txtPassword.setStyle("-fx-border-color: rgb(229,29,78);" +
                 "-fx-border-width: 1px");
         lblError.setVisible(true);
-        txtEmail.setTranslateY(txtEmail.getTranslateY() + 10);
-
-
+        lblEmail.setTranslateY(lblEmail.getTranslateY() - 5);
     }
 
     @Override
@@ -90,11 +92,25 @@ public class LoginController implements Initializable {
         txtEmail.setOnMouseClicked(event -> {
             txtEmail.setStyle(null);
             txtPassword.setStyle(null);
+
+            if(invalidLogin){
+                lblEmail.setTranslateY(lblEmail.getTranslateY() + 5);
+                invalidLogin = false;
+                lblError.setVisible(false);
+            }
+
         });
 
         txtPassword.setOnMouseClicked(event -> {
             txtPassword.setStyle(null);
             txtEmail.setStyle(null);
+
+            if(invalidLogin){
+                lblEmail.setTranslateY(lblEmail.getTranslateY() + 5);
+                invalidLogin = false;
+                lblError.setVisible(false);
+            }
+
         });
 
     }
