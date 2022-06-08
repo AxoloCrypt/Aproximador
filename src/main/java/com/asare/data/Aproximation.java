@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Aproximation
 {
@@ -45,6 +46,7 @@ public class Aproximation
         this.numberMaterials = numberMaterials;
         this.numberServices = numberServices;
         this.dateCreation = dateCreation;
+        records = new ArrayList<>();
     }
 
     /*
@@ -123,5 +125,18 @@ public class Aproximation
 
     public void setDateCreation(LocalDateTime dateCreation) {
         this.dateCreation = dateCreation;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Aproximation that = (Aproximation) o;
+        return getNumberMaterials() == that.getNumberMaterials() && getNumberServices() == that.getNumberServices() && getName().equals(that.getName()) && getTotalCost().equals(that.getTotalCost()) && getDateCreation().equals(that.getDateCreation());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getTotalCost(), getNumberMaterials(), getNumberServices(), getDateCreation());
     }
 }

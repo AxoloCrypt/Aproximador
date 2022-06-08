@@ -1,9 +1,8 @@
 package com.asare.data;
 
-
-import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,12 +10,12 @@ public class Connector
 {
     private String username;
     private String password;
-    private String query;
     private final Connection connection;
     private Statement statement;
 
     private final String url = "jdbc:mysql://52.53.177.118/aproximador";
     private static ResultSet rs;
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
 
 
@@ -42,7 +41,7 @@ public class Connector
     public List<Materials> getUserMaterials(String userEmail) throws SQLException {
         List<Materials> obtainedMaterials = new LinkedList<>();
 
-        rs = statement.executeQuery("SELECT m.name, m.unitCost, m.description, m.amount FROM users JOIN aproximations a on a.idAprox = users.idAprox JOIN materials m on m.idMaterial = a.idMaterial WHERE users.name = '" + userEmail + "'");
+        rs = statement.executeQuery("SELECT m.name, m.unitCost, m.description, m.amount FROM users JOIN aproximations a on a.idAprox = users.idAprox JOIN materials m on m.idMaterial = a.idMaterial WHERE users.email = '" + userEmail + "'");
 
         while (rs.next()){
             obtainedMaterials.add(new Materials(rs.getString("name"),
@@ -55,7 +54,7 @@ public class Connector
     public List<Services> getUserServices(String userEmail) throws SQLException {
         List<Services> obtainedMaterials = new LinkedList<>();
 
-        rs = statement.executeQuery("SELECT s.name, s.unitCost, s.description, s.amount FROM users JOIN aproximations a on a.idAprox = users.idAprox JOIN services s on s.idService = a.idService WHERE users.name = '" + userEmail + "'");
+        rs = statement.executeQuery("SELECT s.name, s.unitCost, s.description, s.amount FROM users JOIN aproximations a on a.idAprox = users.idAprox JOIN services s on s.idService = a.idService WHERE users.email = '" + userEmail + "'");
 
         while (rs.next()){
             obtainedMaterials.add(new Services(rs.getString("name"),
@@ -68,57 +67,29 @@ public class Connector
     public List<Aproximation> getUserAproximations(String userEmail) throws SQLException {
         List<Aproximation> aproximations = new LinkedList<>();
 
-        rs = statement.executeQuery("SELECT a.name ,a.totalCost, a.numberMaterials, a.numberServices ,a.description, a.date FROM users u JOIN aproximations a on users.idAprox = a.idAprox WHERE u.email = '" + userEmail + "'");
+        rs = statement.executeQuery("SELECT a.name ,a.totalCost, a.numberMaterials, a.numberServices , a.date FROM users u JOIN aproximations a on u.idAprox = a.idAprox WHERE u.email = '" + userEmail + "'");
 
 
         while (rs.next()){
             aproximations.add(new Aproximation(rs.getString("name"),
                     rs.getBigDecimal("totalCost"), rs.getInt("numberMaterials"), rs.getInt("numberServices"),
-                    LocalDateTime.parse(rs.getString("date"))));
+                    LocalDateTime.parse(rs.getString("date"), formatter)));
         }
 
+        rs = statement.executeQuery("SELECT m.name, m.unitCost, m.description, m.amount FROM materials m JOIN aproximations a on m.idMaterial = a.idMaterial JOIN users u on a.idAprox = u.idAprox WHERE email = '" + userEmail + "'");
+
+
+        for (int i = 0; rs.next(); i++){
+            aproximations.get(i).getRecords().add(new Materials(rs.getString("name"), rs.getBigDecimal("unitCost"), rs.getString("description"), rs.getInt("amount")));
+        }
+
+        rs = statement.executeQuery("SELECT s.* FROM services s JOIN aproximations a on s.idService = a.idService JOIN users u on a.idAprox = u.idAprox WHERE email = '" + userEmail + "'");
+
+        for (int i = 0; rs.next(); i++){
+            aproximations.get(i).getRecords().add(new Services(rs.getString("name"), rs.getBigDecimal("unitCost"), rs.getString("description"), rs.getInt("amount")));
+        }
 
         return aproximations;
-    }
-
-    public String showDataFromTable(String tableName){
-
-        StringBuilder sb = new StringBuilder();
-        int index = 1;
-
-        try {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM " + tableName + " WHERE company = 'Cum Company'" +"  LIMIT 3;");
-
-            while (resultSet.next()){
-
-                for (int i = 1; i < 2; i++){
-                    sb.append(resultSet.getString(i)).append("\n");
-                }
-                //index++;
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return sb.toString();
-    }
-
-    public String makeQuery(String query){
-        StringBuilder sb = new StringBuilder();
-
-        try{
-            ResultSet resultSet = statement.executeQuery(query);
-
-            while (resultSet.next()){
-                for (int i = 1; i < 2; i++){
-                    sb.append(resultSet.getString(i)).append("\n");
-                }
-            }
-
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        return sb.toString();
     }
 
 

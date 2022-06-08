@@ -26,6 +26,8 @@ public class RecordPane extends DialogPane {
     private BigDecimal originalCost;
     private BigDecimal currentCost;
 
+
+    // For record section
     public RecordPane(String recordName, String cost, String description, Controller controller, boolean isMaterial){
 
         lblName = new Label(recordName);
@@ -74,6 +76,7 @@ public class RecordPane extends DialogPane {
 
     }
 
+    //For aproximations pane
     public RecordPane(String recordName, BigDecimal cost, String description, Controller controller, boolean isMaterial){
         this.setHeader(new Label(recordName));
         originalCost = cost;
