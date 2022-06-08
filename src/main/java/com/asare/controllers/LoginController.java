@@ -2,6 +2,7 @@ package com.asare.controllers;
 
 import com.asare.app.*;
 import com.asare.data.Connector;
+import com.asare.data.User;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -53,7 +54,13 @@ public class LoginController implements Initializable {
         btnLogin.getScene().getWindow().hide();
 
         FXMLLoader loader = new FXMLLoader(App.class.getResource("app.fxml"));
+
+
+        User user = new User(txtEmail.getText(), txtPassword.getText());
+
         Parent root = loader.load();
+        controller = loader.getController();
+        controller.initConnection(connector, user);
 
         Scene appScene = new Scene(root);
         Stage appStage = new Stage();
@@ -63,9 +70,6 @@ public class LoginController implements Initializable {
         appStage.initModality(Modality.NONE);
         appStage.initOwner(btnLogin.getScene().getWindow());
         appStage.show();
-
-        controller = loader.getController();
-        controller.initConnection(connector);
     }
 
     public void ExitApp() {

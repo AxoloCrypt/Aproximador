@@ -2,6 +2,8 @@ package com.asare.controllers;
 
 import com.asare.app.App;
 import com.asare.data.*;
+import com.asare.view.AproximationPane;
+import com.asare.view.RecordPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,6 +16,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -25,6 +28,7 @@ public class Controller implements Initializable
     private final History history = new History();
     private Connector connector;
     private final List<Aproximation> aproximations = new ArrayList<>();
+    private User user;
 
     @FXML AddRecordController addRecordController;
     @FXML CreateAproximationController createAproximationController;
@@ -77,8 +81,47 @@ public class Controller implements Initializable
         createAproximationController.init(this);
     }
 
-    public void initConnection(Connector connector){
+    public void initConnection(Connector connector, User user){
         this.connector = connector;
+        this.user = user;
+
+        try {
+            initializeMaterials();
+            initializeServices();
+            initializeAproximations();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    private void initializeMaterials() throws SQLException {
+        materials.setRecords(connector.getUserMaterials(user.getEmail()));
+
+        for (Materials material : materials.getRecords()){
+            vBoxMaterials.getChildren().add(new RecordPane(material.getName(), material.getUnitCost().toString(), material.getDescription(), this, true));
+        }
+
+    }
+
+    private void initializeServices() throws SQLException{
+        services.setRecords(connector.getUserServices(user.getEmail()));
+
+        for (Services service : services.getRecords()){
+            vBoxServices.getChildren().add(new RecordPane(service.getName(), service.getUnitCost().toString(), service.getDescription(), this, false));
+        }
+
+    }
+
+    private void initializeAproximations() throws SQLException{
+
+        history.setSavedAproximations(connector.getUserAproximations(user.getEmail()));
+
+        for (Aproximation aproximation : history.getSavedAproximations()){
+
+            vBoxHistory.getChildren().add(new AproximationPane(aproximation.getName(), aproximation.getDateCreation(), this));
+
+        }
+
     }
 
     @Override
