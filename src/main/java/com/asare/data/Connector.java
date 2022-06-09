@@ -92,5 +92,29 @@ public class Connector
         return aproximations;
     }
 
+    public boolean saveAproximation(Aproximation aproximation) throws SQLException {
+
+        int succed = 0;
+
+        for(Record<?> record: aproximation.getRecords()){
+
+            if(record instanceof Materials){
+
+                statement.executeUpdate("INSERT INTO materials m (m.name, m.unitCost, m.description, m.amount) VALUE ('" + record.getName() + "', '" + record.getUnitCost()
+                        + "', '" + record.getDescription() + "'," + record.getAmount() + ")");
+
+            }
+            else if (record instanceof Services){
+
+                succed = statement.executeUpdate("INSERT INTO services s (s.name, s.unitCost, s.description, s.amount) VALUE ('" + record.getName() + "', '" + record.getUnitCost()
+                        + "', '" + record.getDescription() + "'," + record.getAmount() + ")");
+            }
+
+        }
+
+        return succed == 1;
+    }
+
+
 
 }
