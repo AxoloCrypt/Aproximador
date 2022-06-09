@@ -67,14 +67,9 @@
             <Insets left="18.0" />
          </GridPane.margin>
       </Label>
-      <ImageView GridPane.rowIndex="4">
-         <image>
-            <Image url="@../../../../../../../../Downloads/Asare.png" />
-         </image>
-      </ImageView>
       <ImageView fitHeight="200.0" fitWidth="178.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
          <image>
-            <Image url="@../../../../../../../../Downloads/logoAsare.png" />
+            <Image url="@../images/Logo.png" />
          </image>
       </ImageView>
    </children>
