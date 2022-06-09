@@ -1,0 +1,11 @@
+.modBar
+{
+    -fx-background-color: linear-gradient(to right,rgb(120, 61, 128),rgb(156,28,188));
+}
+
+.modItem .label
+{
+    -fx-font-family: Arial;
+    -fx-font-size: 11px;
+    -fx-text-fill: white;
+}

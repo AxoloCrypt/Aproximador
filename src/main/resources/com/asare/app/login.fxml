@@ -5,12 +5,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="339.0" prefWidth="429.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asare.controllers.LoginController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="339.0" prefWidth="429.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asare.controllers.LoginController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -20,8 +22,9 @@
     <RowConstraints maxHeight="57.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="52.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="79.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="116.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="135.0" minHeight="10.0" prefHeight="134.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="79.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="116.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="135.0" minHeight="10.0" prefHeight="134.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <Label fx:id="lblTitle" text="Login" GridPane.columnIndex="1" GridPane.halignment="CENTER">
@@ -44,17 +47,17 @@
             <Insets bottom="10.0" left="35.0" />
          </GridPane.margin>
       </Label>
-      <PasswordField fx:id="TxtPass" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.valignment="TOP">
+      <PasswordField fx:id="TxtPass" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets left="35.0" right="35.0" />
          </GridPane.margin>
       </PasswordField>
-      <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#openApp" text="Log in" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP">
+      <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#openApp" text="Log in" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets top="10.0" />
          </GridPane.margin>
       </Button>
-      <Button fx:id="btnExit" mnemonicParsing="false" onAction="#ExitApp" prefHeight="12.0" prefWidth="37.0" text="Exit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP">
+      <Button fx:id="btnExit" mnemonicParsing="false" onAction="#ExitApp" prefHeight="12.0" prefWidth="37.0" text="Exit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets top="40.0" />
          </GridPane.margin>
@@ -64,5 +67,15 @@
             <Insets left="18.0" />
          </GridPane.margin>
       </Label>
+      <ImageView GridPane.rowIndex="4">
+         <image>
+            <Image url="@../../../../../../../../Downloads/Asare.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="200.0" fitWidth="178.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+         <image>
+            <Image url="@../../../../../../../../Downloads/logoAsare.png" />
+         </image>
+      </ImageView>
    </children>
 </GridPane>
