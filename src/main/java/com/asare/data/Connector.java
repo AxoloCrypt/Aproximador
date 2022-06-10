@@ -16,6 +16,8 @@ public class Connector
     private final String url = "jdbc:mysql://52.53.177.118/aproximador";
     private static ResultSet rs;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final List<Integer> materialsIds = new LinkedList<>();
+    private static final List<Integer> servicesIds = new LinkedList<>();
 
 
 
@@ -92,29 +94,101 @@ public class Connector
         return aproximations;
     }
 
-    public boolean saveAproximation(Aproximation aproximation) throws SQLException {
+    public boolean saveAproximation(Aproximation aproximation, User user) {
 
-        int succed = 0;
+        if(!materialsIds.isEmpty())
+            materialsIds.clear();
+        if(!servicesIds.isEmpty())
+            servicesIds.clear();
 
-        for(Record<?> record: aproximation.getRecords()){
+       try{
+           rs = statement.executeQuery("SELECT COUNT(1) FROM materials"); // get n rows of the table materials
+           rs.next();
+           int rowsMaterials = rs.getInt(1);
 
-            if(record instanceof Materials){
+           System.out.println(rowsMaterials);
 
-                statement.executeUpdate("INSERT INTO materials m (m.name, m.unitCost, m.description, m.amount) VALUE ('" + record.getName() + "', '" + record.getUnitCost()
-                        + "', '" + record.getDescription() + "'," + record.getAmount() + ")");
+           rs = statement.executeQuery("SELECT  COUNT(1) FROM services"); // get n roms of the table services
+           rs.next();
+           int rowsServices = rs.getInt(1);
 
-            }
-            else if (record instanceof Services){
+           System.out.println(rowsServices);
 
-                succed = statement.executeUpdate("INSERT INTO services s (s.name, s.unitCost, s.description, s.amount) VALUE ('" + record.getName() + "', '" + record.getUnitCost()
-                        + "', '" + record.getDescription() + "'," + record.getAmount() + ")");
-            }
 
-        }
+           for(Record<?> record: aproximation.getRecords()){
 
-        return succed == 1;
+               if(record instanceof Materials){
+
+                   statement.executeUpdate("INSERT INTO materials (name, unitCost, description, amount) VALUES ('" + record.getName() + "', " + record.getUnitCost()
+                           + ", '" + record.getDescription() + "'," + record.getAmount() + ")");
+                   rowsMaterials += 1;
+                   materialsIds.add(rowsMaterials);
+
+               }
+               else if (record instanceof Services){
+
+                   statement.executeUpdate("INSERT INTO services (name, unitCost, description, amount) VALUES ('" + record.getName() + "', '" + record.getUnitCost()
+                           + "', '" + record.getDescription() + "'," + record.getAmount() + ")");
+                   rowsServices += 1;
+                   servicesIds.add(rowsServices);
+               }
+
+           }
+
+           int maxRows = Math.max(materialsIds.size(), servicesIds.size());
+           int minRows = Math.min(materialsIds.size(), servicesIds.size());
+
+           System.out.println(maxRows);
+           System.out.println(minRows);
+
+           boolean isMaterial = maxRows == materialsIds.size();
+
+           for(int i = 0; i < maxRows; i++){
+
+               System.out.println(i);
+
+               if (isMaterial){
+                   statement.executeUpdate("INSERT INTO aproximations (name, totalCost, numberMaterials, numberServices, description, date, idMaterial) VALUES ('" +
+                           aproximation.getName() +"', '" + aproximation.getTotalCost() + "'," + aproximation.getNumberMaterials() + ", "
+                           + aproximation.getNumberServices() +", 'err', '"+aproximation.getDateCreation() + "'," + materialsIds.get(i)+ ")");
+               }
+               else
+               {
+                   statement.executeUpdate("INSERT INTO aproximations (name, totalCost, numberMaterials, numberServices, description, date, idService) VALUES ('" +
+                           aproximation.getName() +"', '" + aproximation.getTotalCost() + "'," + aproximation.getNumberMaterials() + ", "
+                           + aproximation.getNumberServices() +", 'err', '"+aproximation.getDateCreation() + "'," + servicesIds.get(i)+ ")");
+               }
+           }
+
+           for (int i = 0; i < minRows; i++){
+
+               if(isMaterial){
+
+                   statement.executeUpdate("UPDATE aproximations SET idService = " + servicesIds.get(i) + " WHERE idService IS NULL AND idMaterial = " + materialsIds.get(i));
+               }
+               else {
+                   statement.executeUpdate("UPDATE aproximations SET idMaterial = " + materialsIds.get(i) + " WHERE idMaterial IS NULL AND idService = " + servicesIds.get(i));
+               }
+
+           }
+
+
+
+           rs = statement.executeQuery("SELECT COUNT(1) FROM aproximations"); // get n rows of the table aproximations
+           rs.next();
+           int rowsAproximations = rs.getInt(1);
+
+          // rowsAproximations += 1;
+
+           statement.executeUpdate("INSERT INTO users(name, lastname, company, email, password, idAprox) VALUES ('" +
+                   user.getName() + "', '" + user.getLastname() + "', '" + user.getCompany() + "', '" + user.getEmail() +
+                   "', '" + user.getPassword() + "', " + (rowsAproximations - (maxRows - 1)) + ")");
+
+       }catch(SQLException throwables){
+           throwables.printStackTrace();
+           return false;
+       }
+
+        return true;
     }
-
-
-
 }
