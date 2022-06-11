@@ -3,6 +3,7 @@ package com.asare.view;
 import com.asare.controllers.Controller;
 import com.asare.data.Materials;
 import com.asare.data.Services;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -29,6 +30,8 @@ public class RecordPane extends DialogPane {
 
     // For record section
     public RecordPane(String recordName, String cost, String description, Controller controller, boolean isMaterial){
+
+        this.setStyle("-fx-border-color: rgb(15,19,12)");
 
         lblName = new Label(recordName);
 
@@ -67,12 +70,17 @@ public class RecordPane extends DialogPane {
         });
 
         this.setOnMouseEntered(event -> {
-            this.setStyle("-fx-background-color: black");
+            this.setStyle("-fx-background-color: rgb(210,155,253)"+
+                    (";-fx-border-color: rgb(15,19,12)"));
+
         });
 
         this.setOnMouseExited(event -> {
-            this.setStyle("-fx-background-color: white");
+            this.setStyle("-fx-background-color: rgb(248,248,255)"+
+                    (";-fx-border-color: rgb(15,19,12)"));
+
         });
+
 
     }
 

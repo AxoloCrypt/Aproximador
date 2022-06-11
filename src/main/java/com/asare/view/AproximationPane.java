@@ -15,6 +15,7 @@ public class AproximationPane extends DialogPane {
     private final LocalDateTime dateCreation;
 
     public AproximationPane(String name, LocalDateTime dateCreation, Controller controller) {
+        this.setStyle("-fx-border-color: rgb(15,19,12)");
 
         this.dateCreation = dateCreation;
 
@@ -42,6 +43,16 @@ public class AproximationPane extends DialogPane {
             }
 
         });
+        this.setOnMouseEntered(event -> {
+            this.setStyle("-fx-background-color: rgb(210,155,253)"+
+                    (";-fx-border-color: rgb(15,19,12)"));
+
+        });
+        this.setOnMouseExited(event -> {
+            this.setStyle("-fx-background-color: rgb(248,248,255)"+
+                    (";-fx-border-color: rgb(15,19,12)"));
+        });
+
     }
 
 }
