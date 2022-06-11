@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -69,6 +70,7 @@ public class LoginController implements Initializable {
         appStage.setScene(appScene);
         appStage.initModality(Modality.NONE);
         appStage.initOwner(btnLogin.getScene().getWindow());
+        appStage.getIcons().add(new Image("https://github.com/AxoloCrypt/Asare/blob/test/src/main/resources/com/asare/images/Logo.png?raw=true"));
         appStage.show();
     }
 
@@ -84,6 +86,8 @@ public class LoginController implements Initializable {
 
         txtPassword.setStyle("-fx-border-color: rgb(229,29,78);" +
                 "-fx-border-width: 1px");
+        txtPassword.setText(null);
+
         lblError.setVisible(true);
         lblEmail.setTranslateY(lblEmail.getTranslateY() - 5);
     }
