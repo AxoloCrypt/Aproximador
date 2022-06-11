@@ -100,6 +100,7 @@ public class Controller implements Initializable
 
         for (Materials material : materials.getRecords()){
             vBoxMaterials.getChildren().add(new RecordPane(material.getName(), material.getUnitCost().toString(), material.getDescription(), this, true));
+            vBoxMaterials.setSpacing(2);
         }
 
     }
@@ -109,6 +110,7 @@ public class Controller implements Initializable
 
         for (Services service : services.getRecords()){
             vBoxServices.getChildren().add(new RecordPane(service.getName(), service.getUnitCost().toString(), service.getDescription(), this, false));
+            vBoxServices.setSpacing(2);
         }
 
     }
@@ -127,7 +129,10 @@ public class Controller implements Initializable
 
     @Override
      public void initialize(URL location, ResourceBundle resources) {
-
+        vBoxServices.setStyle("-fx-font-family: 'Franklin Gothic Book'"+";-fx-font-size:9pt"+";-fx-text-fill: black");
+        vBoxMaterials.setStyle("-fx-font-family: 'Franklin Gothic Book'"+";-fx-font-size:9pt"+";-fx-text-fill: black");
+        vBoxHistory.setStyle("-fx-font-family: 'Franklin Gothic Book'"+";-fx-font-size:9pt"+";-fx-text-fill: black");
+        vBoxHistory.setSpacing(2);
         btnAddMaterial.setOnAction(event -> {
             try {
                 popUpAddRecord("material");
@@ -143,6 +148,7 @@ public class Controller implements Initializable
                 e.printStackTrace();
             }
         });
+
     }
 
     public VBox getvBoxMaterials() {
@@ -156,6 +162,7 @@ public class Controller implements Initializable
     public TabPane getTabAproximations() {
         return tabAproximations;
     }
+
 
     public Materials getMaterials() {
         return materials;
@@ -186,5 +193,4 @@ public class Controller implements Initializable
     }
 
     public User getUser() {return user;}
-
 }

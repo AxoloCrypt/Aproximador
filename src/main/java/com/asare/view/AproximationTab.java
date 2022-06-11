@@ -28,6 +28,7 @@ public class AproximationTab extends Tab
         super(tabName);
         this.tabname = tabName;
 
+
         vBoxRecords = new VBox();
 
         toolBar = new ToolBar();
@@ -61,6 +62,7 @@ public class AproximationTab extends Tab
             lblTotal.setText("Total " + totalCost.toString());
             lblUsedMaterials.setText("Used Materials: " + aproximation.getNumberMaterials());
             lblUsedServices.setText("Used Services: " + aproximation.getNumberServices());
+
 
         });
 
