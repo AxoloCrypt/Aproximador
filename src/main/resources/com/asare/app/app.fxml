@@ -127,13 +127,13 @@
                                  </content>
                               </ScrollPane>
                            </content>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
                            <styleClass>
                               <String fx:value="title" />
                               <String fx:value="titled-pane" />
                            </styleClass>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
                         </TitledPane>
                      </children>
                   </GridPane>

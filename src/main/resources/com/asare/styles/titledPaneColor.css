@@ -1,5 +1,7 @@
 .titled-pane:focused
 {
+    -fx-font-family: "Franklin Gothic Book";
+    -fx-font-size: 12px;
     -fx-text-fill: white;
 }
 .titled-pane > .title
