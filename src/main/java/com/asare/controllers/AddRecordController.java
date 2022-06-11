@@ -103,6 +103,7 @@ public class AddRecordController implements Initializable
                 try{
                     checkUserInput();
                 }catch (NumberFormatException | EmptyRecordNameException e){
+                    new ErrorPopup(e);
                     return;
                 }
 

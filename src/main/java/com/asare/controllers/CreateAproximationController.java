@@ -3,6 +3,7 @@ package com.asare.controllers;
 import com.asare.data.Aproximation;
 import com.asare.exceptions.EmptyAproximationNameException;
 import com.asare.view.AproximationTab;
+import com.asare.view.ErrorPopup;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -52,7 +53,7 @@ public class CreateAproximationController implements Initializable
                         throw new EmptyAproximationNameException();
 
                 }catch (EmptyAproximationNameException e){
-                    e.printStackTrace();
+                    new ErrorPopup(e);
                     return;
                 }
 

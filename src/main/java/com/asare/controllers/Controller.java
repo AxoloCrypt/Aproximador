@@ -3,6 +3,7 @@ package com.asare.controllers;
 import com.asare.app.App;
 import com.asare.data.*;
 import com.asare.view.AproximationPane;
+import com.asare.view.ErrorPopup;
 import com.asare.view.RecordPane;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -90,7 +91,7 @@ public class Controller implements Initializable
             initializeServices();
             initializeAproximations();
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            new ErrorPopup(throwables);
         }
     }
 

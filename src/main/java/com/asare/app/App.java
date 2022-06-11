@@ -21,7 +21,7 @@ public class App extends Application
         primaryStage.getIcons().add(new Image("https://github.com/AxoloCrypt/Asare/blob/test/src/main/resources/com/asare/images/Logo.png?raw=true"));
 
         Scene scene = new Scene(fxmlLoader.load());
-        primaryStage.setTitle("Login");
+        primaryStage.setTitle("Asare");
 
         primaryStage.setScene(scene);
         primaryStage.show();

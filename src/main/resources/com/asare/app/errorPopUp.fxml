@@ -5,10 +5,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="108.0" prefWidth="293.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="108.0" prefWidth="293.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asare.controllers.ErrorController">
    <children>
-      <Label layoutX="36.0" layoutY="27.0" prefHeight="55.0" prefWidth="134.0" text="Label" />
+      <Label fx:id="lblError" layoutY="27.0" prefHeight="55.0" prefWidth="209.0" text="Label" />
       <ImageView fitHeight="55.0" fitWidth="56.0" layoutX="217.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/error-icon.png" />
