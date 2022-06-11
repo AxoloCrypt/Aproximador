@@ -48,6 +48,10 @@ public class AproximationTab extends Tab
         btnCalculate = new Button("Calculate Total");
         //Calculates the total of the current approximation
         btnCalculate.setOnAction(event -> {
+
+            if(btnSave.isDisable())
+                btnSave.setDisable(false);
+
             int tabIndex = controller.getTabAproximations().getSelectionModel().getSelectedIndex();
 
             Aproximation aproximation = controller.getAproximations().get(tabIndex);
@@ -62,6 +66,7 @@ public class AproximationTab extends Tab
 
         btnSave = new Button("Save");
         btnSave.setAlignment(Pos.BOTTOM_RIGHT);
+        btnSave.setDisable(true);
         //Gets the current time and saves the current approximation on history and db
         btnSave.setOnAction(event -> {
 
