@@ -56,7 +56,13 @@ public class LoginController implements Initializable {
         FXMLLoader loader = new FXMLLoader(App.class.getResource("app.fxml"));
 
 
-        User user = new User(txtEmail.getText(), txtPassword.getText());
+        User user;
+
+        try {
+            user = connector.getUserinfo(txtEmail.getText());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         Parent root = loader.load();
         controller = loader.getController();

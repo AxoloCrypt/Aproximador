@@ -40,6 +40,13 @@ public class Connector
         return rs.next();
     }
 
+    public User getUserinfo(String userEmail) throws SQLException{
+        rs = statement.executeQuery("SELECT * FROM users WHERE email = '" + userEmail + "'");
+        rs.next();
+
+        return new User(rs.getString("name"), rs.getString("lastname"), rs.getString("company"), userEmail, rs.getString("password"));
+    }
+
     public List<Materials> getUserMaterials(String userEmail) throws SQLException {
         List<Materials> obtainedMaterials = new LinkedList<>();
 
@@ -69,11 +76,11 @@ public class Connector
     public List<Aproximation> getUserAproximations(String userEmail) throws SQLException {
         List<Aproximation> aproximations = new LinkedList<>();
 
-        rs = statement.executeQuery("SELECT a.name ,a.totalCost, a.numberMaterials, a.numberServices , a.date FROM users u JOIN aproximations a on u.idAprox = a.idAprox WHERE u.email = '" + userEmail + "'");
+        rs = statement.executeQuery("SELECT a.idAprox ,a.name ,a.totalCost, a.numberMaterials, a.numberServices , a.date FROM users u JOIN aproximations a on u.idAprox = a.idAprox WHERE u.email = '" + userEmail + "'");
 
 
         while (rs.next()){
-            aproximations.add(new Aproximation(rs.getString("name"),
+            aproximations.add(new Aproximation(rs.getInt("idAprox"), rs.getString("name"),
                     rs.getBigDecimal("totalCost"), rs.getInt("numberMaterials"), rs.getInt("numberServices"),
                     LocalDateTime.parse(rs.getString("date"), formatter)));
         }
@@ -94,6 +101,20 @@ public class Connector
         return aproximations;
     }
 
+    public int getAproximationRows(){
+
+        int nRows = 0;
+
+        try {
+            rs = statement.executeQuery("SELECT COUNT(1) FROM aproximations");
+            rs.next();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return nRows;
+    }
+
     public boolean saveAproximation(Aproximation aproximation, User user) {
 
         if(!materialsIds.isEmpty())
@@ -106,14 +127,9 @@ public class Connector
            rs.next();
            int rowsMaterials = rs.getInt(1);
 
-           System.out.println(rowsMaterials);
-
            rs = statement.executeQuery("SELECT  COUNT(1) FROM services"); // get n roms of the table services
            rs.next();
            int rowsServices = rs.getInt(1);
-
-           System.out.println(rowsServices);
-
 
            for(Record<?> record: aproximation.getRecords()){
 
@@ -137,9 +153,6 @@ public class Connector
 
            int maxRows = Math.max(materialsIds.size(), servicesIds.size());
            int minRows = Math.min(materialsIds.size(), servicesIds.size());
-
-           System.out.println(maxRows);
-           System.out.println(minRows);
 
            boolean isMaterial = maxRows == materialsIds.size();
 

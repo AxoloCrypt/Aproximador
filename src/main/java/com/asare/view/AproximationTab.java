@@ -62,17 +62,20 @@ public class AproximationTab extends Tab
 
         btnSave = new Button("Save");
         btnSave.setAlignment(Pos.BOTTOM_RIGHT);
-        //Gets the current time and saves the current approximation on history
+        //Gets the current time and saves the current approximation on history and db
         btnSave.setOnAction(event -> {
 
             int tabIndex = controller.getTabAproximations().getSelectionModel().getSelectedIndex();
 
             Aproximation currentAproximation = controller.getAproximations().get(tabIndex);
+            currentAproximation.setIdAprox(controller.getConnector().getAproximationRows() + 1);
 
             Aproximation savedAproximation = new Aproximation(currentAproximation, LocalDateTime.now());
 
             controller.getHistory().addToHistory(savedAproximation);
-            controller.getvBoxHistory().getChildren().add(new AproximationPane(savedAproximation.getName(), savedAproximation.getDateCreation(), controller));
+            controller.getConnector().saveAproximation(savedAproximation, controller.getUser());
+
+            controller.getvBoxHistory().getChildren().add(new AproximationPane(savedAproximation.getIdAprox(), savedAproximation.getName(), savedAproximation.getDateCreation(), controller));
         });
 
         toolBar.getItems().add(btnSave);
