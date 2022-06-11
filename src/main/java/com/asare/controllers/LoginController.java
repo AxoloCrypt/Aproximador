@@ -3,6 +3,7 @@ package com.asare.controllers;
 import com.asare.app.*;
 import com.asare.data.Connector;
 import com.asare.data.User;
+import com.asare.exceptions.InvalidUserException;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,21 +43,31 @@ public class LoginController implements Initializable {
     public void openApp(ActionEvent actionEvent) throws IOException {
 
         try {
-            if (!connector.validateUser(txtEmail.getText(), txtPassword.getText())){
-                invalidLogin = true;
-                wrongUser();
-                return;
-            }
+            if (!connector.validateUser(txtEmail.getText(), txtPassword.getText()))
+                throw new InvalidUserException();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return;
         }
+        catch (InvalidUserException iue){
+            invalidLogin = true;
+            wrongUser();
+            return;
+        }
+
         btnLogin.getScene().getWindow().hide();
 
         FXMLLoader loader = new FXMLLoader(App.class.getResource("app.fxml"));
 
 
-        User user = new User(txtEmail.getText(), txtPassword.getText());
+        User user;
+
+        try {
+            user = connector.getUserinfo(txtEmail.getText());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         Parent root = loader.load();
         controller = loader.getController();

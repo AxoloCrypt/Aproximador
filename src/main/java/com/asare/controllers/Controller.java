@@ -120,7 +120,7 @@ public class Controller implements Initializable
 
         for (Aproximation aproximation : history.getSavedAproximations()){
 
-            vBoxHistory.getChildren().add(new AproximationPane(aproximation.getName(), aproximation.getDateCreation(), this));
+            vBoxHistory.getChildren().add(new AproximationPane(aproximation.getIdAprox(),aproximation.getName(), aproximation.getDateCreation(), this));
 
         }
 
@@ -191,5 +191,5 @@ public class Controller implements Initializable
         return connector;
     }
 
-
+    public User getUser() {return user;}
 }

@@ -23,6 +23,8 @@ class ConnectorTest {
     private List<Aproximation> aproximations;
     private DateTimeFormatter formatter;
 
+    private User testUser2;
+
     @BeforeEach
     void setUp(){
         testConnector = new Connector("juca", "g*$0Pe$h18cyiyJC");
@@ -31,6 +33,7 @@ class ConnectorTest {
         services = new LinkedList<>();
         aproximations = new LinkedList<>();
         formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        testUser2 = new User("Barrett", "Burton", "Ut Consulting", "tempor.lorem.eget@yahoo.couk", "KRC46MQL6FB");
     }
 
     @AfterEach
@@ -117,6 +120,7 @@ class ConnectorTest {
 
          */
 
+        /*
         Aproximation aproximation2 = new Aproximation("TestServicesInsert",
                 new BigDecimal("500.50"), 1, 3, LocalDateTime.now());
 
@@ -127,6 +131,20 @@ class ConnectorTest {
                 new Materials("ANOTHER TEST MATERIAL", new BigDecimal("5.75"), "qeweqweqw", 5));
 
         assertTrue(testConnector.saveAproximation(aproximation2, testUser));
+
+
+         */
+        Aproximation aproximation3 = new Aproximation("Espejo", new BigDecimal("10000"),
+                2, 2, LocalDateTime.now());
+
+        Collections.addAll(aproximation3.getRecords(),
+                new Services("Shipping", new BigDecimal("10.76"), "flkfldkf", 3),
+                new Services("AWS", new BigDecimal("11.76"), "flkfldf", 4),
+                new Materials("Tabla", new BigDecimal("5.75"), "qeweqweqw", 5),
+                new Materials("Cristal", new BigDecimal("5.75"), "qeweqweqw", 5)
+                );
+
+        testConnector.saveAproximation(aproximation3, testUser2);
 
     }
 
