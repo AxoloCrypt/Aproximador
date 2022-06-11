@@ -25,11 +25,11 @@
       <TabPane fx:id="tabAproximations" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgb(248,248,255);" tabClosingPolicy="ALL_TABS" BorderPane.alignment="CENTER" />
    </center>
    <left>
-      <TabPane prefHeight="471.0" prefWidth="220.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane maxHeight="1.7976931348623157E308" prefHeight="471.0" prefWidth="220.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
           <Tab text="Materials &amp; Services">
                <content>
-                  <GridPane prefHeight="471.0" prefWidth="127.0">
+                  <GridPane maxHeight="1.7976931348623157E308" prefHeight="471.0" prefWidth="127.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -38,11 +38,11 @@
                       <RowConstraints maxHeight="268.0" minHeight="10.0" prefHeight="265.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <TitledPane animated="false" prefHeight="240.0" prefWidth="171.0" stylesheets="@../styles/titledPaneColor.css" text="Services" textFill="WHITE" GridPane.rowIndex="1">
+                        <TitledPane maxHeight="1.7976931348623157E308" prefHeight="240.0" prefWidth="171.0" stylesheets="@../styles/titledPaneColor.css" text="Services" textFill="WHITE" GridPane.rowIndex="1">
                            <content>
-                              <ScrollPane prefHeight="221.0" prefWidth="173.0">
+                              <ScrollPane maxHeight="1.7976931348623157E308" prefHeight="221.0" prefWidth="173.0">
                                  <content>
-                                    <VBox fx:id="vBoxServices" prefHeight="210.0" prefWidth="189.0" style="-fx-background-color: rgb(248,248,255);">
+                                    <VBox fx:id="vBoxServices" maxHeight="1.7976931348623157E308" prefHeight="210.0" prefWidth="189.0" style="-fx-background-color: rgb(248,248,255);">
                                        <children>
                                           <FlowPane prefHeight="25.0" prefWidth="196.0">
                                              <children>
@@ -86,11 +86,11 @@
                               <Insets />
                            </opaqueInsets>
                         </TitledPane>
-                        <TitledPane animated="false" prefHeight="240.0" prefWidth="171.0" stylesheets="@../styles/titledPaneColor.css" text="Materials" textFill="WHITE">
+                        <TitledPane maxHeight="1.7976931348623157E308" prefHeight="240.0" prefWidth="171.0" stylesheets="@../styles/titledPaneColor.css" text="Materials" textFill="WHITE">
                            <content>
-                              <ScrollPane prefHeight="221.0" prefWidth="173.0">
+                              <ScrollPane maxHeight="1.7976931348623157E308" prefHeight="221.0" prefWidth="173.0">
                                  <content>
-                                    <VBox fx:id="vBoxMaterials" prefHeight="210.0" prefWidth="189.0" style="-fx-background-color: rgb(248,248,255);">
+                                    <VBox fx:id="vBoxMaterials" maxHeight="1.7976931348623157E308" prefHeight="210.0" prefWidth="189.0" style="-fx-background-color: rgb(248,248,255);">
                                        <children>
                                           <FlowPane prefHeight="25.0" prefWidth="196.0">
                                              <children>
@@ -127,13 +127,13 @@
                                  </content>
                               </ScrollPane>
                            </content>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
                            <styleClass>
                               <String fx:value="title" />
                               <String fx:value="titled-pane" />
                            </styleClass>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
                         </TitledPane>
                      </children>
                   </GridPane>
