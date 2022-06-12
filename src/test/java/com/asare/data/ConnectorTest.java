@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,14 +23,17 @@ class ConnectorTest {
     private List<Aproximation> aproximations;
     private DateTimeFormatter formatter;
 
+    private User testUser2;
+
     @BeforeEach
     void setUp(){
         testConnector = new Connector("juca", "g*$0Pe$h18cyiyJC");
-        testUser = new User("adipiscing.mauris@yahoo.org", "BNL84PNT7HH");
+        testUser = new User("Pamela","Quách", "Praesent Interdum Foundation","adipiscing.mauris@yahoo.org", "BNL84PNT7HH");
         materials = new LinkedList<>();
         services = new LinkedList<>();
         aproximations = new LinkedList<>();
         formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        testUser2 = new User("Barrett", "Burton", "Ut Consulting", "tempor.lorem.eget@yahoo.couk", "KRC46MQL6FB");
     }
 
     @AfterEach
@@ -99,4 +103,49 @@ class ConnectorTest {
         }
 
     }
+
+    @Test
+    void saveAproximation(){
+        Aproximation aproximation = new Aproximation("TestTestInsert", new BigDecimal("100.50"), 3,
+                1, LocalDateTime.now());
+        /*
+        Collections.addAll(aproximation.getRecords(),
+                new Materials("Some Test Material", new BigDecimal("0.50"), "goes brrr", 1),
+                new Materials("Some Test extra Material", new BigDecimal("0.76"), "makes brrr", 3),
+                new Materials("Some Test extra extra Material", new BigDecimal("0.89"), "sounds brrr", 4));
+
+        aproximation.getRecords().add(new Services("Some Test Service", new BigDecimal("100.00"), " goes rrr", 1));
+
+        assertTrue(testConnector.saveAproximation(aproximation, testUser.getEmail()));
+
+         */
+
+        /*
+        Aproximation aproximation2 = new Aproximation("TestServicesInsert",
+                new BigDecimal("500.50"), 1, 3, LocalDateTime.now());
+
+        Collections.addAll(aproximation2.getRecords(),
+                new Services("Another Test Service", new BigDecimal("10.76"), "flkfldkf", 3),
+                new Services("Another Test Test Service", new BigDecimal("11.76"), "flkfldf", 4),
+                new Services("Another Test TEST Service", new BigDecimal("12.76"), "flkfldkf", 3),
+                new Materials("ANOTHER TEST MATERIAL", new BigDecimal("5.75"), "qeweqweqw", 5));
+
+        assertTrue(testConnector.saveAproximation(aproximation2, testUser));
+
+
+         */
+        Aproximation aproximation3 = new Aproximation("Espejo", new BigDecimal("10000"),
+                2, 2, LocalDateTime.now());
+
+        Collections.addAll(aproximation3.getRecords(),
+                new Services("Shipping", new BigDecimal("10.76"), "flkfldkf", 3),
+                new Services("AWS", new BigDecimal("11.76"), "flkfldf", 4),
+                new Materials("Tabla", new BigDecimal("5.75"), "qeweqweqw", 5),
+                new Materials("Cristal", new BigDecimal("5.75"), "qeweqweqw", 5)
+                );
+
+        testConnector.saveAproximation(aproximation3, testUser2);
+
+    }
+
 }

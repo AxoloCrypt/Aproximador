@@ -28,6 +28,7 @@ public class AproximationTab extends Tab
         super(tabName);
         this.tabname = tabName;
 
+
         vBoxRecords = new VBox();
 
         toolBar = new ToolBar();
@@ -48,6 +49,10 @@ public class AproximationTab extends Tab
         btnCalculate = new Button("Calculate Total");
         //Calculates the total of the current approximation
         btnCalculate.setOnAction(event -> {
+
+            if(btnSave.isDisable())
+                btnSave.setDisable(false);
+
             int tabIndex = controller.getTabAproximations().getSelectionModel().getSelectedIndex();
 
             Aproximation aproximation = controller.getAproximations().get(tabIndex);
@@ -58,21 +63,26 @@ public class AproximationTab extends Tab
             lblUsedMaterials.setText("Used Materials: " + aproximation.getNumberMaterials());
             lblUsedServices.setText("Used Services: " + aproximation.getNumberServices());
 
+
         });
 
         btnSave = new Button("Save");
         btnSave.setAlignment(Pos.BOTTOM_RIGHT);
-        //Gets the current time and saves the current approximation on history
+        btnSave.setDisable(true);
+        //Gets the current time and saves the current approximation on history and db
         btnSave.setOnAction(event -> {
 
             int tabIndex = controller.getTabAproximations().getSelectionModel().getSelectedIndex();
 
             Aproximation currentAproximation = controller.getAproximations().get(tabIndex);
+            currentAproximation.setIdAprox(controller.getConnector().getAproximationRows() + 1);
 
             Aproximation savedAproximation = new Aproximation(currentAproximation, LocalDateTime.now());
 
             controller.getHistory().addToHistory(savedAproximation);
-            controller.getvBoxHistory().getChildren().add(new AproximationPane(savedAproximation.getName(), savedAproximation.getDateCreation(), controller));
+            controller.getConnector().saveAproximation(savedAproximation, controller.getUser());
+
+            controller.getvBoxHistory().getChildren().add(new AproximationPane(savedAproximation.getIdAprox(), savedAproximation.getName(), savedAproximation.getDateCreation(), controller));
         });
 
         toolBar.getItems().add(btnSave);

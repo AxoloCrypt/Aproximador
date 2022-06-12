@@ -3,17 +3,20 @@ package com.asare.controllers;
 import com.asare.app.*;
 import com.asare.data.Connector;
 import com.asare.data.User;
+import com.asare.exceptions.InvalidUserException;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -36,27 +39,39 @@ public class LoginController implements Initializable {
     @FXML private Label lblError;
     @FXML private Label lblEmail;
 
+    @FXML private Label lblCreateAccount;
+
     private static boolean invalidLogin = false;
 
 
     public void openApp(ActionEvent actionEvent) throws IOException {
 
         try {
-            if (!connector.validateUser(txtEmail.getText(), txtPassword.getText())){
-                invalidLogin = true;
-                wrongUser();
-                return;
-            }
+            if (!connector.validateUser(txtEmail.getText(), txtPassword.getText()))
+                throw new InvalidUserException();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return;
         }
+        catch (InvalidUserException iue){
+            invalidLogin = true;
+            wrongUser();
+            return;
+        }
+
         btnLogin.getScene().getWindow().hide();
 
         FXMLLoader loader = new FXMLLoader(App.class.getResource("app.fxml"));
 
 
-        User user = new User(txtEmail.getText(), txtPassword.getText());
+        User user;
+
+        try {
+            user = connector.getUserinfo(txtEmail.getText());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         Parent root = loader.load();
         controller = loader.getController();
@@ -69,6 +84,7 @@ public class LoginController implements Initializable {
         appStage.setScene(appScene);
         appStage.initModality(Modality.NONE);
         appStage.initOwner(btnLogin.getScene().getWindow());
+        appStage.getIcons().add(new Image("https://github.com/AxoloCrypt/Asare/blob/test/src/main/resources/com/asare/images/Logo.png?raw=true"));
         appStage.show();
     }
 
@@ -84,8 +100,17 @@ public class LoginController implements Initializable {
 
         txtPassword.setStyle("-fx-border-color: rgb(229,29,78);" +
                 "-fx-border-width: 1px");
+        txtPassword.setText(null);
+
         lblError.setVisible(true);
         lblEmail.setTranslateY(lblEmail.getTranslateY() - 5);
+    }
+
+    private void changeToSignUpScene(){
+
+
+
+
     }
 
     @Override
@@ -114,6 +139,25 @@ public class LoginController implements Initializable {
                 invalidLogin = false;
                 lblError.setVisible(false);
             }
+
+        });
+
+        lblCreateAccount.setOnMouseClicked(event -> {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("signUp.fxml"));
+            Parent root;
+
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+            SignUpController signUpController = loader.getController();
+            signUpController.init(connector);
 
         });
 

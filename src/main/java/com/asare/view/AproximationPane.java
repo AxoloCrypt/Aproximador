@@ -13,10 +13,13 @@ import java.time.format.DateTimeFormatter;
 public class AproximationPane extends DialogPane {
 
     private final LocalDateTime dateCreation;
+    private final int idAprox;
 
-    public AproximationPane(String name, LocalDateTime dateCreation, Controller controller) {
 
+    public AproximationPane(int idAprox,String name, LocalDateTime dateCreation, Controller controller) {
+        this.setStyle("-fx-border-color: rgb(15,19,12)");
         this.dateCreation = dateCreation;
+        this.idAprox = idAprox;
 
         Label lblName = new Label(name);
 
@@ -30,7 +33,7 @@ public class AproximationPane extends DialogPane {
 
             for (Aproximation aproximation : controller.getHistory().getSavedAproximations()){
 
-                if (aproximation.getDateCreation().isEqual(this.dateCreation)){
+                if (aproximation.getDateCreation().isEqual(this.dateCreation) && aproximation.getIdAprox() == idAprox){
 
                     AproximationTab aproximationTab = new AproximationTab(aproximation.getName(),
                             aproximation.getNumberMaterials(), aproximation.getNumberServices(),aproximation.getTotalCost().toString(), aproximation.getRecords(), controller);
@@ -42,6 +45,16 @@ public class AproximationPane extends DialogPane {
             }
 
         });
+        this.setOnMouseEntered(event -> {
+            this.setStyle("-fx-background-color: rgb(210,155,253)"+
+                    (";-fx-border-color: rgb(15,19,12)"));
+
+        });
+        this.setOnMouseExited(event -> {
+            this.setStyle("-fx-background-color: rgb(248,248,255)"+
+                    (";-fx-border-color: rgb(15,19,12)"));
+        });
+
     }
 
 }

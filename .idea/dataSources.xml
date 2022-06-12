@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="AproximadorDB" uuid="5404dfe1-5006-4440-b2fd-3ded16d31d3f">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://52.53.177.118 :3306/test_connection</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
     <data-source source="LOCAL" name="aproximador@52.53.177.118" uuid="7e5df489-5e1d-4b51-a33c-0b059aa0b4e5">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>

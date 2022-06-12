@@ -2,6 +2,7 @@ package com.asare.controllers;
 
 import com.asare.data.Materials;
 import com.asare.data.Services;
+import com.asare.exceptions.EmptyRecordNameException;
 import com.asare.view.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,8 +17,6 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
-;
 
 public class AddRecordController implements Initializable
 {
@@ -58,6 +57,15 @@ public class AddRecordController implements Initializable
 
     }
 
+    private void checkUserInput() throws NumberFormatException, EmptyRecordNameException {
+
+        if(txtName == null || txtName.getText().trim().isEmpty())
+            throw new EmptyRecordNameException();
+
+        if(!txtCost.getText().matches(".*\\d.*"))
+            throw new NumberFormatException();
+    }
+
     /*
     Set the main controller to communicate each other and the record type
      */
@@ -91,6 +99,14 @@ public class AddRecordController implements Initializable
 
         txtDescription.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER){
+
+                try{
+                    checkUserInput();
+                }catch (NumberFormatException | EmptyRecordNameException e){
+                    new ErrorPopup(e);
+                    return;
+                }
+
                 txtDescription.setDisable(true);
                 Stage stage = (Stage) txtDescription.getScene().getWindow();
                 registerRecord();

@@ -9,6 +9,8 @@ public abstract class Record <T>
 {
     private String name;
     private BigDecimal unitCost;
+
+    private BigDecimal calculateCost;
     private String description;
     private List<T> records;
     private int amount;
@@ -18,6 +20,7 @@ public abstract class Record <T>
     {
         this.name = name;
         this.unitCost = unitCost;
+        this.calculateCost = unitCost;
         this.description = description;
         records = new ArrayList<>();
     }
@@ -25,6 +28,7 @@ public abstract class Record <T>
     public Record(String name, BigDecimal unitCost, String description, int amount){
         this.name = name;
         this.unitCost = unitCost;
+        this.calculateCost = unitCost;
         this.description = description;
         this.amount = amount;
         records = new ArrayList<>();
@@ -120,5 +124,13 @@ public abstract class Record <T>
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public BigDecimal getCalculateCost() {
+        return calculateCost;
+    }
+
+    public void setCalculateCost(BigDecimal calculateCost) {
+        this.calculateCost = calculateCost;
     }
 }

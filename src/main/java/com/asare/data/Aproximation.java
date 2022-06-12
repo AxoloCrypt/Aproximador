@@ -8,6 +8,7 @@ import java.util.Objects;
 
 public class Aproximation
 {
+    private int idAprox;
     private String name;
     private List<Record<?>> records;
     private BigDecimal totalCost;
@@ -49,6 +50,19 @@ public class Aproximation
         records = new ArrayList<>();
     }
 
+    public Aproximation(int idAprox,String name, BigDecimal totalCost, int numberMaterials,
+                        int numberServices, LocalDateTime dateCreation){
+        this.idAprox = idAprox;
+        this.name = name;
+        this.totalCost = totalCost;
+        this.numberMaterials = numberMaterials;
+        this.numberServices = numberServices;
+        this.dateCreation = dateCreation;
+        records = new ArrayList<>();
+    }
+
+
+
     /*
     @param none
     @return BigDecimal
@@ -67,7 +81,7 @@ public class Aproximation
             else if (record instanceof Services)
                 numberServices++;
 
-            total = total.add(record.getUnitCost());
+            total = total.add(record.getCalculateCost());
         }
 
         setTotalCost(total);
@@ -138,5 +152,13 @@ public class Aproximation
     @Override
     public int hashCode() {
         return Objects.hash(getName(), getTotalCost(), getNumberMaterials(), getNumberServices(), getDateCreation());
+    }
+
+    public int getIdAprox() {
+        return idAprox;
+    }
+
+    public void setIdAprox(int idAprox) {
+        this.idAprox = idAprox;
     }
 }

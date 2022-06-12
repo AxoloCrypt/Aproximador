@@ -1,7 +1,9 @@
 package com.asare.controllers;
 
 import com.asare.data.Aproximation;
+import com.asare.exceptions.EmptyAproximationNameException;
 import com.asare.view.AproximationTab;
+import com.asare.view.ErrorPopup;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -27,14 +29,7 @@ public class CreateAproximationController implements Initializable
     @return: void
     Create and add a tab on the aproximations tab pane from mainController
      */
-    public void createAproximationTab(){
-
-        Button btnSave = new Button();
-        Button btnCalculate = new Button();
-
-        btnSave.setOnAction(event -> {
-            System.out.println("Test");
-        });
+    public void createAproximationTab() throws EmptyAproximationNameException{
 
         mainController.getTabAproximations().getTabs().add(new AproximationTab(getName(), mainController));
         mainController.getAproximations().add(new Aproximation(getName()));
@@ -52,6 +47,16 @@ public class CreateAproximationController implements Initializable
         txtName.setOnKeyPressed(event -> {
 
             if(event.getCode() == KeyCode.ENTER){
+
+                try{
+                    if (getName().trim().isEmpty())
+                        throw new EmptyAproximationNameException();
+
+                }catch (EmptyAproximationNameException e){
+                    new ErrorPopup(e);
+                    return;
+                }
+
                 Stage stage = (Stage) txtName.getScene().getWindow();
                 stage.close();
                 createAproximationTab();
