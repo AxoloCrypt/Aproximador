@@ -129,9 +129,9 @@ public class Controller implements Initializable
 
     @Override
      public void initialize(URL location, ResourceBundle resources) {
-        vBoxServices.setStyle("-fx-font-family: 'Franklin Gothic Book'"+";-fx-font-size:9pt"+";-fx-text-fill: black");
-        vBoxMaterials.setStyle("-fx-font-family: 'Franklin Gothic Book'"+";-fx-font-size:9pt"+";-fx-text-fill: black");
-        vBoxHistory.setStyle("-fx-font-family: 'Franklin Gothic Book'"+";-fx-font-size:9pt"+";-fx-text-fill: black");
+        vBoxServices.setStyle("-fx-font-family: 'Franklin Gothic Book'"+";-fx-font-size:9pt"+";-fx-text-fill: black; -fx-background-color: rgb(248,248,255)");
+        vBoxMaterials.setStyle("-fx-font-family: 'Franklin Gothic Book'"+";-fx-font-size:9pt"+";-fx-text-fill: black; -fx-background-color: rgb(248,248,255)");
+        vBoxHistory.setStyle("-fx-font-family: 'Franklin Gothic Book'"+";-fx-font-size:9pt"+";-fx-text-fill: black; -fx-background-color: rgb(248,248,255)");
         vBoxHistory.setSpacing(2);
         btnAddMaterial.setOnAction(event -> {
             try {
