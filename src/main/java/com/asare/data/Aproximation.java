@@ -81,7 +81,7 @@ public class Aproximation
             else if (record instanceof Services)
                 numberServices++;
 
-            total = total.add(record.getUnitCost());
+            total = total.add(record.getCalculateCost());
         }
 
         setTotalCost(total);

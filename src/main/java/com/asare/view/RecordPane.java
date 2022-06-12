@@ -3,10 +3,11 @@ package com.asare.view;
 import com.asare.controllers.Controller;
 import com.asare.data.Materials;
 import com.asare.data.Services;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -26,7 +27,6 @@ public class RecordPane extends DialogPane {
     private String description;
     private BigDecimal originalCost;
     private BigDecimal currentCost;
-
 
     // For record section
     public RecordPane(String recordName, String cost, String description, Controller controller, boolean isMaterial){
@@ -91,7 +91,17 @@ public class RecordPane extends DialogPane {
         currentCost = originalCost; //Initialize
         this.description = description;
 
-        btnRemove = new Button("R");
+        ImageView viewAdd = new ImageView(new Image("file:src/main/resources/com/asare/images/agregar.png"));
+        viewAdd.setFitWidth(10);
+        viewAdd.setFitHeight(10);
+
+        ImageView viewSubtract = new ImageView(new Image("file:src/main/resources/com/asare/images/restar.png"));
+        viewSubtract.setFitHeight(10);
+        viewSubtract.setFitWidth(10);
+
+
+        btnRemove = new Button();
+        btnRemove.setGraphic(viewSubtract);
         btnRemove.setOnAction(event -> {
 
             int tabIndex = controller.getTabAproximations().getSelectionModel().getSelectedIndex();
@@ -104,7 +114,7 @@ public class RecordPane extends DialogPane {
 
                 if(isMaterial){
                     int selectedMaterial = controller.getAproximations().get(tabIndex).getRecords().indexOf(new Materials(recordName,
-                            currentCost, this.description));
+                            originalCost, this.description));
 
                     currentCost = currentCost.subtract(originalCost);
 
@@ -113,11 +123,11 @@ public class RecordPane extends DialogPane {
                 }
                 else{
                     int selectedService = controller.getAproximations().get(tabIndex).getRecords().indexOf(new Services(recordName,
-                            currentCost, this.description));
+                            originalCost, this.description));
 
                     currentCost = currentCost.subtract(originalCost);
 
-                    controller.getAproximations().get(tabIndex).getRecords().get(selectedService).setUnitCost(currentCost);
+                    controller.getAproximations().get(tabIndex).getRecords().get(selectedService).setCalculateCost(currentCost);
                     controller.getAproximations().get(tabIndex).getRecords().get(selectedService).setAmount(currentAmount);
                 }
             }
@@ -128,20 +138,20 @@ public class RecordPane extends DialogPane {
 
                 if(isMaterial){
                     int selectedMaterial = controller.getAproximations().get(tabIndex).getRecords().indexOf(new Materials(recordName,
-                            currentCost, this.description));
+                            originalCost, this.description));
 
                     currentCost = currentCost.subtract(originalCost);
 
-                    controller.getAproximations().get(tabIndex).getRecords().get(selectedMaterial).setUnitCost(currentCost);
+                    controller.getAproximations().get(tabIndex).getRecords().get(selectedMaterial).setCalculateCost(currentCost);
                     controller.getAproximations().get(tabIndex).getRecords().get(selectedMaterial).setAmount(currentAmount);
                 }
                 else{
                     int selectedService = controller.getAproximations().get(tabIndex).getRecords().indexOf(new Services(recordName,
-                            currentCost, this.description));
+                            originalCost, this.description));
 
                     currentCost = currentCost.subtract(originalCost);
 
-                    controller.getAproximations().get(tabIndex).getRecords().get(selectedService).setUnitCost(currentCost);
+                    controller.getAproximations().get(tabIndex).getRecords().get(selectedService).setCalculateCost(currentCost);
                     controller.getAproximations().get(tabIndex).getRecords().get(selectedService).setAmount(currentAmount);
                 }
             }
@@ -153,7 +163,8 @@ public class RecordPane extends DialogPane {
         txtQuantity.setMaxSize(50, 10);
         txtQuantity.setFocusTraversable(false);
 
-        btnAdd = new Button("Add");
+        btnAdd = new Button();
+        btnAdd.setGraphic(viewAdd);
         btnAdd.setOnAction(event -> {
             int tabIndex = controller.getTabAproximations().getSelectionModel().getSelectedIndex();
             int currentAmount = Integer.parseInt(txtQuantity.getText());
@@ -167,20 +178,20 @@ public class RecordPane extends DialogPane {
 
             if(isMaterial){
                 int selectedMaterial = controller.getAproximations().get(tabIndex).getRecords().indexOf(new Materials(recordName,
-                        currentCost, this.description));
+                        originalCost, this.description));
 
                 currentCost = currentCost.add(originalCost);
 
-                controller.getAproximations().get(tabIndex).getRecords().get(selectedMaterial).setUnitCost(currentCost);
+                controller.getAproximations().get(tabIndex).getRecords().get(selectedMaterial).setCalculateCost(currentCost);
                 controller.getAproximations().get(tabIndex).getRecords().get(selectedMaterial).setAmount(currentAmount);
             }
             else{
                 int selectedService = controller.getAproximations().get(tabIndex).getRecords().indexOf(new Services(recordName,
-                        currentCost, this.description));
+                        originalCost, this.description));
 
                 currentCost = currentCost.add(originalCost);
 
-                controller.getAproximations().get(tabIndex).getRecords().get(selectedService).setUnitCost(currentCost);
+                controller.getAproximations().get(tabIndex).getRecords().get(selectedService).setCalculateCost(currentCost);
                 controller.getAproximations().get(tabIndex).getRecords().get(selectedService).setAmount(currentAmount);
             }
             txtQuantity.setText(String.valueOf(currentAmount));

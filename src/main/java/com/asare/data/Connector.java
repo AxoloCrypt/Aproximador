@@ -1,10 +1,13 @@
 package com.asare.data;
 
+import com.asare.encryption.BCrypt;
+
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
+
 
 public class Connector
 {
@@ -34,20 +37,38 @@ public class Connector
 
     }
 
-    /*
+    /**
+     * Uploads new user created to the DB.
+     * @param user
+     * @throws SQLException
+     */
+    public void signUpUser(User user) throws SQLException{
+
+        String encryptPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12));
+
+        statement.executeUpdate("INSERT INTO users (name, lastname, company, email, password) VALUES ('" +
+               user.getName() +"', '" + user.getLastname() + "', '" + user.getCompany() + "', '" + user.getEmail()
+                + "', '" + encryptPassword + "')");
+    }
+
+    /**
     @param: String user email, String password
-    @returns: boolean
+    &#064;returns:  boolean
     Checks if the passed parameters matches with user data in the db.
      */
     public boolean validateUser(String email, String password) throws SQLException {
-        rs = statement.executeQuery("SELECT * FROM users WHERE email ='" + email + "' AND  password = '" + password +"'");
 
-        return rs.next();
+        rs = statement.executeQuery("SELECT password FROM users WHERE email ='" + email + "'");
+        if(rs.next()){
+            return BCrypt.checkpw(password, rs.getString("password"));
+        }
+        else
+            return false;
     }
 
-    /*
-    @param: String user email
-    @returns: User class object
+    /**
+     &#064;parameters: String user email
+    &#064;returns:  User class object
     Searches for the logged user and returns the user info
      */
     public User getUserinfo(String userEmail) throws SQLException{

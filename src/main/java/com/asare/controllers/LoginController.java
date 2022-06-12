@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -37,6 +38,8 @@ public class LoginController implements Initializable {
     @FXML private PasswordField txtPassword;
     @FXML private Label lblError;
     @FXML private Label lblEmail;
+
+    @FXML private Label lblCreateAccount;
 
     private static boolean invalidLogin = false;
 
@@ -103,6 +106,13 @@ public class LoginController implements Initializable {
         lblEmail.setTranslateY(lblEmail.getTranslateY() - 5);
     }
 
+    private void changeToSignUpScene(){
+
+
+
+
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -129,6 +139,25 @@ public class LoginController implements Initializable {
                 invalidLogin = false;
                 lblError.setVisible(false);
             }
+
+        });
+
+        lblCreateAccount.setOnMouseClicked(event -> {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("signUp.fxml"));
+            Parent root;
+
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+            SignUpController signUpController = loader.getController();
+            signUpController.init(connector);
 
         });
 
