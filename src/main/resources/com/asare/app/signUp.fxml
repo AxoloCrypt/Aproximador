@@ -35,7 +35,7 @@
       <Label text="Company:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <Label text="Email adress:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <Label text="Password:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <Button fx:id="btnSignUp" mnemonicParsing="false" text="Sign in" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+      <Button fx:id="btnSignUp" mnemonicParsing="false" text="Sign Up" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
       <PasswordField fx:id="txtPassword" prefHeight="25.0" prefWidth="254.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets left="75.0" right="50.0" />
