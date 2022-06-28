@@ -32,7 +32,6 @@ public class SignUpController implements Initializable
 
     private Connector connector;
 
-    @FXML LoginController loginController;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -51,7 +50,10 @@ public class SignUpController implements Initializable
             connector.signUpUser(user);
         } catch (SQLException e) {
             new ErrorPopup(e);
+        }finally {
+            connector.closeConnection();
         }
+
     }
 
     private void returnToLoginScene(MouseEvent event){

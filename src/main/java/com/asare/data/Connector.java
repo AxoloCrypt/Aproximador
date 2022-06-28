@@ -13,7 +13,7 @@ public class Connector
 {
     private String username;
     private String password;
-    private final Connection connection;
+    private Connection connection;
     private Statement statement;
 
     private final String url = "jdbc:mysql://52.53.177.118/aproximador";
@@ -27,6 +27,10 @@ public class Connector
     public Connector(String username, String password){
         this.username = username;
         this.password = password;
+        //openConnection();
+    }
+
+    public void openConnection(){
 
         try {
             connection = DriverManager.getConnection(url, this.username, this.password);
@@ -37,13 +41,23 @@ public class Connector
 
     }
 
+    public void closeConnection(){
+
+       try{
+           if(statement != null) statement.close();
+           if(connection != null) connection.close();
+       } catch (SQLException e) {
+           throw new RuntimeException(e);
+       }
+    }
+
     /**
      * Uploads new user created to the DB.
      * @param user
      * @throws SQLException
      */
     public void signUpUser(User user) throws SQLException{
-
+        openConnection();
         String encryptPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(12));
 
         statement.executeUpdate("INSERT INTO users (name, lastname, company, email, password) VALUES ('" +
@@ -57,6 +71,7 @@ public class Connector
     Checks if the passed parameters matches with user data in the db.
      */
     public boolean validateUser(String email, String password) throws SQLException {
+        openConnection();
 
         rs = statement.executeQuery("SELECT password FROM users WHERE email ='" + email + "'");
         if(rs.next()){
@@ -72,6 +87,7 @@ public class Connector
     Searches for the logged user and returns the user info
      */
     public User getUserinfo(String userEmail) throws SQLException{
+        openConnection();
         rs = statement.executeQuery("SELECT * FROM users WHERE email = '" + userEmail + "'");
         rs.next();
 
@@ -80,6 +96,7 @@ public class Connector
 
     // Searches user saved materials
     public List<Materials> getUserMaterials(String userEmail) throws SQLException {
+        openConnection();
         List<Materials> obtainedMaterials = new LinkedList<>();
 
         rs = statement.executeQuery("SELECT m.name, m.unitCost, m.description, m.amount FROM users JOIN aproximations a on a.idAprox = users.idAprox JOIN materials m on m.idMaterial = a.idMaterial WHERE users.email = '" + userEmail + "'");
@@ -98,6 +115,7 @@ public class Connector
 
     // Searches user saved services
     public List<Services> getUserServices(String userEmail) throws SQLException {
+        openConnection();
         List<Services> obtainedServices = new LinkedList<>();
 
         rs = statement.executeQuery("SELECT s.name, s.unitCost, s.description, s.amount FROM users JOIN aproximations a on a.idAprox = users.idAprox JOIN services s on s.idService = a.idService WHERE users.email = '" + userEmail + "'");
@@ -110,12 +128,13 @@ public class Connector
             if (!obtainedServices.contains(tmpService))
                 obtainedServices.add(tmpService);
         }
-
+        closeConnection();
         return obtainedServices;
     }
 
     // Searches user saved aproximations and the records
     public List<Aproximation> getUserAproximations(String userEmail) throws SQLException {
+        openConnection();
         List<Aproximation> aproximations = new LinkedList<>();
 
         rs = statement.executeQuery("SELECT a.idAprox ,a.name ,a.totalCost, a.numberMaterials, a.numberServices , a.date FROM users u JOIN aproximations a on u.idAprox = a.idAprox WHERE u.email = '" + userEmail + "'");
@@ -145,7 +164,7 @@ public class Connector
 
     // get total of rows on table aproximations
     public int getAproximationRows(){
-
+        openConnection();
         int nRows = 0;
 
         try {
@@ -156,13 +175,16 @@ public class Connector
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }finally {
+            closeConnection();
         }
 
         return nRows;
     }
 
     // Saves the aproximation created by the user in db.
-    public boolean saveAproximation(Aproximation aproximation, User user) {
+    public void saveAproximation(Aproximation aproximation, User user) {
+        openConnection();
 
         if(!materialsIds.isEmpty())
             materialsIds.clear();
@@ -248,9 +270,9 @@ public class Connector
 
        }catch(SQLException throwables){
            throwables.printStackTrace();
-           return false;
+       }finally {
+            closeConnection();
        }
 
-        return true;
     }
 }

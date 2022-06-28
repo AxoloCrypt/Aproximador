@@ -58,6 +58,8 @@ public class LoginController implements Initializable {
             invalidLogin = true;
             wrongUser();
             return;
+        }finally {
+            connector.closeConnection();
         }
 
         btnLogin.getScene().getWindow().hide();
@@ -71,6 +73,8 @@ public class LoginController implements Initializable {
             user = connector.getUserinfo(txtEmail.getText());
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connector.closeConnection();
         }
 
         Parent root = loader.load();
