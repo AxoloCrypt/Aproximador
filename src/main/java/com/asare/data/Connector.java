@@ -16,7 +16,7 @@ public class Connector
     private Connection connection;
     private Statement statement;
 
-    private final String url = "jdbc:mysql://52.53.177.118/aproximador";
+    private final String url = "jdbc:mysql://54.241.104.175/aproximador";
     private static ResultSet rs;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private static final List<Integer> materialsIds = new LinkedList<>();
@@ -30,6 +30,10 @@ public class Connector
         //openConnection();
     }
 
+    /**
+     * Connect to db and create a new Statement
+     * This was implemented in order to use JDBC connection pool
+     */
     public void openConnection(){
 
         try {
@@ -41,6 +45,9 @@ public class Connector
 
     }
 
+    /**
+     * Close the current connection and statement
+     */
     public void closeConnection(){
 
        try{
@@ -111,6 +118,15 @@ public class Connector
         }
 
         return obtainedMaterials;
+    }
+
+    public void disableUserMaterial(Record<?> record) throws SQLException{
+        openConnection();
+
+        if(record instanceof Materials){
+            statement.executeUpdate("UPDATE materials SET is_deleted = true WHERE");
+        }
+
     }
 
     // Searches user saved services

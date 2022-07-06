@@ -17,7 +17,7 @@ public class AproximationPane extends DialogPane {
 
 
     public AproximationPane(int idAprox,String name, LocalDateTime dateCreation, Controller controller) {
-        this.setStyle("-fx-border-color: rgb(15,19,12)");
+        this.setStyle("-fx-border-color: rgb(15,19,12);" + "-fx-background-color: rgb(248, 248, 255)");
         this.dateCreation = dateCreation;
         this.idAprox = idAprox;
 
