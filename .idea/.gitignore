@@ -7,5 +7,4 @@
 /dataSources/
 /dataSources.local.xml
 # Resoure Bundles
-src/main/resources/bundles
-src/main/resources/bundles/jdbc.properties
+src/main/resources/bundles/
