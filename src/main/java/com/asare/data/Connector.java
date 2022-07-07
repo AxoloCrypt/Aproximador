@@ -7,8 +7,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ResourceBundle;
-
 
 public class Connector
 {
@@ -27,11 +25,9 @@ public class Connector
 
     public Connector(){
 
-        ResourceBundle resourceBundle = ResourceBundle.getBundle("bundles/jdbc");
-
-        url = resourceBundle.getString("url");
-        username = resourceBundle.getString("username");
-        password = resourceBundle.getString("password");
+        url = System.getenv("DB_URL");
+        username = System.getenv("DB_USERNAME");
+        password = System.getenv("DB_PASSWD");
 
     }
 
