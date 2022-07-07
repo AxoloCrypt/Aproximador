@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 
 public class RecordPane extends DialogPane {
 
@@ -54,11 +55,37 @@ public class RecordPane extends DialogPane {
 
             if(isMaterial){
                 controller.getvBoxMaterials().getChildren().remove(this);
-                controller.getMaterials().getRecords().remove(new Materials(recordName, new BigDecimal(cost), description));
+
+                Materials tmpMaterial = new Materials(recordName, new BigDecimal(cost), description);
+
+                controller.getMaterials().getRecords().remove(tmpMaterial);
+
+                try {
+                    controller.getConnector().disableRecord(tmpMaterial);
+                } catch (SQLException e) {
+                    new ErrorPopup(e);
+                }
+                finally {
+                    controller.getConnector().closeConnection();
+                }
+
             }
             else{
                 controller.getvBoxServices().getChildren().remove(this);
-                controller.getServices().getRecords().remove(new Services(recordName, new BigDecimal(cost), description));
+
+                Services tmpService = new Services(recordName, new BigDecimal(cost), description);
+
+                controller.getServices().getRecords().remove(tmpService);
+
+                try{
+                    controller.getConnector().disableRecord(tmpService);
+                }catch (SQLException e){
+                    new ErrorPopup(e);
+                }
+                finally {
+                    controller.getConnector().closeConnection();
+                }
+
             }
         });
 

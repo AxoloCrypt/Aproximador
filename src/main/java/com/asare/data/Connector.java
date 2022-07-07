@@ -7,16 +7,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 
 public class Connector
 {
-    private String username;
-    private String password;
+    private final String username;
+    private final String password;
     private Connection connection;
     private Statement statement;
 
-    private final String url = "jdbc:mysql://54.241.104.175/aproximador";
+    private final String url;
     private static ResultSet rs;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private static final List<Integer> materialsIds = new LinkedList<>();
@@ -24,10 +25,14 @@ public class Connector
 
 
 
-    public Connector(String username, String password){
-        this.username = username;
-        this.password = password;
-        //openConnection();
+    public Connector(){
+
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("bundles/jdbc");
+
+        url = resourceBundle.getString("url");
+        username = resourceBundle.getString("username");
+        password = resourceBundle.getString("password");
+
     }
 
     /**
@@ -37,7 +42,7 @@ public class Connector
     public void openConnection(){
 
         try {
-            connection = DriverManager.getConnection(url, this.username, this.password);
+            connection = DriverManager.getConnection(url, username, password);
             statement = connection.createStatement();
         } catch (SQLException e){
             throw new RuntimeException(e);
@@ -93,12 +98,13 @@ public class Connector
     &#064;returns:  User class object
     Searches for the logged user and returns the user info
      */
-    public User getUserinfo(String userEmail) throws SQLException{
+    public User getUserData(String userEmail) throws SQLException{
         openConnection();
         rs = statement.executeQuery("SELECT * FROM users WHERE email = '" + userEmail + "'");
         rs.next();
 
-        return new User(rs.getString("name"), rs.getString("lastname"), rs.getString("company"), userEmail, rs.getString("password"));
+        return new User(rs.getString("name"), rs.getString("lastname"),
+                rs.getString("company"), userEmail, rs.getString("password"));
     }
 
     // Searches user saved materials
@@ -106,27 +112,41 @@ public class Connector
         openConnection();
         List<Materials> obtainedMaterials = new LinkedList<>();
 
-        rs = statement.executeQuery("SELECT m.name, m.unitCost, m.description, m.amount FROM users JOIN aproximations a on a.idAprox = users.idAprox JOIN materials m on m.idMaterial = a.idMaterial WHERE users.email = '" + userEmail + "'");
+        rs = statement.executeQuery("SELECT m.name, m.unitCost, m.description, m.amount, m.is_deleted FROM users JOIN aproximations a on a.idAprox = users.idAprox " +
+                "JOIN materials m on m.idMaterial = a.idMaterial WHERE users.email = '" + userEmail + "'");
 
         while (rs.next()){
 
             Materials tmpMaterial = new Materials(rs.getString("name"),
                     rs.getBigDecimal("unitCost"), rs.getString("description"), Integer.parseInt(rs.getString("amount")));
 
-            if (!obtainedMaterials.contains(tmpMaterial))
+            if (!obtainedMaterials.contains(tmpMaterial) && !rs.getBoolean("is_deleted"))
                 obtainedMaterials.add(tmpMaterial);
         }
 
         return obtainedMaterials;
     }
 
-    public void disableUserMaterial(Record<?> record) throws SQLException{
+    /***
+     * @return boolean
+     * Set the is_deleted column to true in the db information of the passed record to no further usage.
+     * Returns true if any row was affected, false if no changes were made.
+     */
+    public boolean disableRecord(Record<?> record) throws SQLException{
         openConnection();
 
+        int status;
+
         if(record instanceof Materials){
-            statement.executeUpdate("UPDATE materials SET is_deleted = true WHERE");
+            status = statement.executeUpdate("UPDATE materials SET is_deleted = true WHERE name = '" + record.getName() +
+                    "' AND unitCost = " + record.getUnitCost().toString() + " AND description LIKE '" + record.getDescription() + "'");
+        }
+        else{
+            status = statement.executeUpdate("UPDATE services SET is_deleted = true WHERE name = '" + record.getName() +
+                    "' AND unitCost = " + record.getUnitCost().toString() + " AND description LIKE '" + record.getDescription() + "'");
         }
 
+        return status != 0; //executeUpdate returns 0 in case of no rows affected
     }
 
     // Searches user saved services
@@ -134,16 +154,19 @@ public class Connector
         openConnection();
         List<Services> obtainedServices = new LinkedList<>();
 
-        rs = statement.executeQuery("SELECT s.name, s.unitCost, s.description, s.amount FROM users JOIN aproximations a on a.idAprox = users.idAprox JOIN services s on s.idService = a.idService WHERE users.email = '" + userEmail + "'");
+        rs = statement.executeQuery("SELECT s.name, s.unitCost, s.description, s.amount, s.is_deleted FROM users JOIN aproximations a on a.idAprox = users.idAprox " +
+                "JOIN services s on s.idService = a.idService WHERE users.email = '" + userEmail + "'");
 
         while (rs.next()){
 
             Services tmpService = new Services(rs.getString("name"),
                     rs.getBigDecimal("unitCost"), rs.getString("description"), Integer.parseInt(rs.getString("amount")));
 
-            if (!obtainedServices.contains(tmpService))
+            if (!obtainedServices.contains(tmpService) && !rs.getBoolean("is_deleted"))
                 obtainedServices.add(tmpService);
+
         }
+
         closeConnection();
         return obtainedServices;
     }
@@ -153,7 +176,8 @@ public class Connector
         openConnection();
         List<Aproximation> aproximations = new LinkedList<>();
 
-        rs = statement.executeQuery("SELECT a.idAprox ,a.name ,a.totalCost, a.numberMaterials, a.numberServices , a.date FROM users u JOIN aproximations a on u.idAprox = a.idAprox WHERE u.email = '" + userEmail + "'");
+        rs = statement.executeQuery("SELECT a.idAprox ,a.name ,a.totalCost, a.numberMaterials, a.numberServices , a.date FROM users u " +
+                "JOIN aproximations a on u.idAprox = a.idAprox WHERE u.email = '" + userEmail + "'");
 
 
         while (rs.next()){
@@ -162,14 +186,16 @@ public class Connector
                     LocalDateTime.parse(rs.getString("date"), formatter)));
         }
 
-        rs = statement.executeQuery("SELECT m.name, m.unitCost, m.description, m.amount FROM materials m JOIN aproximations a on m.idMaterial = a.idMaterial JOIN users u on a.idAprox = u.idAprox WHERE email = '" + userEmail + "'");
+        rs = statement.executeQuery("SELECT m.name, m.unitCost, m.description, m.amount FROM materials m JOIN aproximations a on m.idMaterial = a.idMaterial " +
+                "JOIN users u on a.idAprox = u.idAprox WHERE email = '" + userEmail + "'");
 
 
         for (int i = 0; rs.next(); i++){
             aproximations.get(i).getRecords().add(new Materials(rs.getString("name"), rs.getBigDecimal("unitCost"), rs.getString("description"), rs.getInt("amount")));
         }
 
-        rs = statement.executeQuery("SELECT s.* FROM services s JOIN aproximations a on s.idService = a.idService JOIN users u on a.idAprox = u.idAprox WHERE email = '" + userEmail + "'");
+        rs = statement.executeQuery("SELECT s.* FROM services s JOIN aproximations a on s.idService = a.idService " +
+                "JOIN users u on a.idAprox = u.idAprox WHERE email = '" + userEmail + "'");
 
         for (int i = 0; rs.next(); i++){
             aproximations.get(i).getRecords().add(new Services(rs.getString("name"), rs.getBigDecimal("unitCost"), rs.getString("description"), rs.getInt("amount")));
@@ -186,6 +212,7 @@ public class Connector
         try {
             rs = statement.executeQuery("SELECT COUNT(1) FROM aproximations");
             rs.next();
+
 
             nRows = rs.getInt(1);
 

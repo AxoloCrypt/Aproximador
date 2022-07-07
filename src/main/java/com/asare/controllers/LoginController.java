@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
 
-    private final Connector connector = new Connector("juca", "g*$0Pe$h18cyiyJC");
+    private final Connector connector = new Connector();
 
     @FXML Controller controller;
 
@@ -68,7 +68,7 @@ public class LoginController implements Initializable {
         User user;
 
         try {
-            user = connector.getUserinfo(txtEmail.getText());
+            user = connector.getUserData(txtEmail.getText());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }finally {

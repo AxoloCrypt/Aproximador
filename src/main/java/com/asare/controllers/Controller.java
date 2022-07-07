@@ -92,6 +92,7 @@ public class Controller implements Initializable
             initializeAproximations();
         } catch (SQLException throwables) {
             new ErrorPopup(throwables);
+            throwables.printStackTrace();
         }finally {
             this.connector.closeConnection();
         }
