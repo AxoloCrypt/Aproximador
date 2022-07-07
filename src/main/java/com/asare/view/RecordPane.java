@@ -8,17 +8,23 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 
 public class RecordPane extends DialogPane {
 
     private Label lblCost;
     private Label lblDescription;
     private Label lblName;
+
+    private MenuButton menuActions;
+    private MenuItem itemDelete;
+
 
     // Attributes for panes in aproximations
     private Button btnRemove;
@@ -31,9 +37,64 @@ public class RecordPane extends DialogPane {
     // For record section
     public RecordPane(String recordName, String cost, String description, Controller controller, boolean isMaterial){
 
-        this.setStyle("-fx-border-color: rgb(15,19,12)");
+        this.setStyle("-fx-border-color: rgb(15,19,12);" + "-fx-background-color: rgb(248, 248, 255)");
+
+        BorderPane borderPane = new BorderPane();
 
         lblName = new Label(recordName);
+        menuActions = new MenuButton();
+        menuActions.getStylesheets().add("file:src/main/resources/com/asare/styles/customMenuButton.css");
+
+        ImageView actionsView = new ImageView(new Image("file:src/main/resources/com/asare/images/points.png"));
+        actionsView.setFitHeight(10);
+        actionsView.setFitWidth(10);
+
+        itemDelete = new MenuItem("Delete");
+        itemDelete.setOnAction(event -> {
+            menuActions.hide();
+
+            if(isMaterial){
+                controller.getvBoxMaterials().getChildren().remove(this);
+
+                Materials tmpMaterial = new Materials(recordName, new BigDecimal(cost), description);
+
+                controller.getMaterials().getRecords().remove(tmpMaterial);
+
+                try {
+                    controller.getConnector().disableRecord(tmpMaterial);
+                } catch (SQLException e) {
+                    new ErrorPopup(e);
+                }
+                finally {
+                    controller.getConnector().closeConnection();
+                }
+
+            }
+            else{
+                controller.getvBoxServices().getChildren().remove(this);
+
+                Services tmpService = new Services(recordName, new BigDecimal(cost), description);
+
+                controller.getServices().getRecords().remove(tmpService);
+
+                try{
+                    controller.getConnector().disableRecord(tmpService);
+                }catch (SQLException e){
+                    new ErrorPopup(e);
+                }
+                finally {
+                    controller.getConnector().closeConnection();
+                }
+
+            }
+        });
+
+        menuActions.setGraphic(actionsView);
+        menuActions.setContentDisplay(ContentDisplay.RIGHT);
+        menuActions.getItems().add(itemDelete);
+
+        borderPane.setLeft(lblName);
+        borderPane.setRight(menuActions);
 
         lblCost = new Label("$" + cost);
         lblCost.setAlignment(Pos.CENTER_RIGHT);
@@ -47,7 +108,7 @@ public class RecordPane extends DialogPane {
         hBox.getChildren().add(lblDescription);
         hBox.getChildren().add(lblCost);
 
-        this.setHeader(lblName);
+        this.setHeader(borderPane);
         this.setContent(hBox);
 
         this.setOnMouseClicked(event -> {
@@ -69,17 +130,11 @@ public class RecordPane extends DialogPane {
                         new BigDecimal(lblCost.getText().replace("$", "")), lblDescription.getText(), 1));
         });
 
-        this.setOnMouseEntered(event -> {
-            this.setStyle("-fx-background-color: rgb(210,155,253)"+
-                    (";-fx-border-color: rgb(15,19,12)"));
+        this.setOnMouseEntered(event -> this.setStyle("-fx-background-color: rgb(210,155,253)"+
+                (";-fx-border-color: rgb(15,19,12)")));
 
-        });
-
-        this.setOnMouseExited(event -> {
-            this.setStyle("-fx-background-color: rgb(248,248,255)"+
-                    (";-fx-border-color: rgb(15,19,12)"));
-
-        });
+        this.setOnMouseExited(event -> this.setStyle("-fx-background-color: rgb(248,248,255)"+
+                (";-fx-border-color: rgb(15,19,12)")));
 
 
     }

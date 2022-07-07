@@ -1,10 +1,9 @@
 package com.asare.controllers;
 
-import com.asare.app.*;
+import com.asare.app.App;
 import com.asare.data.Connector;
 import com.asare.data.User;
 import com.asare.exceptions.InvalidUserException;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,12 +22,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Collections;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
 
-    private final Connector connector = new Connector("juca", "g*$0Pe$h18cyiyJC");
+    private final Connector connector = new Connector();
 
     @FXML Controller controller;
 
@@ -58,6 +56,8 @@ public class LoginController implements Initializable {
             invalidLogin = true;
             wrongUser();
             return;
+        }finally {
+            connector.closeConnection();
         }
 
         btnLogin.getScene().getWindow().hide();
@@ -68,9 +68,11 @@ public class LoginController implements Initializable {
         User user;
 
         try {
-            user = connector.getUserinfo(txtEmail.getText());
+            user = connector.getUserData(txtEmail.getText());
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            connector.closeConnection();
         }
 
         Parent root = loader.load();
@@ -84,7 +86,7 @@ public class LoginController implements Initializable {
         appStage.setScene(appScene);
         appStage.initModality(Modality.NONE);
         appStage.initOwner(btnLogin.getScene().getWindow());
-        appStage.getIcons().add(new Image("https://github.com/AxoloCrypt/Asare/blob/test/src/main/resources/com/asare/images/Logo.png?raw=true"));
+        appStage.getIcons().add(new Image("https://github.com/AxoloCrypt/Asare/blob/main/src/main/resources/com/asare/images/Logo.png?raw=true"));
         appStage.show();
     }
 

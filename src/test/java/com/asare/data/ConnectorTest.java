@@ -27,7 +27,7 @@ class ConnectorTest {
 
     @BeforeEach
     void setUp(){
-        testConnector = new Connector("juca", "g*$0Pe$h18cyiyJC");
+        testConnector = new Connector();
         testUser = new User("Pamela","Quách", "Praesent Interdum Foundation","adipiscing.mauris@yahoo.org", "BNL84PNT7HH");
         materials = new LinkedList<>();
         services = new LinkedList<>();
@@ -54,6 +54,9 @@ class ConnectorTest {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        finally {
+            testConnector.closeConnection();
+        }
 
     }
 
@@ -64,6 +67,9 @@ class ConnectorTest {
             materials = testConnector.getUserMaterials(testUser.getEmail());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }
+        finally {
+            testConnector.closeConnection();
         }
 
         assertEquals(1, materials.size());
@@ -85,6 +91,9 @@ class ConnectorTest {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        finally {
+            testConnector.closeConnection();
+        }
     }
 
     @Test
@@ -101,7 +110,27 @@ class ConnectorTest {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        finally {
+            testConnector.closeConnection();
+        }
 
+    }
+
+    @Test
+    void disableRecord(){
+        Materials tmpMaterial = new Materials("TestDisableM", new BigDecimal("8.00"), "Test Disable Material");
+        Services tmpService = new Services("TestDisable", new BigDecimal("6.00"), "Test Disable");
+
+        try {
+            assertTrue(testConnector.disableRecord(tmpMaterial));
+            assertTrue(testConnector.disableRecord(tmpService));
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            testConnector.closeConnection();
+        }
     }
 
     @Test
