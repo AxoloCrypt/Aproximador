@@ -10,7 +10,7 @@
       <Label fx:id="lblError" layoutY="27.0" prefHeight="55.0" prefWidth="209.0" text="Label" />
       <ImageView fitHeight="55.0" fitWidth="56.0" layoutX="217.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/error-icon.png" />
+            <Image url="@../../../images/error-icon.png" />
          </image>
       </ImageView>
    </children>

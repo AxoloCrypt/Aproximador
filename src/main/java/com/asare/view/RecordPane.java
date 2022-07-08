@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class RecordPane extends DialogPane {
 
@@ -43,9 +44,9 @@ public class RecordPane extends DialogPane {
 
         lblName = new Label(recordName);
         menuActions = new MenuButton();
-        menuActions.getStylesheets().add("file:src/main/resources/com/asare/styles/customMenuButton.css");
+        menuActions.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/styles/customMenuButton.css")).toExternalForm());
 
-        ImageView actionsView = new ImageView(new Image("file:src/main/resources/com/asare/images/points.png"));
+        ImageView actionsView = new ImageView(new Image(Objects.requireNonNull(getClass().getResource("/images/points.png")).toExternalForm()));
         actionsView.setFitHeight(10);
         actionsView.setFitWidth(10);
 
@@ -146,11 +147,11 @@ public class RecordPane extends DialogPane {
         currentCost = originalCost; //Initialize
         this.description = description;
 
-        ImageView viewAdd = new ImageView(new Image("file:src/main/resources/com/asare/images/agregar.png"));
+        ImageView viewAdd = new ImageView(new Image(Objects.requireNonNull(getClass().getResource("/images/agregar.png")).toExternalForm()));
         viewAdd.setFitWidth(10);
         viewAdd.setFitHeight(10);
 
-        ImageView viewSubtract = new ImageView(new Image("file:src/main/resources/com/asare/images/restar.png"));
+        ImageView viewSubtract = new ImageView(new Image(Objects.requireNonNull(getClass().getResource("/images/restar.png")).toExternalForm()));
         viewSubtract.setFitHeight(10);
         viewSubtract.setFitWidth(10);
 

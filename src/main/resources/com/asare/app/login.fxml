@@ -69,7 +69,7 @@
       </Label>
       <ImageView fitHeight="200.0" fitWidth="178.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
          <image>
-            <Image url="@../images/Logo.png" />
+            <Image url="@../../../images/Logo.png" />
          </image>
       </ImageView>
       <Label fx:id="lblCreateAccount" style="-fx-text-fill: rgb(120, 61, 128);" text="Create account" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="TOP">

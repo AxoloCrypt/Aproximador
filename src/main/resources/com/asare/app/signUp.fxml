@@ -65,7 +65,7 @@
          <graphic>
             <ImageView fitHeight="34.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/regresar.png" />
+                  <Image url="@../../../images/regresar.png" />
                </image>
             </ImageView>
          </graphic>
