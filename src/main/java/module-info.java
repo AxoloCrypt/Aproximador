@@ -6,6 +6,7 @@ module com.asare {
     requires org.controlsfx.controls;
     requires org.kordamp.ikonli.javafx;
     requires java.sql;
+    requires org.mariadb.jdbc;
 
     opens com.asare.app to javafx.fxml;
     opens com.asare.controllers to javafx.fxml;
