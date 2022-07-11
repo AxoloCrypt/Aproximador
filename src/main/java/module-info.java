@@ -4,11 +4,9 @@ module com.asare {
     requires javafx.web;
 
     requires org.controlsfx.controls;
-    requires com.dlsc.formsfx;
-    requires validatorfx;
     requires org.kordamp.ikonli.javafx;
-    requires eu.hansolo.tilesfx;
     requires java.sql;
+    requires org.mariadb.jdbc;
 
     opens com.asare.app to javafx.fxml;
     opens com.asare.controllers to javafx.fxml;

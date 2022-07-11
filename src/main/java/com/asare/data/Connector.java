@@ -38,9 +38,10 @@ public class Connector
     public void openConnection(){
 
         try {
+            Class.forName("org.mariadb.jdbc.Driver");
             connection = DriverManager.getConnection(url, username, password);
             statement = connection.createStatement();
-        } catch (SQLException e){
+        } catch (SQLException | ClassNotFoundException e){
             throw new RuntimeException(e);
         }
 
