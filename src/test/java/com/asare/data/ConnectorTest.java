@@ -122,8 +122,8 @@ class ConnectorTest {
         Services tmpService = new Services("TestDisable", new BigDecimal("6.00"), "Test Disable");
 
         try {
-            assertTrue(testConnector.disableRecord(tmpMaterial));
-            assertTrue(testConnector.disableRecord(tmpService));
+            assertTrue(testConnector.deleteRecord(tmpMaterial));
+            assertTrue(testConnector.deleteRecord(tmpService));
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

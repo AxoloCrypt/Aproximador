@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="748.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asare.controllers.Controller">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="748.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asare.controllers.Controller">
    <center>
       <TabPane fx:id="tabAproximations" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: rgb(248,248,255);" tabClosingPolicy="ALL_TABS" BorderPane.alignment="CENTER" />
    </center>
@@ -161,6 +161,11 @@
               <MenuItem mnemonicParsing="false" style="-fx-text-fill: black;" text="About" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Configuration">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#changeUserPassword" style="-fx-text-fill: black;" text="Change Password" />
+              </items>
+            </Menu>
         </menus>
          <styleClass>
             <String fx:value="modBar" />

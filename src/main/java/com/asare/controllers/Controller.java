@@ -34,6 +34,8 @@ public class Controller implements Initializable
     @FXML AddRecordController addRecordController;
     @FXML CreateAproximationController createAproximationController;
 
+    @FXML ChangePasswordController changePasswordController;
+
     @FXML private VBox vBoxMaterials;
     @FXML private VBox vBoxServices;
     @FXML private VBox vBoxHistory;
@@ -80,6 +82,21 @@ public class Controller implements Initializable
 
         createAproximationController = loader.getController();
         createAproximationController.init(this);
+    }
+
+    public void changeUserPassword() throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("changePassword.fxml"));
+
+        Parent root = loader.load();
+        Scene changeUserPasswordScene = new Scene(root);
+        Stage changeUserPasswordStage = new Stage();
+        changeUserPasswordStage.setScene(changeUserPasswordScene);
+        changeUserPasswordStage.initModality(Modality.NONE);
+        changeUserPasswordStage.show();
+
+        changePasswordController = loader.getController();
+        changePasswordController.init(this);
     }
 
     public void initConnection(Connector connector, User user){

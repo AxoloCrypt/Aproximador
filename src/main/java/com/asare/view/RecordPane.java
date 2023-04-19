@@ -62,8 +62,9 @@ public class RecordPane extends DialogPane {
                 controller.getMaterials().getRecords().remove(tmpMaterial);
 
                 try {
-                    controller.getConnector().disableRecord(tmpMaterial);
+                    controller.getConnector().deleteRecord(tmpMaterial);
                 } catch (SQLException e) {
+                    e.printStackTrace();
                     new ErrorPopup(e);
                 }
                 finally {
@@ -79,8 +80,9 @@ public class RecordPane extends DialogPane {
                 controller.getServices().getRecords().remove(tmpService);
 
                 try{
-                    controller.getConnector().disableRecord(tmpService);
+                    controller.getConnector().deleteRecord(tmpService);
                 }catch (SQLException e){
+                    e.printStackTrace();
                     new ErrorPopup(e);
                 }
                 finally {

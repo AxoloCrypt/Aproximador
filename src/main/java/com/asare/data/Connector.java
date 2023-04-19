@@ -38,10 +38,9 @@ public class Connector
     public void openConnection(){
 
         try {
-            Class.forName("org.mariadb.jdbc.Driver");
             connection = DriverManager.getConnection(url, username, password);
             statement = connection.createStatement();
-        } catch (SQLException | ClassNotFoundException e){
+        } catch (SQLException e){
             throw new RuntimeException(e);
         }
 
@@ -90,6 +89,32 @@ public class Connector
             return false;
     }
 
+    public boolean changeUserPassword(String currentPassword, String newPassword, User user) throws SQLException {
+        openConnection();
+
+        rs = statement.executeQuery("SELECT password FROM users WHERE email ='" + user.getEmail() + "'");
+
+        if(!rs.next())
+            return false;
+
+        if(!BCrypt.checkpw(currentPassword, rs.getString("password")))
+            return false;
+
+        String encryptedPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt(12));
+
+        int status = statement.executeUpdate(new StringBuilder().append("UPDATE users SET password='")
+                 .append(encryptedPassword)
+                 .append("' WHERE email='")
+                 .append(user.getEmail())
+                 .append("'")
+                 .toString());
+
+        closeConnection();
+
+        return status != 0;
+    }
+
+
     /**
      &#064;parameters: String user email
     &#064;returns:  User class object
@@ -109,16 +134,15 @@ public class Connector
         openConnection();
         List<Materials> obtainedMaterials = new LinkedList<>();
 
-        rs = statement.executeQuery("SELECT m.name, m.unitCost, m.description, m.amount, m.is_deleted FROM users JOIN aproximations a on a.idAprox = users.idAprox " +
-                "JOIN materials m on m.idMaterial = a.idMaterial WHERE users.email = '" + userEmail + "'");
+        rs = statement.executeQuery(new StringBuilder().append("SELECT m.name, m.unitCost, m.description, m.amount FROM users JOIN approximations as a on a.idAprox = users.idAprox ").append("JOIN materials as  m on m.idMaterial = a.idMaterial WHERE users.email = '").append(userEmail).append("'").toString());
 
         while (rs.next()){
 
             Materials tmpMaterial = new Materials(rs.getString("name"),
                     rs.getBigDecimal("unitCost"), rs.getString("description"), Integer.parseInt(rs.getString("amount")));
 
-            if (!obtainedMaterials.contains(tmpMaterial) && !rs.getBoolean("is_deleted"))
-                obtainedMaterials.add(tmpMaterial);
+            obtainedMaterials.add(tmpMaterial);
+
         }
 
         return obtainedMaterials;
@@ -129,18 +153,22 @@ public class Connector
      * Set the is_deleted column to true in the db information of the passed record to no further usage.
      * Returns true if any row was affected, false if no changes were made.
      */
-    public boolean disableRecord(Record<?> record) throws SQLException{
+    public boolean deleteRecord(Record<?> record) throws SQLException{
         openConnection();
 
         int status;
 
         if(record instanceof Materials){
-            status = statement.executeUpdate("UPDATE materials SET is_deleted = true WHERE name = '" + record.getName() +
-                    "' AND unitCost = " + record.getUnitCost().toString() + " AND description LIKE '" + record.getDescription() + "'");
+            status = statement.executeUpdate(new StringBuilder().append("DELETE FROM materials WHERE name = '").
+                    append(record.getName())
+                    .append("' AND unitCost = ")
+                    .append(record.getUnitCost().toString())
+                    .append(" AND description LIKE '")
+                    .append(record.getDescription())
+                    .append("'").toString());
         }
         else{
-            status = statement.executeUpdate("UPDATE services SET is_deleted = true WHERE name = '" + record.getName() +
-                    "' AND unitCost = " + record.getUnitCost().toString() + " AND description LIKE '" + record.getDescription() + "'");
+            status = statement.executeUpdate(new StringBuilder().append("DELETE FROM services WHERE name = '").append(record.getName()).append("' AND unitCost = ").append(record.getUnitCost().toString()).append(" AND description LIKE '").append(record.getDescription()).append("'").toString());
         }
 
         return status != 0; //executeUpdate returns 0 in case of no rows affected
@@ -151,16 +179,14 @@ public class Connector
         openConnection();
         List<Services> obtainedServices = new LinkedList<>();
 
-        rs = statement.executeQuery("SELECT s.name, s.unitCost, s.description, s.amount, s.is_deleted FROM users JOIN aproximations a on a.idAprox = users.idAprox " +
-                "JOIN services s on s.idService = a.idService WHERE users.email = '" + userEmail + "'");
+        rs = statement.executeQuery(new StringBuilder().append("SELECT s.name, s.unitCost, s.description, s.amount FROM users JOIN approximations as a on a.idAprox = users.idAprox ").append("JOIN services as s on s.idService = a.idService WHERE users.email = '").append(userEmail).append("'").toString());
 
         while (rs.next()){
 
             Services tmpService = new Services(rs.getString("name"),
                     rs.getBigDecimal("unitCost"), rs.getString("description"), Integer.parseInt(rs.getString("amount")));
 
-            if (!obtainedServices.contains(tmpService) && !rs.getBoolean("is_deleted"))
-                obtainedServices.add(tmpService);
+            obtainedServices.add(tmpService);
 
         }
 
@@ -173,8 +199,7 @@ public class Connector
         openConnection();
         List<Aproximation> aproximations = new LinkedList<>();
 
-        rs = statement.executeQuery("SELECT a.idAprox ,a.name ,a.totalCost, a.numberMaterials, a.numberServices , a.date FROM users u " +
-                "JOIN aproximations a on u.idAprox = a.idAprox WHERE u.email = '" + userEmail + "'");
+        rs = statement.executeQuery(new StringBuilder().append("SELECT a.idAprox ,a.name ,a.totalCost, a.numberMaterials, a.numberServices , a.date FROM users as u ").append("JOIN approximations as a on u.idAprox = a.idAprox WHERE u.email = '").append(userEmail).append("'").toString());
 
 
         while (rs.next()){
@@ -183,16 +208,14 @@ public class Connector
                     LocalDateTime.parse(rs.getString("date"), formatter)));
         }
 
-        rs = statement.executeQuery("SELECT m.name, m.unitCost, m.description, m.amount FROM materials m JOIN aproximations a on m.idMaterial = a.idMaterial " +
-                "JOIN users u on a.idAprox = u.idAprox WHERE email = '" + userEmail + "'");
+        rs = statement.executeQuery(new StringBuilder().append("SELECT m.name, m.unitCost, m.description, m.amount FROM materials as m JOIN approximations as a on m.idMaterial = a.idMaterial ").append("JOIN users as u on a.idAprox = u.idAprox WHERE email = '").append(userEmail).append("'").toString());
 
 
         for (int i = 0; rs.next(); i++){
             aproximations.get(i).getRecords().add(new Materials(rs.getString("name"), rs.getBigDecimal("unitCost"), rs.getString("description"), rs.getInt("amount")));
         }
 
-        rs = statement.executeQuery("SELECT s.* FROM services s JOIN aproximations a on s.idService = a.idService " +
-                "JOIN users u on a.idAprox = u.idAprox WHERE email = '" + userEmail + "'");
+        rs = statement.executeQuery(new StringBuilder().append("SELECT s.* FROM services s JOIN approximations as a on s.idService = a.idService ").append("JOIN users as u on a.idAprox = u.idAprox WHERE email = '").append(userEmail).append("'").toString());
 
         for (int i = 0; rs.next(); i++){
             aproximations.get(i).getRecords().add(new Services(rs.getString("name"), rs.getBigDecimal("unitCost"), rs.getString("description"), rs.getInt("amount")));
@@ -207,7 +230,7 @@ public class Connector
         int nRows = 0;
 
         try {
-            rs = statement.executeQuery("SELECT COUNT(1) FROM aproximations");
+            rs = statement.executeQuery("SELECT COUNT(1) FROM approximations");
             rs.next();
 
 
@@ -244,16 +267,14 @@ public class Connector
 
                if(record instanceof Materials){
 
-                   statement.executeUpdate("INSERT INTO materials (name, unitCost, description, amount) VALUES ('" + record.getName() + "', " + record.getUnitCost()
-                           + ", '" + record.getDescription() + "'," + record.getAmount() + ")");
+                   statement.executeUpdate(new StringBuilder().append("INSERT INTO materials (name, unitCost, description, amount) VALUES ('").append(record.getName()).append("', ").append(record.getUnitCost()).append(", '").append(record.getDescription()).append("',").append(record.getAmount()).append(")").toString());
                    rowsMaterials += 1;
                    materialsIds.add(rowsMaterials); //saves the ID of added material
 
                }
                else if (record instanceof Services){
 
-                   statement.executeUpdate("INSERT INTO services (name, unitCost, description, amount) VALUES ('" + record.getName() + "', '" + record.getUnitCost()
-                           + "', '" + record.getDescription() + "'," + record.getAmount() + ")");
+                   statement.executeUpdate(new StringBuilder().append("INSERT INTO services (name, unitCost, description, amount) VALUES ('").append(record.getName()).append("', '").append(record.getUnitCost()).append("', '").append(record.getDescription()).append("',").append(record.getAmount()).append(")").toString());
                    rowsServices += 1;
                    servicesIds.add(rowsServices); // saves the ID of added service
                }
@@ -272,15 +293,19 @@ public class Connector
            for(int i = 0; i < maxRows; i++){
 
                if (isMaterial){
-                   statement.executeUpdate("INSERT INTO aproximations (name, totalCost, numberMaterials, numberServices, description, date, idMaterial) VALUES ('" +
-                           aproximation.getName() +"', '" + aproximation.getTotalCost() + "'," + aproximation.getNumberMaterials() + ", "
-                           + aproximation.getNumberServices() +", ' ', '"+aproximation.getDateCreation() + "'," + materialsIds.get(i)+ ")");
+                   statement.executeUpdate(new StringBuilder()
+                           .append("INSERT INTO approximations (name, totalCost, numberMaterials, numberServices, description, date, idMaterial) VALUES ('")
+                           .append(aproximation.getName())
+                           .append("', '").append(aproximation.getTotalCost())
+                           .append("',").append(aproximation.getNumberMaterials())
+                           .append(", ").append(aproximation.getNumberServices())
+                           .append(", ' ', date_trunc('seconds','")
+                           .append(aproximation.getDateCreation())
+                           .append("'::timestamp),").append(materialsIds.get(i)).append(")").toString());
                }
                else
                {
-                   statement.executeUpdate("INSERT INTO aproximations (name, totalCost, numberMaterials, numberServices, description, date, idService) VALUES ('" +
-                           aproximation.getName() +"', '" + aproximation.getTotalCost() + "'," + aproximation.getNumberMaterials() + ", "
-                           + aproximation.getNumberServices() +", 'err', '"+aproximation.getDateCreation() + "'," + servicesIds.get(i)+ ")");
+                   statement.executeUpdate(new StringBuilder().append("INSERT INTO approximations (name, totalCost, numberMaterials, numberServices, description, date, idService) VALUES ('").append(aproximation.getName()).append("', '").append(aproximation.getTotalCost()).append("',").append(aproximation.getNumberMaterials()).append(", ").append(aproximation.getNumberServices()).append(", 'err', date_trunc('seconds','").append(aproximation.getDateCreation()).append("'::timestamp),").append(servicesIds.get(i)).append(")").toString());
                }
            }
 
@@ -289,24 +314,22 @@ public class Connector
 
                if(isMaterial){
 
-                   statement.executeUpdate("UPDATE aproximations SET idService = " + servicesIds.get(i) + " WHERE idService IS NULL AND idMaterial = " + materialsIds.get(i));
+                   statement.executeUpdate(new StringBuilder().append("UPDATE approximations SET idService = ").append(servicesIds.get(i)).append(" WHERE idService IS NULL AND idMaterial = ").append(materialsIds.get(i)).toString());
                }
                else {
-                   statement.executeUpdate("UPDATE aproximations SET idMaterial = " + materialsIds.get(i) + " WHERE idMaterial IS NULL AND idService = " + servicesIds.get(i));
+                   statement.executeUpdate(new StringBuilder().append("UPDATE approximations SET idMaterial = ").append(materialsIds.get(i)).append(" WHERE idMaterial IS NULL AND idService = ").append(servicesIds.get(i)).toString());
                }
 
            }
 
 
 
-           rs = statement.executeQuery("SELECT COUNT(1) FROM aproximations"); // get n rows of the table aproximations
+           rs = statement.executeQuery("SELECT COUNT(1) FROM approximations"); // get n rows of the table aproximations
            rs.next();
            int rowsAproximations = rs.getInt(1);
 
            // Reference the first instance of the aproximation to the current user
-           statement.executeUpdate("INSERT INTO users(name, lastname, company, email, password, idAprox) VALUES ('" +
-                   user.getName() + "', '" + user.getLastname() + "', '" + user.getCompany() + "', '" + user.getEmail() +
-                   "', '" + user.getPassword() + "', " + (rowsAproximations - (maxRows - 1)) + ")");
+           statement.executeUpdate(new StringBuilder().append("INSERT INTO users(name, lastname, company, email, password, idAprox) VALUES ('").append(user.getName()).append("', '").append(user.getLastname()).append("', '").append(user.getCompany()).append("', '").append(user.getEmail()).append("', '").append(user.getPassword()).append("', ").append(rowsAproximations - (maxRows - 1)).append(")").toString());
 
        }catch(SQLException throwables){
            throwables.printStackTrace();
