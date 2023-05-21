@@ -44,21 +44,21 @@ public class LoginController implements Initializable {
 
     public void openApp(ActionEvent actionEvent) throws IOException {
 
-        try {
-            if (!connector.validateUser(txtEmail.getText(), txtPassword.getText()))
-                throw new InvalidUserException();
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            return;
-        }
-        catch (InvalidUserException iue){
-            invalidLogin = true;
-            wrongUser();
-            return;
-        }finally {
-            connector.closeConnection();
-        }
+//        try {
+//            if (!connector.validateUser(txtEmail.getText(), txtPassword.getText()))
+//                throw new InvalidUserException();
+//
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//            return;
+//        }
+//        catch (InvalidUserException iue){
+//            invalidLogin = true;
+//            wrongUser();
+//            return;
+//        }finally {
+//            connector.closeConnection();
+//        }
 
         btnLogin.getScene().getWindow().hide();
 
@@ -67,17 +67,17 @@ public class LoginController implements Initializable {
 
         User user;
 
-        try {
-            user = connector.getUserData(txtEmail.getText());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }finally {
-            connector.closeConnection();
-        }
+//        try {
+//            user = connector.getUserData(txtEmail.getText());
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }finally {
+//            connector.closeConnection();
+//        }
 
         Parent root = loader.load();
         controller = loader.getController();
-        controller.initConnection(connector, user);
+//        controller.initConnection(connector, user);
 
         Scene appScene = new Scene(root);
         Stage appStage = new Stage();

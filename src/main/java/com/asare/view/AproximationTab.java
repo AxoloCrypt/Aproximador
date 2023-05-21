@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 public class AproximationTab extends Tab
 {
@@ -75,12 +76,12 @@ public class AproximationTab extends Tab
             int tabIndex = controller.getTabAproximations().getSelectionModel().getSelectedIndex();
 
             Aproximation currentAproximation = controller.getAproximations().get(tabIndex);
-            currentAproximation.setIdAprox(controller.getConnector().getAproximationRows() + 1);
+//            currentAproximation.setIdAprox(controller.getConnector().getAproximationRows() + 1);
 
             Aproximation savedAproximation = new Aproximation(currentAproximation, LocalDateTime.now());
 
             controller.getHistory().addToHistory(savedAproximation);
-            controller.getConnector().saveAproximation(savedAproximation, controller.getUser());
+//            controller.getConnector().saveAproximation(savedAproximation, controller.getUser());
 
             controller.getvBoxHistory().getChildren().add(new AproximationPane(savedAproximation.getIdAprox(), savedAproximation.getName(), savedAproximation.getDateCreation(), controller));
         });
@@ -107,6 +108,7 @@ public class AproximationTab extends Tab
 
     public AproximationTab(String tabName, int numberMaterials, int numberServices, String totalCost, List<Record<?>> savedrecords, Controller controller){
         super(tabName);
+        this.tabname = tabName;
 
         scrollPane = new ScrollPane();
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -157,5 +159,18 @@ public class AproximationTab extends Tab
 
     public void setvBoxRecords(VBox vBoxRecords) {
         this.vBoxRecords = vBoxRecords;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AproximationTab that = (AproximationTab) o;
+        return tabname.equals(that.tabname);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(tabname);
     }
 }

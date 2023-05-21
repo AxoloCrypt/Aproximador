@@ -38,8 +38,13 @@ public class AproximationPane extends DialogPane {
                     AproximationTab aproximationTab = new AproximationTab(aproximation.getName(),
                             aproximation.getNumberMaterials(), aproximation.getNumberServices(),aproximation.getTotalCost().toString(), aproximation.getRecords(), controller);
 
-                    controller.getTabAproximations().getTabs().add(aproximationTab);
-                    controller.getAproximations().add(new Aproximation());
+
+                    if(!controller.getTabAproximations().getTabs().contains(aproximationTab)) {
+                        System.out.println("Huevos");
+                        controller.getTabAproximations().getTabs().add(aproximationTab);
+                        controller.getAproximations().add(new Aproximation());
+                    }
+
                 }
 
             }
@@ -56,5 +61,7 @@ public class AproximationPane extends DialogPane {
         });
 
     }
+
+
 
 }

@@ -1,6 +1,7 @@
 package com.asare.data;
 
 import com.asare.encryption.BCrypt;
+import com.asare.view.ErrorPopup;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -41,6 +42,7 @@ public class Connector
             connection = DriverManager.getConnection(url, username, password);
             statement = connection.createStatement();
         } catch (SQLException e){
+            new ErrorPopup(e);
             throw new RuntimeException(e);
         }
 

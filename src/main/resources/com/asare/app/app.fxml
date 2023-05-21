@@ -139,7 +139,6 @@
                   </GridPane>
                </content>
             </Tab>
-            <Tab text="Created just for you" />
         </tabs>
       </TabPane>
    </left>
